@@ -1,0 +1,36 @@
+# Mac OS X
+*.DS_Store
+*/.DS_Store
+
+# Xcode
+*.pbxuser
+*.mode1v3
+*.mode2v3
+*.perspectivev3
+.xcuserstate
+*.xcuserstate
+project.xcworkspace/
+*/xcuserdata/
+*/*.xcuserdata*/
+*.xcbkptlist
+
+# AppCode
+*/.idea/
+
+# Generated files
+*.o
+*.pyc
+*.hi
+
+# Modules
+MANIFEST
+dist/
+dist/*
+build/
+build/*
+
+# Backup files
+*~.nib
+\#*#
+.#*
+*.orig

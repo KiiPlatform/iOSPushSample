@@ -1,0 +1,25 @@
+//
+// Prefix header for all source files of the 'iOSPushSample' target in the 'iOSPushSample' project
+//
+
+#import <Availability.h>
+
+#ifndef __IPHONE_5_0
+#warning "This project uses features only available in iOS SDK 5.0 and later."
+#endif
+
+#ifdef __OBJC__
+
+#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
+
+#endif
+
+#define APPID      @"77bbe5e5"
+#define APPKEY     @"134fa0b1bfde9661b81857dfa3572180"
+#define ERROR_DOMAIN    @"iOSPushSampleApp"
+
+#define USER_BUCKET_NAME   @"PushMyBucket"
+#define USER_TOPIC_NAME    @"UserTopic"
+
+
