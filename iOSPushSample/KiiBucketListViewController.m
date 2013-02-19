@@ -11,6 +11,7 @@
 #import "MBProgressHUD.h"
 #import "KiiAppSingleton.h"
 #import "KiiAppError.h"
+#import "WBSuccessNoticeView.h"
 #import <KiiSDK/KiiUser.h>
 #import <KiiSDK/KiiBucket.h>
 #import <KiiSDK/KiiObject.h>
@@ -119,9 +120,10 @@ typedef enum {
                 [self createObject:kUser withError:&error];
                 break;
             case 1:
+                [MBProgressHUD hideHUDForView:self.view animated:YES];
                 [self setPassedKiiBucket:[[KiiUser currentUser] bucketWithName:USER_BUCKET_NAME]];
                 [self performSegueWithIdentifier:@"ObjectListView" sender:self];
-                break;
+                return;
             case 2:
                 hud.labelText = @"Object ACL adding...";
                 [self addObjectACL:kUser withError:&error];
@@ -141,8 +143,9 @@ typedef enum {
                 [self createTopic:kUser withError:&error];
                 break;
             case 1:
+                [MBProgressHUD hideHUDForView:self.view animated:YES];
                 [self inputMessageAlert];
-                break;
+                return;
             case 2:
                 hud.labelText = @"Topic ACL adding...";
                 [self addTopicACL:kUser withError:&error];
@@ -165,6 +168,10 @@ typedef enum {
         UIAlertView *messageAlert = [[UIAlertView alloc]
                                                   initWithTitle:@"Title" message:errorMessage delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [messageAlert show];
+    } else {
+        WBSuccessNoticeView *notice = [WBSuccessNoticeView successNoticeInView:self.view
+                                                                         title:@"Successed!!"];
+        [notice show];
     }
 }
 

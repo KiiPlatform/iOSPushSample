@@ -9,6 +9,8 @@
 #import "KiiPushListViewController.h"
 #import "MBProgressHUD.h"
 #import "KiiAppSingleton.h"
+#import "WBStickyNoticeView.h"
+#import "WBSuccessNoticeView.h"
 #import <KiiSDK/KiiPushInstallation.h>
 #import <KiiSDK/KiiUser.h>
 #import <KiiSDK/Kii.h>
@@ -63,18 +65,19 @@ typedef enum {
     // Close progress
     [MBProgressHUD hideHUDForView:self.view animated:YES];
     if (error == nil) {
-        message = @"Login Successed!!";
+        WBSuccessNoticeView *notice = [WBSuccessNoticeView successNoticeInView:self.view
+                                                                         title:@"Login Successed!!"];
+        [notice show];
     } else {
         message = [NSString stringWithFormat:@"%@", error];
+        // Display Login Message
+        UIAlertView *messageAlert = [[UIAlertView alloc]
+                                                  initWithTitle:@"Login Status"
+                                                        message:message
+                                                       delegate:nil cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil];
+        [messageAlert show];
     }
-
-    // Display Login Message
-    UIAlertView *messageAlert = [[UIAlertView alloc]
-                                              initWithTitle:@"Login Status"
-                                                    message:message
-                                                   delegate:nil cancelButtonTitle:@"OK"
-                                          otherButtonTitles:nil];
-    [messageAlert show];
 }
 
 
@@ -205,6 +208,10 @@ typedef enum {
                                               cancelButtonTitle:@"OK"
                                               otherButtonTitles:nil];
         [messageAlert show];
+    } else {
+        WBSuccessNoticeView *notice = [WBSuccessNoticeView successNoticeInView:self.view
+                                                                         title:@"Successed!!"];
+        [notice show];
     }
 }
 
