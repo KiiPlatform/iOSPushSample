@@ -16,6 +16,11 @@ project.xcworkspace/
 
 # AppCode
 */.idea/
+.idea/
+
+# Python
+.project
+.pydevproject
 
 # Generated files
 *.o

@@ -13,6 +13,7 @@
 #import <KiiSDK/KiiObject.h>
 #import <KiiSDK/KiiUser.h>
 #import "MBProgressHUD.h"
+#import "ODRefreshControl.h"
 #import "KiiAppSingleton.h"
 
 @interface KiiObjectListViewController ()
@@ -36,8 +37,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    // For tableView
     [self setTableElement:nil];
     [self.tableView reloadData];
+    // For ODRefreshControl
+    ODRefreshControl *refreshControl = [[ODRefreshControl alloc] initInScrollView:self.tableView];
+    [refreshControl addTarget:self action:@selector(dropViewDidBeginRefreshing:) forControlEvents:UIControlEventValueChanged];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -231,6 +236,79 @@
         KiiObjectDetailsViewController *viewController = (KiiObjectDetailsViewController *) [segue destinationViewController];
         viewController.passedKiiObject = passedKiiObject;
     }
+}
+
+#pragma mark - ODRefreshControl
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+        return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
+    } else {
+        return YES;
+    }
+}
+
+- (void)dropViewDidBeginRefreshing:(ODRefreshControl *)refreshControl {
+    
+    // Check internet connection status
+    if (![[KiiAppSingleton sharedInstance] checkNetworkStatus]) {
+        [refreshControl endRefreshing];
+        [self.tableView reloadData];
+        return;
+    }
+    
+    // Prepare+Show progress
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    hud.labelText = @"Loading Object...";
+    
+    // Retrieve objects using bucket.
+    NSError *error = nil;
+    NSMutableArray *objectArray = [self retrieveObjectArrayDataWithBucket:passedKiiBucket andError:&error];
+    
+    // Close progress
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
+    
+    // If error happens, show alert message and pop back to previous screen.
+    if (error != nil) {
+        NSString *message = [NSString stringWithFormat:@"%@", error];
+        UIAlertView *messageAlert = [[UIAlertView alloc]
+                                     initWithTitle:@"Object List"
+                                     message:message
+                                     delegate:self
+                                     cancelButtonTitle:@"OK"
+                                     otherButtonTitles:nil];
+        // Display Alert Message
+        [messageAlert show];
+        return;
+    }
+    
+    // If object is nil or empty, show alert message with empty description and pop back to previous screen,
+    if (objectArray != nil && [objectArray count] == 0) {
+        NSString *message = @"Object is empty";
+        UIAlertView *messageAlert = [[UIAlertView alloc]
+                                     initWithTitle:@"Object List"
+                                     message:message
+                                     delegate:self
+                                     cancelButtonTitle:@"OK"
+                                     otherButtonTitles:nil];
+        // Display Alert Message
+        [messageAlert show];
+    }
+    
+    NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
+    NSMutableArray *element = [NSMutableArray array];
+    for (KiiObject *object in objectArray) {
+        [element addObject:[object uuid]];
+        [dictionary setObject:object forKey:[object uuid]];
+    }
+    
+    // Set object data to property
+    [self setObjectDictionary:dictionary];
+    [self setTableElement:element];
+    
+    // Reload table view data.
+    [refreshControl endRefreshing];
+    [self.tableView reloadData];
 }
 
 @end
