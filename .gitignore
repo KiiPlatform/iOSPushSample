@@ -34,3 +34,7 @@ build/*
 \#*#
 .#*
 *.orig
+*.swp
+
+# Certificate
+*.p12
