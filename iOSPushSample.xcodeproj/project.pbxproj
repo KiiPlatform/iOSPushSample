@@ -55,6 +55,7 @@
 		9BFFB27D16D3807E004070F0 /* WBStickyNoticeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BFFB27116D3807E004070F0 /* WBStickyNoticeView.m */; };
 		9BFFB27E16D3807E004070F0 /* WBSuccessNoticeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BFFB27316D3807E004070F0 /* WBSuccessNoticeView.m */; };
 		9BFFB28016D38089004070F0 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BFFB27F16D38089004070F0 /* QuartzCore.framework */; };
+		9BFFB34A16D62A7B004070F0 /* ODRefreshControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BFFB34916D62A7B004070F0 /* ODRefreshControl.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -138,6 +139,8 @@
 		9BFFB27216D3807E004070F0 /* WBSuccessNoticeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WBSuccessNoticeView.h; sourceTree = "<group>"; };
 		9BFFB27316D3807E004070F0 /* WBSuccessNoticeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WBSuccessNoticeView.m; sourceTree = "<group>"; };
 		9BFFB27F16D38089004070F0 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		9BFFB34816D62A7B004070F0 /* ODRefreshControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ODRefreshControl.h; sourceTree = "<group>"; };
+		9BFFB34916D62A7B004070F0 /* ODRefreshControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ODRefreshControl.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -172,7 +175,6 @@
 		9B44ECC316C2366300693867 = {
 			isa = PBXGroup;
 			children = (
-				9BFFB27F16D38089004070F0 /* QuartzCore.framework */,
 				9B44ECD516C2366300693867 /* iOSPushSample */,
 				9B44ED0416C2366400693867 /* iOSPushSampleTests */,
 				9B44ECCE16C2366300693867 /* Frameworks */,
@@ -192,13 +194,14 @@
 		9B44ECCE16C2366300693867 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				9B94895016D20ED200EC4B94 /* SystemConfiguration.framework */,
+				9B44ECD316C2366300693867 /* CoreGraphics.framework */,
+				9B44ECD116C2366300693867 /* Foundation.framework */,
 				9B44ED1516C2369000693867 /* KiiSDK.framework */,
 				9B44ED1B16C2392200693867 /* MobileCoreServices.framework */,
-				9B44ECCF16C2366300693867 /* UIKit.framework */,
-				9B44ECD116C2366300693867 /* Foundation.framework */,
-				9B44ECD316C2366300693867 /* CoreGraphics.framework */,
+				9BFFB27F16D38089004070F0 /* QuartzCore.framework */,
 				9B44ECFE16C2366400693867 /* SenTestingKit.framework */,
+				9B94895016D20ED200EC4B94 /* SystemConfiguration.framework */,
+				9B44ECCF16C2366300693867 /* UIKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -223,9 +226,10 @@
 				9B94892516D0B97C00EC4B94 /* KiiUserListViewController.h */,
 				9B94892616D0B97C00EC4B94 /* KiiUserListViewController.m */,
 				9B44ECE716C2366300693867 /* MainStoryboard.storyboard */,
-				9BFFB25D16D3807E004070F0 /* WBNoticeView */,
 				9B44ED1716C236A400693867 /* MBProgressHUD */,
+				9BFFB34716D62A7B004070F0 /* ODRefreshControl */,
 				9B94894616D2057600EC4B94 /* Reachability */,
+				9BFFB25D16D3807E004070F0 /* WBNoticeView */,
 				9B44ECD616C2366300693867 /* Supporting Files */,
 			);
 			path = iOSPushSample;
@@ -323,6 +327,15 @@
 				9BFFB27316D3807E004070F0 /* WBSuccessNoticeView.m */,
 			);
 			path = WBNoticeView;
+			sourceTree = "<group>";
+		};
+		9BFFB34716D62A7B004070F0 /* ODRefreshControl */ = {
+			isa = PBXGroup;
+			children = (
+				9BFFB34816D62A7B004070F0 /* ODRefreshControl.h */,
+				9BFFB34916D62A7B004070F0 /* ODRefreshControl.m */,
+			);
+			path = ODRefreshControl;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -464,6 +477,7 @@
 				9BFFB27C16D3807E004070F0 /* WBRedGradientView.m in Sources */,
 				9BFFB27D16D3807E004070F0 /* WBStickyNoticeView.m in Sources */,
 				9BFFB27E16D3807E004070F0 /* WBSuccessNoticeView.m in Sources */,
+				9BFFB34A16D62A7B004070F0 /* ODRefreshControl.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
