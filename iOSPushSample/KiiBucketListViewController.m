@@ -17,10 +17,10 @@
 #import <KiiSDK/KiiObject.h>
 #import <KiiSDK/KiiACL.h>
 #import <KiiSDK/KiiACLEntry.h>
-#import <KiiSDK/KiiAnonymousUser.h>
 #import <KiiSDK/KiiTopic.h>
 #import <KiiSDK/KiiAPNSFields.h>
 #import <KiiSDK/KiiPushMessage.h>
+#import <KiiSDK/KiiAnyAuthenticatedUser.h>
 
 typedef enum {
     kApp,
@@ -214,8 +214,8 @@ typedef enum {
     }
 
     KiiACL *acl = [bucket bucketACL];
-    KiiAnonymousUser *anonymousUser = [KiiAnonymousUser aclSubject];
-    KiiACLEntry *entry = [KiiACLEntry entryWithSubject:anonymousUser andAction:KiiACLBucketActionCreateObjects];
+    KiiAnyAuthenticatedUser *authUser = [KiiAnyAuthenticatedUser aclSubject];
+    KiiACLEntry *entry = [KiiACLEntry entryWithSubject:authUser andAction:KiiACLBucketActionCreateObjects];
     [acl putACLEntry:entry];
     NSArray *succeeded, *failed;
     [acl saveSynchronous:error didSucceed:&succeeded didFail:&failed];
@@ -238,9 +238,10 @@ typedef enum {
     }
 
     KiiACL *acl = [bucket bucketACL];
-    KiiAnonymousUser *anonymousUser = [KiiAnonymousUser aclSubject];
-    KiiACLEntry *entry = [KiiACLEntry entryWithSubject:anonymousUser andAction:KiiACLBucketActionCreateObjects];
-    [acl removeACLEntry:entry];
+    KiiAnyAuthenticatedUser *authUser = [KiiAnyAuthenticatedUser aclSubject];
+    KiiACLEntry *entry = [KiiACLEntry entryWithSubject:authUser andAction:KiiACLBucketActionCreateObjects];
+    entry.grant = FALSE;
+    [acl putACLEntry:entry];
     NSArray *succeeded, *failed;
     [acl saveSynchronous:error didSucceed:&succeeded didFail:&failed];
 }
@@ -329,8 +330,8 @@ typedef enum {
     }
 
     KiiACL *acl = [topic topicACL];
-    KiiAnonymousUser *anonymousUser = [KiiAnonymousUser aclSubject];
-    KiiACLEntry *entry = [KiiACLEntry entryWithSubject:anonymousUser andAction:KiiACLBucketActionCreateObjects];
+    KiiAnyAuthenticatedUser *authUser = [KiiAnyAuthenticatedUser aclSubject];
+    KiiACLEntry *entry = [KiiACLEntry entryWithSubject:authUser andAction:KiiACLTopicActionSubscribe];
     [acl putACLEntry:entry];
     NSArray *succeeded, *failed;
     [acl saveSynchronous:error didSucceed:&succeeded didFail:&failed];
@@ -353,9 +354,10 @@ typedef enum {
     }
 
     KiiACL *acl = [topic topicACL];
-    KiiAnonymousUser *anonymousUser = [KiiAnonymousUser aclSubject];
-    KiiACLEntry *entry = [KiiACLEntry entryWithSubject:anonymousUser andAction:KiiACLBucketActionCreateObjects];
-    [acl removeACLEntry:entry];
+    KiiAnyAuthenticatedUser *authUser = [KiiAnyAuthenticatedUser aclSubject];
+    KiiACLEntry *entry = [KiiACLEntry entryWithSubject:authUser andAction:KiiACLTopicActionSubscribe];
+    entry.grant = FALSE;
+    [acl putACLEntry:entry];
     NSArray *succeeded, *failed;
     [acl saveSynchronous:error didSucceed:&succeeded didFail:&failed];
 }
