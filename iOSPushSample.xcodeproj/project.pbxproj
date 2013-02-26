@@ -43,6 +43,8 @@
 		9B94894F16D20E0900EC4B94 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B94894E16D20E0900EC4B94 /* Reachability.m */; };
 		9B94895116D20ED300EC4B94 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B94895016D20ED200EC4B94 /* SystemConfiguration.framework */; };
 		9B94895216D20FEE00EC4B94 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B94894E16D20E0900EC4B94 /* Reachability.m */; };
+		9BCC263716DCD14C00765299 /* icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9BCC263616DCD14C00765299 /* icon@2x.png */; };
+		9BCC263916DCD15400765299 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 9BCC263816DCD15400765299 /* icon.png */; };
 		9BFFB27416D3807E004070F0 /* NoticeView.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 9BFFB25E16D3807E004070F0 /* NoticeView.bundle */; };
 		9BFFB27516D3807E004070F0 /* NSOperationQueue+WBNoticeExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BFFB26016D3807E004070F0 /* NSOperationQueue+WBNoticeExtensions.m */; };
 		9BFFB27616D3807E004070F0 /* UILabel+WBExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BFFB26216D3807E004070F0 /* UILabel+WBExtensions.m */; };
@@ -116,6 +118,8 @@
 		9B94894D16D20E0900EC4B94 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Reachability.h; path = Reachability/Reachability.h; sourceTree = "<group>"; };
 		9B94894E16D20E0900EC4B94 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Reachability.m; path = Reachability/Reachability.m; sourceTree = "<group>"; };
 		9B94895016D20ED200EC4B94 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		9BCC263616DCD14C00765299 /* icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon@2x.png"; path = "Images/icon@2x.png"; sourceTree = "<group>"; };
+		9BCC263816DCD15400765299 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon.png; path = Images/icon.png; sourceTree = "<group>"; };
 		9BFFB25E16D3807E004070F0 /* NoticeView.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = NoticeView.bundle; sourceTree = "<group>"; };
 		9BFFB25F16D3807E004070F0 /* NSOperationQueue+WBNoticeExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSOperationQueue+WBNoticeExtensions.h"; sourceTree = "<group>"; };
 		9BFFB26016D3807E004070F0 /* NSOperationQueue+WBNoticeExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSOperationQueue+WBNoticeExtensions.m"; sourceTree = "<group>"; };
@@ -287,15 +291,17 @@
 		9B94895316D2555C00EC4B94 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				9BCC263816DCD15400765299 /* icon.png */,
+				9BCC263616DCD14C00765299 /* icon@2x.png */,
+				9B94893716D1949500EC4B94 /* bubble.png */,
+				9B94893116D1923900EC4B94 /* bubble@2x.png */,
+				9B94893916D1949E00EC4B94 /* data.png */,
+				9B94893316D1924D00EC4B94 /* data@2x.png */,
+				9B44ECE516C2366300693867 /* Default-568h@2x.png */,
 				9B44ECE116C2366300693867 /* Default.png */,
 				9B44ECE316C2366300693867 /* Default@2x.png */,
-				9B44ECE516C2366300693867 /* Default-568h@2x.png */,
 				9B94893B16D194A700EC4B94 /* t-shirt.png */,
-				9B94893916D1949E00EC4B94 /* data.png */,
-				9B94893716D1949500EC4B94 /* bubble.png */,
 				9B94893516D1928C00EC4B94 /* t-shirt@2x.png */,
-				9B94893316D1924D00EC4B94 /* data@2x.png */,
-				9B94893116D1923900EC4B94 /* bubble@2x.png */,
 			);
 			name = Images;
 			sourceTree = "<group>";
@@ -422,6 +428,8 @@
 				9B94893A16D1949E00EC4B94 /* data.png in Resources */,
 				9B94893C16D194A700EC4B94 /* t-shirt.png in Resources */,
 				9BFFB27416D3807E004070F0 /* NoticeView.bundle in Resources */,
+				9BCC263716DCD14C00765299 /* icon@2x.png in Resources */,
+				9BCC263916DCD15400765299 /* icon.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
