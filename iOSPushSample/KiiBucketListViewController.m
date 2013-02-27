@@ -76,11 +76,10 @@ typedef enum {
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    static NSString *CellIdentifier = @"Cell";
+    static NSString *CellIdentifier = @"BucketCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        cell = [self.tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
 
