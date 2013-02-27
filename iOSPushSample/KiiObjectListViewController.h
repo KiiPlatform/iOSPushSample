@@ -17,5 +17,6 @@
 @property (retain, nonatomic) KiiObject *passedKiiObject;
 @property (retain, nonatomic) NSMutableDictionary *objectDictionary;
 @property (retain, nonatomic) NSMutableArray *tableElement;
+@property (retain, nonatomic) NSMutableArray *tableSubElement;
 
 @end

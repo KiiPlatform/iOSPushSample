@@ -26,6 +26,7 @@
 @synthesize passedKiiObject;
 @synthesize objectDictionary;
 @synthesize tableElement;
+@synthesize tableSubElement;
 
 - (id)initWithStyle:(UITableViewStyle)style {
     self = [super initWithStyle:style];
@@ -39,6 +40,7 @@
     [super viewDidLoad];
     // For tableView
     [self setTableElement:nil];
+    [self setTableSubElement:nil];
     [self.tableView reloadData];
     // For ODRefreshControl
     ODRefreshControl *refreshControl = [[ODRefreshControl alloc] initInScrollView:self.tableView];
@@ -85,14 +87,14 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    static NSString *CellIdentifier = @"Cell";
+    static NSString *CellIdentifier = @"ObjectCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        cell = [self.tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.textLabel.text = [tableElement objectAtIndex:(NSUInteger) indexPath.row];
+    cell.detailTextLabel.text = [tableSubElement objectAtIndex:(NSUInteger) indexPath.row];
     return cell;
 }
 
@@ -130,6 +132,7 @@
 
         // If success, delete the row from the data source
         [tableElement removeObjectAtIndex:(NSUInteger) indexPath.item];
+        [tableSubElement removeObjectAtIndex:(NSUInteger) indexPath.item];
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
         [self.tableView reloadData];
 
@@ -194,6 +197,7 @@
 - (NSMutableArray *)retrieveObjectArrayDataWithBucket:(KiiBucket *)bucket andError:(NSError **)error {
     // Get all object data
     KiiQuery *allQuery = [KiiQuery queryWithClause:nil];
+    [allQuery sortByAsc:@"_modified"];
     KiiQuery *nextQuery;
     NSArray *results = [bucket executeQuerySynchronous:allQuery
                                              withError:error
@@ -260,15 +264,20 @@
     }
 
     NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
-    NSMutableArray *element = [NSMutableArray array];
+    NSMutableArray *uuidElement = [NSMutableArray array];
+    NSMutableArray *timeElement = [NSMutableArray array];
     for (KiiObject *object in objectArray) {
-        [element addObject:[object uuid]];
+        [uuidElement addObject:[object uuid]];
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+        [timeElement addObject:[formatter stringFromDate:[object modified]]];
         [dictionary setObject:object forKey:[object uuid]];
     }
 
     // Set object data to property
     [self setObjectDictionary:dictionary];
-    [self setTableElement:element];
+    [self setTableElement:uuidElement];
+    [self setTableSubElement:timeElement];
 }
 
 @end

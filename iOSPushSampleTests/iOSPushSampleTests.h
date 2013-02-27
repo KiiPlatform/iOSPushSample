@@ -2,7 +2,7 @@
 //  iOSPushSampleTests.h
 //  iOSPushSampleTests
 //
-//  Created by Ryuji OCHI on 2/6/13.
+//  Created by Ryuji OCHI on 2/18/13.
 //  Copyright (c) 2013 Kii Corporation. All rights reserved.
 //
 
