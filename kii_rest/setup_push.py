@@ -28,6 +28,7 @@ class ApiHelper(object):
         self.clientId = conf.get('app', 'client-id')
         self.clientSecret = conf.get('app', 'client-secret')
         self.host = conf.get('app', 'host')
+        self.apnsCertDevOnly = conf.get('app', 'apns-cert-dev-only')
         self.apnsDevCertName = conf.get('app', 'apns-dev-cert-name')
         self.apnsDevCertPass = conf.get('app', 'apns-dev-cert-pass')
         self.apnsProductionCertName = conf.get('app', 'apns-production-cert-name')
@@ -41,6 +42,7 @@ class ApiHelper(object):
         self.logger.debug('base uri: ' + self.host)
         self.logger.debug('client id: ' + self.clientId)
         self.logger.debug('client secret: ' + self.clientSecret)
+        self.logger.debug('APNS cert dev only: ' + self.apnsCertDevOnly)
         self.logger.debug('APNS dev cert name: ' + self.apnsDevCertName)
         self.logger.debug('APNS dev cert pass: ' + self.apnsDevCertPass)
         self.logger.debug('APNS production cert name: ' + self.apnsProductionCertName)
@@ -226,16 +228,20 @@ class ApiHelper(object):
         self.logger.debug("status: %d", response.status)
         self.logger.debug("body: %s", json.load(response))
 
+    def apnsCertDevOnlyMode(self):
+        return self.apnsCertDevOnly
+
 if __name__ == '__main__':
     helper = ApiHelper()
     helper.removeAPNSDevCertificate()
     helper.setAPNSDevCertificate()
     helper.removeAPNSDevPassword()
     helper.setAPNSDevPassword()
-    helper.removeAPNSProductionCertificate()
-    helper.setAPNSProductionCertificate()
-    helper.removeAPNSProductionPassword()
-    helper.setAPNSProductionPassword()
+    if helper.apnsCertDevOnlyMode() != '1':
+        helper.removeAPNSProductionCertificate()
+        helper.setAPNSProductionCertificate()
+        helper.removeAPNSProductionPassword()
+        helper.setAPNSProductionPassword()
     helper.createAppTopic()
     helper.grantSubscriptionOfAppTopic()
     helper.createAppBucketObject()
