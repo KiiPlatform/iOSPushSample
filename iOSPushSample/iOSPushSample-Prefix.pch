@@ -15,8 +15,8 @@
 
 #endif
 
-#define APPID      @"77bbe5e5"
-#define APPKEY     @"134fa0b1bfde9661b81857dfa3572180"
+#define APPID      @"9a2385ce"
+#define APPKEY     @"6a57ef8f144dbd9e41e07359ffb47d62"
 #define ERROR_DOMAIN    @"iOSPushSampleApp"
 
 #define USER_BUCKET_NAME   @"PushMyBucket"
