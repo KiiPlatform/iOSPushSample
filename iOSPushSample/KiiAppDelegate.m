@@ -37,11 +37,36 @@
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
-    NSLog(@"Receive remote notification: %@", [userInfo description]);
 
-    // TODO : Object/Topic conditional handling
-    KiiPushMessage *message = [KiiPushMessage messageFromAPNS:userInfo];
-    [message showMessageAlertWithTitle:@"RemotePushMessage"];
+    if ([[KiiAppSingleton sharedInstance] debugMode]) {
+        long long int receiveTime = [[[KiiAppSingleton sharedInstance] currentTimeMillisByNSString] longLongValue];
+        long long int sendTime = [[userInfo objectForKey:@"w"] longLongValue];
+        double timeDiff = ((double) (receiveTime - sendTime) / 1000);
+        NSString *message = [NSString stringWithFormat:@"\t[Send] : \t%qi\t[Receive] : \t%qi\t[Diff] : \t%f\t[URI] : \t%@", sendTime, receiveTime, timeDiff, [[KiiAppSingleton sharedInstance] createObjectURIFromMessage:userInfo]];
+        NSLog(@"Push debug : %@", message);
+
+        // If do not show dialog,
+        if ([[KiiAppSingleton sharedInstance] messageShowOffMode]) {
+            return;
+        }
+
+        UIAlertView *messageAlert = [[UIAlertView alloc]
+                                                  initWithTitle:@"RemotePushMessage"
+                                                        message:message
+                                                       delegate:nil cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil];
+        // Display Alert Message
+        [messageAlert show];
+    } else {
+        NSLog(@"Receive remote notification: %@", [userInfo description]);
+
+        // If do not show dialog,
+        if ([[KiiAppSingleton sharedInstance] messageShowOffMode]) {
+            return;
+        }
+        KiiPushMessage *message = [KiiPushMessage messageFromAPNS:userInfo];
+        [message showMessageAlertWithTitle:@"RemotePushMessage"];
+    }
 }
 
 @end

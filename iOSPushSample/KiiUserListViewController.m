@@ -45,7 +45,14 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [[self tableCellContentsArray] count];
+    switch (section) {
+        case 0:
+            return [[self tableCellKiiUserContentsArray] count];
+        case 1:
+            return [[self tableCellDebugContentsArray] count];
+        default:
+            return 0;
+    }
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
@@ -62,8 +69,20 @@
         cell = [self.tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    cell.textLabel.text = [[self tableCellContentsArray] objectAtIndex:(NSUInteger) indexPath.row];
-
+    switch (indexPath.section) {
+        case 0:
+            cell.textLabel.text = [[self tableCellKiiUserContentsArray] objectAtIndex:(NSUInteger) indexPath.row];
+            break;
+        case 1:
+            if(indexPath.item == 0){
+                cell = [self setDebugSwitch:cell withIndex:(NSUInteger) indexPath.row];
+            } else if (indexPath.item == 1){
+                cell = [self setMessageShowSwitch:cell withIndex:(NSUInteger) indexPath.row];
+            }
+            break;
+        default:
+            break;
+    }
     return cell;
 }
 
@@ -80,34 +99,75 @@
     // KiiUser related operation
     NSString *message = nil;
     UIAlertView *messageAlert = nil;
-    switch (indexPath.item) {
-        case 0:
-            [self loginKiiUser];
-            break;
-        case 1:
-            // Show confirm dialog.
-            messageAlert = [[UIAlertView alloc]
-                                         initWithTitle:@"KiiUser logout confirm."
-                                               message:@"Are you sure to log out?"
-                                              delegate:self
-                                     cancelButtonTitle:@"Cancel"
-                                     otherButtonTitles:@"OK", nil];
-            [messageAlert show];
-            break;
-        case 2:
-            // TODO: Show more detail information.
-            message = [NSString stringWithFormat:@"UserName : %@\n", [[KiiUser currentUser] username]];
-            messageAlert = [[UIAlertView alloc]
-                                         initWithTitle:@"Row Selected" message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-            [messageAlert show];
-            break;
-        case 3:
-            break;
-        default:
-            break;
+    if (indexPath.section == 0) {
+        switch (indexPath.item) {
+            case 0:
+                [self loginKiiUser];
+                break;
+            case 1:
+                // Show confirm dialog.
+                messageAlert = [[UIAlertView alloc]
+                                             initWithTitle:@"KiiUser logout confirm."
+                                                   message:@"Are you sure to log out?"
+                                                  delegate:self
+                                         cancelButtonTitle:@"Cancel"
+                                         otherButtonTitles:@"OK", nil];
+                [messageAlert show];
+                break;
+            case 2:
+                // TODO: Show more detail information.
+                message = [NSString stringWithFormat:@"UserName : %@\n", [[KiiUser currentUser] username]];
+                messageAlert = [[UIAlertView alloc]
+                                             initWithTitle:@"Row Selected" message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                [messageAlert show];
+                break;
+            case 3:
+                break;
+            default:
+                break;
+        }
+    } else if (indexPath.section == 1) {
+
     }
 }
 
+// Set debug switch
+- (UITableViewCell *)setDebugSwitch:(UITableViewCell *)cell withIndex:(NSUInteger )index{
+    UISwitch *switchObj = [[UISwitch alloc] initWithFrame:CGRectMake(1.0, 1.0, 20.0, 20.0)];
+    switchObj.on = [[KiiAppSingleton sharedInstance] debugMode];
+    [switchObj addTarget:self action:@selector(settingDebugSwitch:) forControlEvents:UIControlEventValueChanged];
+    cell.accessoryView = switchObj;
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    cell.textLabel.text = [[self tableCellDebugContentsArray] objectAtIndex:index];
+    return cell;
+}
+
+- (IBAction)settingDebugSwitch:(id)sender {
+    if ([sender isOn] == YES) {
+        [[KiiAppSingleton sharedInstance] setDebugMode:YES];
+    } else {
+        [[KiiAppSingleton sharedInstance] setDebugMode:NO];
+    }
+}
+
+// Set message show switch
+- (UITableViewCell *)setMessageShowSwitch:(UITableViewCell *)cell withIndex:(NSUInteger )index{
+    UISwitch *switchObj = [[UISwitch alloc] initWithFrame:CGRectMake(1.0, 1.0, 20.0, 20.0)];
+    switchObj.on = [[KiiAppSingleton sharedInstance] messageShowOffMode];
+    [switchObj addTarget:self action:@selector(settingMessageShowSwitch:) forControlEvents:UIControlEventValueChanged];
+    cell.accessoryView = switchObj;
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    cell.textLabel.text = [[self tableCellDebugContentsArray] objectAtIndex:index];
+    return cell;
+}
+
+- (IBAction)settingMessageShowSwitch:(id)sender {
+    if ([sender isOn] == YES) {
+        [[KiiAppSingleton sharedInstance] setMessageShowOffMode:YES];
+    } else {
+        [[KiiAppSingleton sharedInstance] setMessageShowOffMode:NO];
+    }
+}
 // TODO : Change return type to void and add NSError argument.
 - (NSError *)loginKiiUser {
     // KiiUser check.
@@ -156,13 +216,14 @@
     if (table == nil) {
         table = [[NSArray alloc] initWithObjects:
                 @"KiiUser",
+                @"Debug",
                 nil];
     }
     return table;
 }
 
 // Cell text for KiiUser operation
-- (NSArray *)tableCellContentsArray {
+- (NSArray *)tableCellKiiUserContentsArray {
     static NSArray *table = nil;
     if (table == nil) {
         table = [[NSArray alloc] initWithObjects:
@@ -170,6 +231,18 @@
                 @"User Logout",
                 @"User Information",
                 @"User registration",
+                nil];
+    }
+    return table;
+}
+
+// Cell text for Debug operation
+- (NSArray *)tableCellDebugContentsArray {
+    static NSArray *table = nil;
+    if (table == nil) {
+        table = [[NSArray alloc] initWithObjects:
+                @"Debug mode",
+                @"Message show off",
                 nil];
     }
     return table;

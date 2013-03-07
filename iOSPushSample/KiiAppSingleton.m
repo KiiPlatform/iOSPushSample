@@ -16,7 +16,9 @@
 @implementation KiiAppSingleton
 
 @synthesize currentUser = _currentUser;
-@synthesize reachabilityInstance;
+@synthesize reachabilityInstance = _reachabilityInstance;
+@synthesize debugMode = _debugMode;
+@synthesize messageShowOffMode = _messageShowOffMode;
 
 + (KiiAppSingleton *)sharedInstance {
     static KiiAppSingleton *sharedInstance = nil;
@@ -28,11 +30,11 @@
 }
 
 - (Reachability *)reachabilityInstance {
-    if (reachabilityInstance == nil) {
+    if (_reachabilityInstance == nil) {
         [self setReachabilityInstance:[Reachability reachabilityWithHostname:@"api.kii.com"]];
     }
-    [reachabilityInstance setReachableOnWWAN:YES];
-    return reachabilityInstance;
+    [_reachabilityInstance setReachableOnWWAN:YES];
+    return _reachabilityInstance;
 }
 
 - (void)registerToken {
@@ -140,5 +142,53 @@
         return YES;
     }
 }
+
+- (void)setDebugMode:(BOOL)debug {
+    _debugMode = debug;
+    if (debug) {
+        [Kii setLogLevel:3];
+    } else {
+        [Kii setLogLevel:0];
+    }
+}
+
+- (NSString *)createObjectURIFromMessage:(NSDictionary *)userInfo {
+
+    KiiPushMessage *message = [KiiPushMessage messageFromAPNS:userInfo];
+    NSString *scope = @"";
+    if ([message getValueOfKiiMessageField:SCOPE_APP_ID] != nil) {
+        // Nothing to do.
+    } else if ([message getValueOfKiiMessageField:SCOPE_USER_ID] != nil) {
+        scope = [NSString stringWithFormat:@"users/%@/", [message getValueOfKiiMessageField:SCOPE_USER_ID]];
+    } else if ([message getValueOfKiiMessageField:SCOPE_GROUP_ID] != nil) {
+        scope = [NSString stringWithFormat:@"groups/%@/", [message getValueOfKiiMessageField:SCOPE_GROUP_ID]];
+    }
+
+    // If bucket
+    if ([message getValueOfKiiMessageField:BUCKET_ID] != nil) {
+        NSString *buckets = @"";
+        if ([[message getValueOfKiiMessageField:BUCKET_TYPE] isEqualToString:@"sync"]) {
+            buckets = [NSString stringWithFormat:@"buckets/sync:%@", [message getValueOfKiiMessageField:BUCKET_ID]];
+        } else {
+            buckets = [NSString stringWithFormat:@"buckets/%@", [message getValueOfKiiMessageField:BUCKET_ID]];
+        }
+
+        NSString *objects = @"";
+        if ([message getValueOfKiiMessageField:OBJECT_ID] != nil) {
+            objects = [NSString stringWithFormat:@"/objects/%@", [message getValueOfKiiMessageField:OBJECT_ID]];
+        }
+        return [NSString stringWithFormat:@"kiicloud://%@%@%@", scope, buckets, objects];
+    }
+
+    // If topic
+    if ([message getValueOfKiiMessageField:TOPIC] != nil) {
+        NSString *topicName = [message getValueOfKiiMessageField:TOPIC];
+        return [NSString stringWithFormat:@"kiicloud://%@topics/%@", scope, topicName];
+    }
+
+    return nil;
+}
+
+
 
 @end

@@ -22,4 +22,9 @@
 #define USER_BUCKET_NAME   @"PushMyBucket"
 #define USER_TOPIC_NAME    @"UserTopic"
 
+#define APP_BUCKET_NAME   @"appBucket"
+#define APP_TOPIC_NAME    @"appTestTopic"
 
+#define GROUP_BUCKET_NAME   @"PushGroupBucket"
+#define GROUP_TOPIC_NAME    @"GroupTopic"
+#define GROUP_NAME    @"PushSampleGroup"

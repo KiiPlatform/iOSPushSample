@@ -10,13 +10,19 @@
 
 @class KiiUser;
 @class Reachability;
+@class KiiPushMessage;
 
 @interface KiiAppSingleton : NSObject {
-    KiiUser *currentUser;
+    KiiUser *_currentUser;
+    Reachability *_reachabilityInstance;
+    BOOL _debugMode;
+    BOOL _messageShowOffMode;
 }
 
-@property (nonatomic, strong) Reachability *reachabilityInstance;
 @property(nonatomic, strong) KiiUser *currentUser;
+@property (nonatomic, strong) Reachability *reachabilityInstance;
+@property(nonatomic) BOOL debugMode;
+@property(nonatomic) BOOL messageShowOffMode;
 
 + (KiiAppSingleton *)sharedInstance;
 
@@ -35,6 +41,8 @@
 - (NSString *)currentTimeMillisByNSString;
 
 - (BOOL)checkNetworkStatus;
+
+- (NSString *)createObjectURIFromMessage:(NSDictionary *)userInfo;
 
 
 @end
