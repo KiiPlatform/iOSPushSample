@@ -115,7 +115,7 @@
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         NSError *error = nil;
         // Object delete
-        [self deleteObjectSynchronousWithUUID:[tableElement objectAtIndex:(NSUInteger) indexPath.item] andError:&error];
+        [self deleteObjectSynchronousWithUUID:[tableElement objectAtIndex:(NSUInteger) indexPath.row] andError:&error];
 
         // If error happens, show alert message.
         if (error != nil) {
@@ -131,8 +131,8 @@
         }
 
         // If success, delete the row from the data source
-        [tableElement removeObjectAtIndex:(NSUInteger) indexPath.item];
-        [tableSubElement removeObjectAtIndex:(NSUInteger) indexPath.item];
+        [tableElement removeObjectAtIndex:(NSUInteger) indexPath.row];
+        [tableSubElement removeObjectAtIndex:(NSUInteger) indexPath.row];
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
         [self.tableView reloadData];
 
@@ -147,7 +147,7 @@
     }
 
     // Pass object data to next segue and open it.
-    [self setPassedKiiObject:[objectDictionary objectForKey:[tableElement objectAtIndex:(NSUInteger) indexPath.item]]];
+    [self setPassedKiiObject:[objectDictionary objectForKey:[tableElement objectAtIndex:(NSUInteger) indexPath.row]]];
     [self performSegueWithIdentifier:@"ObjectDetailsView" sender:self];
 }
 
