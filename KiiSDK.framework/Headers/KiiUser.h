@@ -1016,7 +1016,7 @@ typedef void (^KiiErrorBlock)(NSError *error);
 
 
 /** Find user by user e mail address asynchronously using block
- This is a non-blocking method.
+ This is a non-blocking method. This method can only get user that has verified email.
  
      [u findUserByEmail:@"email_to_found" withBlock:^(KiiUser *user, NSError *error) {
          if(error == nil) {
@@ -1024,14 +1024,14 @@ typedef void (^KiiErrorBlock)(NSError *error);
          }
      }];
  
- @param email the email address of user that want to be discovered
+ @param email the email address of user that want to be discovered. User can only find specific user from email that has been verified.
  @param block The block to be called upon method completion. See example 
  */
 +(void) findUserByEmail:(NSString*) emailAddress  withBlock:(KiiUserBlock) block;
 
 
 /** Find user by user phone asynchronously using block
- This is a non-blocking method.
+ This is a non-blocking method.  This method can only get user that has verified phone number.
  
      [u findUserByPhone:@"phoneNumber_to_found" withBlock:^(KiiUser *user, NSError *error) {
          if(error == nil) {
@@ -1041,12 +1041,13 @@ typedef void (^KiiErrorBlock)(NSError *error);
  
 
  
- @param phoneNumber the global phone number of user that want to be discovered. Do not pass local phone number, it is not supported
+ @param phoneNumber the global phone number of user that want to be discovered. Do not pass local phone number, it is not supported. User can only find specific user from phone number that has been verified.
  @param block The block to be called upon method completion. See example
  */
 +(void) findUserByPhone:(NSString*) phoneNumber  withBlock:(KiiUserBlock) block;
 
 /** Find user by username asynchronously using delegate and callback
+  This is a non-blocking method.
  @param username the username of user that want to be discovered 
  @param delegate The object to make any callback requests to
  @param callback The callback method to be called when the request is completed. The callback method should have a signature similar to:
@@ -1069,7 +1070,9 @@ typedef void (^KiiErrorBlock)(NSError *error);
 
 
 /** Find user by user e mail address asynchronously using delegate and callback
- @param email the email address of user that want to be discovered
+ This is a non-blocking method. This method can only get user that has verified email.
+ 
+ @param email the email address of user that want to be discovered. User can only find specific user from email that has been verified.
  @param delegate The object to make any callback requests to
  @param callback The callback method to be called when the request is completed. The callback method should have a signature similar to:
      
@@ -1092,7 +1095,8 @@ typedef void (^KiiErrorBlock)(NSError *error);
 
 
 /** Find user by user phone asynchronously using delegate and callback
- @param phoneNumber the global phone number of user that want to be discovered. Do not pass local phone number, it is not supported
+ This is a non-blocking method.  This method can only get user that has verified phone number.
+ @param phoneNumber the global phone number of user that want to be discovered. Do not pass local phone number, it is not supported. User can only find specific user from phone number that has been verified.
  @param delegate The object to make any callback requests to
  @param callback The callback method to be called when the request is completed. The callback method should have a signature similar to:
  
@@ -1124,9 +1128,9 @@ typedef void (^KiiErrorBlock)(NSError *error);
 
 
 /** Find user by user e mail address synchronously
- This is a blocking method. 
+ This is a blocking method. This method can only get user that has verified email.
  
- @param email the email address of user that want to be discovered
+ @param email the email address of user that want to be discovered. User can only find specific user from email that has been verified.
  @param error An NSError object, set to nil, to test for errors
  */
 +(KiiUser*) findUserByEmailSynchronous:(NSString*) emailAddress withError:(NSError**) error;
@@ -1134,9 +1138,9 @@ typedef void (^KiiErrorBlock)(NSError *error);
 
 
 /** Find user by user phone synchronously
- This is a blocking method.
+ This is a blocking method. This method can only get user that has verified phone number.
  
- @param phoneNumber the global phone number of user that want to be discovered. Do not pass local phone number, it is not supported
+ @param phoneNumber the global phone number of user that want to be discovered. Do not pass local phone number, it is not supported. User can only find specific user from phone number that has been verified.
  @param error An NSError object, set to nil, to test for errors
  */
 +(KiiUser*) findUserByPhoneSynchronous:(NSString*) phoneNumber withError:(NSError**) error;
