@@ -113,7 +113,7 @@ typedef enum {
     // Bucket related operation
     NSError *error = nil;
     if (indexPath.section == 0) {
-        switch (indexPath.item) {
+        switch (indexPath.row) {
             case 0:
                 hud.labelText = @"Object Creating...";
                 [self createObject:kUser withError:&error];
@@ -136,7 +136,7 @@ typedef enum {
         }
     } else if (indexPath.section == 1) {
         // Topic related operation
-        switch (indexPath.item) {
+        switch (indexPath.row) {
             case 0:
                 hud.labelText = @"Topic Creating...";
                 [self createTopic:kUser withError:&error];

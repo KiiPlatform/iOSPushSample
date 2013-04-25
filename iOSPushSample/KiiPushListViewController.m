@@ -167,7 +167,7 @@ typedef enum {
     // Push related operation
     NSError *error = nil;
     if (indexPath.section == 0) {
-        switch (indexPath.item) {
+        switch (indexPath.row) {
             case 0:
                 hud.labelText = @"Push Installing...";
                 [self installationPush:&error];
@@ -178,7 +178,7 @@ typedef enum {
                 break;
         }
     } else if (indexPath.section == 1) {
-        switch (indexPath.item) {
+        switch (indexPath.row) {
             case 0:
                 hud.labelText = @"Subscribing Bucket...";
                 [self subscribeBucket:kUser withError:&error];
@@ -191,7 +191,7 @@ typedef enum {
                 break;
         }
     } else if (indexPath.section == 2) {
-        switch (indexPath.item) {
+        switch (indexPath.row) {
             case 0:
                 hud.labelText = @"Subscribing Topic...";
                 [self subscribeTopic:kUser withError:&error];
@@ -203,7 +203,7 @@ typedef enum {
                 break;
         }
     } else if (indexPath.section == 3) {
-        switch (indexPath.item) {
+        switch (indexPath.row) {
             case 0:
                 hud.labelText = @"Subscribing Bucket...";
                 [self subscribeBucket:kApp withError:&error];
@@ -216,7 +216,7 @@ typedef enum {
                 break;
         }
     } else if (indexPath.section == 4) {
-        switch (indexPath.item) {
+        switch (indexPath.row) {
             case 0:
                 hud.labelText = @"Subscribing Topic...";
                 [self subscribeTopic:kApp withError:&error];
