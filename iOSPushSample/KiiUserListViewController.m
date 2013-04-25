@@ -74,9 +74,9 @@
             cell.textLabel.text = [[self tableCellKiiUserContentsArray] objectAtIndex:(NSUInteger) indexPath.row];
             break;
         case 1:
-            if(indexPath.item == 0){
+            if(indexPath.row == 0){
                 cell = [self setDebugSwitch:cell withIndex:(NSUInteger) indexPath.row];
-            } else if (indexPath.item == 1){
+            } else if (indexPath.row == 1){
                 cell = [self setMessageShowSwitch:cell withIndex:(NSUInteger) indexPath.row];
             }
             break;
@@ -100,7 +100,7 @@
     NSString *message = nil;
     UIAlertView *messageAlert = nil;
     if (indexPath.section == 0) {
-        switch (indexPath.item) {
+        switch (indexPath.row) {
             case 0:
                 [self loginKiiUser];
                 break;
