@@ -16,3 +16,40 @@ profile
 *.moved-aside
 DerivedData
 .idea/
+
+# Mac OS X
+*.DS_Store
+*/.DS_Store
+
+# AppCode
+*/.idea/
+.idea/
+
+# Python
+.project
+.pydevproject
+
+# Generated files
+*.o
+*.pyc
+*.hi
+
+# Modules
+MANIFEST
+dist/
+dist/*
+build/
+build/*
+
+# Backup files
+*~.nib
+\#*#
+.#*
+*.orig
+*.swp
+
+# Certificate
+*.p12
+
+# Log file
+kii_rest/Log*
