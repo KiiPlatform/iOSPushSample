@@ -44,5 +44,7 @@
 
 - (NSString *)createObjectURIFromMessage:(NSDictionary *)userInfo;
 
+- (NSString *)pushIdentifier:(NSDictionary *)userInfo;
+
 
 @end

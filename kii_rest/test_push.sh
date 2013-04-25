@@ -4,6 +4,10 @@
 defcolor="\033[0m"
 pur="\033[35m"
 
+# Create Log file
+FILE_NAME="Log-pushtest-$(date +%s).log"
+touch $FILE_NAME
+
 # Check argument
 MESSAGES=${1}
 NUMERIC_CHECK=`echo ${MESSAGES} | sed 's/[0-9]//g'`
@@ -17,7 +21,7 @@ fi
 # Send bucket message
 for i in `seq 1 $1`
 do
-    python create_app_bucket_object.py
+    python create_app_bucket_object.py $FILE_NAME
     echo "${pur} =====> PushToApp / $i times done : `date +%s`${defcolor}"
     sleep 2
 done
@@ -25,7 +29,7 @@ done
 # Send topic message
 for i in `seq 1 $1`
 do
-    python sendmessage.py
+    python sendmessage.py $FILE_NAME
     echo "${pur} =====> PushToUser / $i times done : `date +%s`${defcolor}"
     sleep 2
 done

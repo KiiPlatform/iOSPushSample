@@ -229,7 +229,7 @@ class ApiHelper(object):
         self.logger.debug("status: %d", response.status)
         self.logger.debug("body: %s", json.load(response))
 
-    def sendMessageToAppTopicDebug(self):
+    def sendMessageToAppTopicDebug(self, filename):
         self.logger.debug('send message to app topic')
         conn = httplib.HTTPConnection(self.host)
         path = '/api/apps/{0}/topics/{1}/push/messages'\
@@ -250,8 +250,9 @@ class ApiHelper(object):
         response = conn.getresponse()
         self.logger.debug("status: %d", response.status)
         self.logger.debug("body: %s", json.load(response))
+        self.writeToFile(filename, str(currenttime), str(response.status))
 
-    def createAppBucketObjectDebug(self):
+    def createAppBucketObjectDebug(self, filename):
         self.logger.debug('create app bucket')
         conn = httplib.HTTPConnection(self.host)
         path = '/api/apps/{0}/buckets/{1}/objects'\
@@ -267,11 +268,17 @@ class ApiHelper(object):
         conn.request('POST', path, jsonObj, headers)
         response = conn.getresponse()
         self.logger.debug("status: %d", response.status)
-        self.logger.debug("body: %s", json.load(response))
-
+        dictionary = json.load(response)
+        self.logger.debug("body: %s", dictionary)
+        self.writeToFile(filename, dictionary['objectID'], str(response.status))
 
     def apnsCertDevOnlyMode(self):
         return self.apnsCertDevOnly
+
+    def writeToFile(self, filename, contents, statusCode):
+        f = open(filename, 'a')
+        f.write(contents + '\t' + statusCode + '\n')
+        f.close()
 
 if __name__ == '__main__':
     helper = ApiHelper()

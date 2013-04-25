@@ -189,6 +189,18 @@
     return nil;
 }
 
+- (NSString *)pushIdentifier:(NSDictionary *)userInfo {
+    KiiPushMessage *message = [KiiPushMessage messageFromAPNS:userInfo];
+    // If bucket
+    if ([message getValueOfKiiMessageField:BUCKET_ID] != nil) {
+        return [message getValueOfKiiMessageField:OBJECT_ID];
+    }
+    // If topic
+    if ([message getValueOfKiiMessageField:TOPIC] != nil) {
+        return [userInfo valueForKeyPath:@"time"];
+    }
 
+    return nil;
+}
 
 @end

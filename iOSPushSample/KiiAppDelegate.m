@@ -18,6 +18,8 @@
     [Kii beginWithID:APPID andKey:APPKEY andSite:kiiSiteUS];
     // For push notification. (Development mode : ON)
     [Kii enableAPNSWithDevelopmentMode:YES andNotificationTypes:(UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
+    // Set Log level is verbose
+    [Kii setLogLevel:3];
     return YES;
 }
 
@@ -42,7 +44,7 @@
         long long int receiveTime = [[[KiiAppSingleton sharedInstance] currentTimeMillisByNSString] longLongValue];
         long long int sendTime = [[userInfo objectForKey:@"w"] longLongValue];
         double timeDiff = ((double) (receiveTime - sendTime) / 1000);
-        NSString *message = [NSString stringWithFormat:@"\t[Send] : \t%qi\t[Receive] : \t%qi\t[Diff] : \t%f\t[URI] : \t%@", sendTime, receiveTime, timeDiff, [[KiiAppSingleton sharedInstance] createObjectURIFromMessage:userInfo]];
+        NSString *message = [NSString stringWithFormat:@"\t[Send] : \t%qi\t[Receive] : \t%qi\t[Diff] : \t%f\t[ID] : \t%@", sendTime, receiveTime, timeDiff, [[KiiAppSingleton sharedInstance] pushIdentifier:userInfo]];
         NSLog(@"Push debug : %@", message);
 
         // If do not show dialog,
