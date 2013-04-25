@@ -43,3 +43,6 @@ build/*
 
 # Certificate
 *.p12
+
+# Log file
+kii_rest/Log*

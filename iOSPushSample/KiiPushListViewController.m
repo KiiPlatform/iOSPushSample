@@ -103,6 +103,10 @@ typedef enum {
             return [[self tablePushBucketSubscriptionCellContentsArray] count];
         case 2:
             return [[self tablePushTopicSubscriptionCellContentsArray] count];
+        case 3:
+            return [[self tablePushBucketSubscriptionCellContentsArray] count];
+        case 4:
+            return [[self tablePushTopicSubscriptionCellContentsArray] count];
         default:
             return 0;
     }
@@ -131,6 +135,12 @@ typedef enum {
             cell.textLabel.text = [[self tablePushBucketSubscriptionCellContentsArray] objectAtIndex:(NSUInteger) indexPath.row];
             break;
         case 2:
+            cell.textLabel.text = [[self tablePushTopicSubscriptionCellContentsArray] objectAtIndex:(NSUInteger) indexPath.row];
+            break;
+        case 3:
+            cell.textLabel.text = [[self tablePushBucketSubscriptionCellContentsArray] objectAtIndex:(NSUInteger) indexPath.row];
+            break;
+        case 4:
             cell.textLabel.text = [[self tablePushTopicSubscriptionCellContentsArray] objectAtIndex:(NSUInteger) indexPath.row];
             break;
         default:
@@ -192,6 +202,31 @@ typedef enum {
             default:
                 break;
         }
+    } else if (indexPath.section == 3) {
+        switch (indexPath.item) {
+            case 0:
+                hud.labelText = @"Subscribing Bucket...";
+                [self subscribeBucket:kApp withError:&error];
+                break;
+            case 1:
+                hud.labelText = @"Unsubscribing Bucket...";
+                [self unsubscribeBucket:kApp withError:&error];
+                break;
+            default:
+                break;
+        }
+    } else if (indexPath.section == 4) {
+        switch (indexPath.item) {
+            case 0:
+                hud.labelText = @"Subscribing Topic...";
+                [self subscribeTopic:kApp withError:&error];
+                break;
+            case 1:
+                hud.labelText = @"Unsubscribing Topic...";
+                [self unsubscribeTopic:kApp withError:&error];
+            default:
+                break;
+        }
     }
 
     // Close progress
@@ -228,25 +263,69 @@ typedef enum {
 
 // Subscribe bucket
 - (void)subscribeBucket:(ScopeType)scopeType withError:(NSError **)error {
-    KiiBucket *bucket = [[KiiUser currentUser] bucketWithName:USER_BUCKET_NAME];
+    KiiBucket *bucket = nil;
+    switch (scopeType) {
+        case kApp:
+            bucket = [Kii bucketWithName:APP_BUCKET_NAME];
+            break;
+        case kUser:
+            bucket = [[KiiUser currentUser] bucketWithName:USER_BUCKET_NAME];
+            break;
+        case kGroup:
+            bucket = [[KiiGroup groupWithName:GROUP_NAME] bucketWithName:GROUP_BUCKET_NAME];
+            break;
+    }
     [KiiPushSubscription subscribeSynchronous:bucket withError:error];
 }
 
 // Unsubscribe bucket
 - (void)unsubscribeBucket:(ScopeType)scopeType withError:(NSError **)error {
-    KiiBucket *bucket = [[KiiUser currentUser] bucketWithName:USER_BUCKET_NAME];
+    KiiBucket *bucket = nil;
+    switch (scopeType) {
+        case kApp:
+            bucket = [Kii bucketWithName:APP_BUCKET_NAME];
+            break;
+        case kUser:
+            bucket = [[KiiUser currentUser] bucketWithName:USER_BUCKET_NAME];
+            break;
+        case kGroup:
+            bucket = [[KiiGroup groupWithName:GROUP_NAME] bucketWithName:GROUP_BUCKET_NAME];
+            break;
+    }
     [KiiPushSubscription unsubscribeSynchronous:bucket withError:error];
 }
 
 // Subscribe topic
 - (void)subscribeTopic:(ScopeType)scopeType withError:(NSError **)error {
-    KiiTopic *topic = [[KiiUser currentUser] topicWithName:USER_TOPIC_NAME];
+    KiiTopic *topic = nil;
+    switch (scopeType) {
+        case kApp:
+            topic = [Kii topicWithName:APP_TOPIC_NAME];
+            break;
+        case kUser:
+            topic = [[KiiUser currentUser] topicWithName:USER_TOPIC_NAME];
+            break;
+        case kGroup:
+            topic = [[KiiGroup groupWithName:GROUP_NAME] topicWithName:GROUP_TOPIC_NAME];
+            break;
+    }
     [KiiPushSubscription subscribeSynchronous:topic withError:error];
 }
 
 // Unsubscribe topic
 - (void)unsubscribeTopic:(ScopeType)scopeType withError:(NSError **)error {
-    KiiTopic *topic = [[KiiUser currentUser] topicWithName:USER_TOPIC_NAME];
+    KiiTopic *topic = nil;
+    switch (scopeType) {
+        case kApp:
+            topic = [Kii topicWithName:APP_TOPIC_NAME];
+            break;
+        case kUser:
+            topic = [[KiiUser currentUser] topicWithName:USER_TOPIC_NAME];
+            break;
+        case kGroup:
+            topic = [[KiiGroup groupWithName:GROUP_NAME] topicWithName:GROUP_TOPIC_NAME];
+            break;
+    }
     [KiiPushSubscription unsubscribeSynchronous:topic withError:error];
 }
 
@@ -256,8 +335,10 @@ typedef enum {
     if (table == nil) {
         table = [[NSArray alloc] initWithObjects:
                 @"Push Installation",
-                @"Bucket Subscription",
-                @"Topic Subscription",
+                @"UserScope Bucket Subscription",
+                @"UserScope Topic Subscription",
+                @"AppScope Bucket Subscription",
+                @"AppScope Topic Subscription",
                 nil];
     }
     return table;

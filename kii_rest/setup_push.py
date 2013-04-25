@@ -7,6 +7,7 @@ import ConfigParser
 import logging
 import httplib
 import json
+import time
 
 CONFIG_FILE = 'setting.ini'
 
@@ -228,8 +229,56 @@ class ApiHelper(object):
         self.logger.debug("status: %d", response.status)
         self.logger.debug("body: %s", json.load(response))
 
+    def sendMessageToAppTopicDebug(self, filename):
+        self.logger.debug('send message to app topic')
+        conn = httplib.HTTPConnection(self.host)
+        path = '/api/apps/{0}/topics/{1}/push/messages'\
+            .format(self.appId, self.appTopic)
+        headers = {'x-kii-appid': self.appId, 'x-kii-appkey': self.appKey}
+        headers['authorization'] = 'Bearer ' + self.token
+        headers['content-type'] =\
+            'application/vnd.kii.SendPushMessageRequest+json'
+        gcm = {'enabled': True}
+        apns = {'enabled': True}
+        currenttime = int(time.time() * 1000)
+        pushData = {'hello app topic push': self.message, 'time': currenttime, 'perf': True}
+        body = {'data': pushData, 'gcm': gcm, 'apns': apns}
+        jsonBody = json.dumps(body)
+        self.logger.debug('path: %s', path)
+        self.logger.debug('data %s', jsonBody)
+        conn.request('POST', path, jsonBody, headers)
+        response = conn.getresponse()
+        self.logger.debug("status: %d", response.status)
+        self.logger.debug("body: %s", json.load(response))
+        self.writeToFile(filename, str(currenttime), str(response.status))
+
+    def createAppBucketObjectDebug(self, filename):
+        self.logger.debug('create app bucket')
+        conn = httplib.HTTPConnection(self.host)
+        path = '/api/apps/{0}/buckets/{1}/objects'\
+            .format(self.appId, self.appBucket)
+        headers = {'x-kii-appid': self.appId, 'x-kii-appkey': self.appKey}
+        headers['authorization'] = 'Bearer ' + self.token
+        headers['content-type'] = 'application/json'
+        currenttime = int(time.time() * 1000)
+        obj = {'hoge':'dummy', 'time': currenttime, 'perf': True}
+        jsonObj = json.dumps(obj)
+        self.logger.debug('path: %s', path)
+        self.logger.debug('data %s', jsonObj)
+        conn.request('POST', path, jsonObj, headers)
+        response = conn.getresponse()
+        self.logger.debug("status: %d", response.status)
+        dictionary = json.load(response)
+        self.logger.debug("body: %s", dictionary)
+        self.writeToFile(filename, dictionary['objectID'], str(response.status))
+
     def apnsCertDevOnlyMode(self):
         return self.apnsCertDevOnly
+
+    def writeToFile(self, filename, contents, statusCode):
+        f = open(filename, 'a')
+        f.write(contents + '\t' + statusCode + '\n')
+        f.close()
 
 if __name__ == '__main__':
     helper = ApiHelper()
