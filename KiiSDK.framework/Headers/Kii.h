@@ -35,7 +35,8 @@
 
 enum {
     kiiSiteUS,
-    kiiSiteJP
+    kiiSiteJP,
+    kiiSiteCN
 };
 typedef NSUInteger KiiSite;
 
@@ -75,7 +76,8 @@ typedef NSUInteger KiiSite;
 + (KiiBucket*) bucketWithName:(NSString*)bucketName;
 
 
-/** Get or create a Topic at the application level
+/** Get a Topic at the application level
+ Creation of App-scope topic is only supported by REST API calls, iOS SDK only has ability to get the app-scope topic object.
  
  @param TopicName The name of the topic you'd like to use
  @return An instance of a working KiiTopic
@@ -120,8 +122,8 @@ typedef NSUInteger KiiSite;
 +(void)enableAPNSWithDevelopmentMode:(BOOL) isDevelopmentMode
                andNotificationTypes:(UIRemoteNotificationType) types;
 
-/** Set APNS device token it is called on AppDelegate's did receiveRemotePushNotification
-@param device token
+/** Set APNS device token it is called on AppDelegate's didRegisterForRemoteNotificationsWithDeviceToken
+@param deviceToken device token that is given by APNS server.
  */
 +(void) setAPNSDeviceToken:(NSData*) deviceToken;
 

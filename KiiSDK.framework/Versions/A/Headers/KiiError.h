@@ -27,9 +27,9 @@
  - *305* - Invalid email format. Email must be a valid address
  - *306* - Invalid user object. Please ensure the credentials were entered properly
  - *307* - Invalid username format. The username must be 5-50 alphanumeric characters - the first character must be a letter
- - *308* - Invalid phone format. The phone number must begin with a '+' and must be at least 10 digits
+ - *308* - Invalid phone format. The phone number must be numeric between 7 and 20 digits, and it can begin with '+'
  - *309* - Unable to verify account. Please ensure the verification code provided is correct
- - *310* - Invalid displayname format. The displayname must be 4-50 alphanumeric characters - the first character must be a letter
+ - *310* - Invalid displayname format. The displayname length is 4-50 chars (not byte), and allow Multi-Byte input.
  - *311* - The user's email was unable to be updated on the server
  - *312* - The user's phone number was unable to be updated on the server
  - *313* - Invalid email address format or phone number format. A userIdentifier must be one of the two
@@ -48,7 +48,7 @@
  - *501* - Invalid objects passed to method. Must be already saved on server
  - *502* - Unable to parse object. Must be JSON-encodable
  - *503* - Duplicate entry exists
- - *504* - Invalid remote path set for KiiFile. Must be of form:  /root/path/subpath
+ - *504* - Invalid remote path set for KiiFile. Must be of form: /root/path/subpath
  - *505* - Unable to delete object from cloud
  - *506* - Invalid KiiObject type - the type does not match the regex [A-Za-z]{1}[A-Za-z0-9-_]{4,49}
  - *507* - Unable to set an object as a child of itself
@@ -63,15 +63,16 @@
  <h3>Query Errors (6xx)</h3>
  - *601* - No more query results exist
  - *602* - Query limit set too high
+ - *603* - Query clauses is empty. Make sure "OR" and/or "AND" clauses have at least one correct sub-clauses
  
  
- <h3>Push Notification error (7xx)
+ <h3>Push Notification Errors (7xx)</h3>
  - *701* - Push installation error. Installation already exist
  - *702* - Push subscription already exists
  - *703* - Push subscription does not exist
  - *704* - Topic is already exist
  - *705* - Topic does not exist
- - *706* - invalid push message data
+ - *706* - Invalid push message data
  - *707* - APNS field is required
  - *708* - Push data is required
  - *709* - Device token is not set
@@ -127,7 +128,7 @@
 /* Invalid user object. Please ensure the credentials were entered properly */
 + (NSError*) invalidUserObject;
 
-/* Invalid phone format. The username may begin with a '+' and must be at least 10 digits */
+/* Invalid phone format. The phone number must be numeric between 7 and 20 digits, and it can begin with '+'. */
 + (NSError*) invalidPhoneFormat;
 
 /* Invalid Country code. 2-letters country code, capital letters*/
@@ -138,7 +139,7 @@
 /* Invalid verification code */
 + (NSError*) unableToVerifyUser;
 
-/* Invalid displayname format. The displayname must be 4-50 alphanumeric characters - the first character must be a letter. */
+/* Invalid displayname format. The displayname length is 4-50 chars (not byte), and allow Multi-Byte input. */
 + (NSError*) invalidDisplayName;
 
 /* The user's email was unable to be updated on the server */
@@ -221,12 +222,16 @@
 /* Query limit set too high */
 + (NSError*) singleQueryLimitExceeded;
 
-/* Push Notification Errors */
++ (NSError*) emptyQueryClauses;
+
+
+
+/* Push Notification Errors (7xx) */
 
 /*Push installation error. Installation already exist*/
 + (NSError*) installationAlreadyExist;
 
-/* Push subcription already exist */
+/* Push subscription already exist */
 + (NSError*) subscriptionAlreadyExist;
 
 /*Push subscription does not exist*/

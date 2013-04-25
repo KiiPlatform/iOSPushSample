@@ -17,7 +17,7 @@ typedef enum {
     KiiACLObjectActionRead,
     KiiACLObjectActionWrite, 
     KiiACLTopicActionSubscribe,
-    KiiACLTopicActonSend
+    KiiACLTopicActionSend
 
 } KiiACLAction; 
 
@@ -46,7 +46,7 @@ typedef enum {
  
  KiiACLTopicActionSubscribe,
 
- KiiACLTopicActonSend
+ KiiACLTopicActionSend
 
  */
 @property (nonatomic, assign) KiiACLAction action; 

@@ -42,7 +42,40 @@ typedef enum {
 }KiiMessageField;
 @class KiiAPNSFields,KiiGCMFields;
 
-/** Class for encapsulating incoming and outgoing push notification message
+/**
+ Class for encapsulating incoming and outgoing push notification message
+Three types of push message supported by KiiCloud.
+
+- **Push to App** : Message sent to the subscribers when an event happens in the KiiBucket and KiiFileBucket.
+- **Push to User** : Message sent to the subscribers of KiiTopic that is created explicitly.
+- **Direct Push** : Message sent to a certain user by manupulating the developer portal. (Only app developer can send this message.)
+
+Following section describes the contents of "Push to App", "Push to User" and "Direct Push" message.
+
+### Contents of Push Message
+
+Push message of "Push to App", "Push to User" and "Direct Push" contains the KiiCloud specific fields that are selected by the message sender.
+And also push message of "Push to User" contains the basic message as key-value pair that is sent to the KiiTopic.
+
+KiiCloud specific fields are as follows: 
+
+  Key           | Short key | Push to App | Push to User                        | Direct Push                           | Description                                          | Possible values
+ ---------------|-----------|-------------|-------------------------------------|---------------------------------------|------------------------------------------------------|------
+ APP_ID         | a         | -           | -<br>(Depends on "sendAppID")       | -                                     | Source app which generated the notification.         |
+ SENDER         | s         | -           | X<br>(Depends on "sendSender")      | X<br>(Depends on "sendSender")        | The user who caused the notification.                |
+ ORIGIN         | o         | -           | -<br>(Depends on "sendOrigin")      | -<br>(Depends on "sendOrigin")        | Origin of push. "EVENT" for "Push to App" notification. "EXPLICIT" for "Push to User" notification. | - EVENT<br> - EXPLICIT
+ WHEN           | w         | X           | -<br>(Depends on "sendWhen")        | -<br>(Depends on "sendWhen")          | The timestamp of the notification in milliseconds. (Since January 1, 1970 00:00:00 UTC) |
+ TYPE           | t         | X           | -<br>(Depends on "pushMessageType") | -<br>(Depends on "pushMessageType")   | The type of notification and the additional data.    | [Push to App]<br>- DATA_OBJECT_CREATED<br> - DATA_OBJECT_DELETED<br> - DATA_OBJECT_UPDATED<br> - DATA_OBJECT_BODY_UPDATED<br> - DATA_OBJECT_BODY_DELETED<br> - DATA_OBJECT_ACL_MODIFIED<br> - BUCKET_DELETED
+ TOPIC          | to        | -           | X<br>(Depends on "sendTopicID")     | -                                     | TopicID is only for "Push to User" push messages.    |
+ SCOPE_APP_ID   | sa        | X           | X<br>(Depends on "sendObjectScope") | -                                     | AppID of object scope.                               |
+ SCOPE_USER_ID  | su        | X           | X<br>(Depends on "sendObjectScope") | -                                     | UserID of object scope. Push message has this field only if the subscribed bucket is user scope.|
+ SCOPE_GROUP_ID | sg        | X           | X<br>(Depends on "sendObjectScope") | -                                     | GroupID of object scope. Push message has this field only if the subscribed bucket is group scope. |
+ SCOPE_TYPE     | st        | X           | X<br>(Depends on "sendObjectScope") | -                                     | Type of object scope.                                 | - APP<br> - APP_AND_USER<br> - APP_AND_GROUP 
+ BUCKET_ID      | bi        | X           | -                                   | -                                     | Bucket name of push subscribed.                      |
+ BUCKET_TYPE    | bt        | X           | -                                   | -                                     | Type of bucket has been modified.                    | - rw<br> - sync
+ OBJECT_ID      | oi        | X           | -                                   | -                                     | ID of the object operated.                           |
+ OBJECT_MODIFIED_AT | om    | -           | -                                   | -                                     | Timestamp of the modification of object in milliseconds. (Since January 1, 1970 00:00:00 UTC)  | - DATA_OBJECT_CREATED<br> - DATA_OBJECT_UPDATED<br> - DATA_OBJECT_BODY_UPDATE
+
  */
 @interface KiiPushMessage : NSObject
 
@@ -108,24 +141,8 @@ typedef enum {
  */
 +(KiiPushMessage*) composeMessageWithAPNSFields:(KiiAPNSFields*) apnsfields andGCMFields:(KiiGCMFields*)gcmfields;
 
-/**Get specific value of push notification meta data.
- @param field enum of KiiMessageField 
- 
-    APP_ID = "a";
-    SENDER = "s";
-    TYPE = "t";
-    WHEN = "w";
-    ORIGIN = "o";
-    TOPIC = "to";
-    SCOPE_APP_ID = "sa";
-    SCOPE_USER_ID = "su";
-    SCOPE_GROUP_ID = "sg";
-    SCOPE_TYPE = "st";
-    BUCKET_ID = "bi";
-    BUCKET_TYPE = "bt";
-    OBJECT_ID = "oi";
-    OBJECT_MODIFIED_AT = "om";
- 
+/** Get specific value of push notification meta data.
+ @param field enum of KiiMessageField
  */
 -(NSString*) getValueOfKiiMessageField:(KiiMessageField) field;
 
