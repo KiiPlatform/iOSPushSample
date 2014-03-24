@@ -9,8 +9,7 @@
 #import "KiiPushListViewController.h"
 #import "MBProgressHUD.h"
 #import "KiiAppSingleton.h"
-#import "WBStickyNoticeView.h"
-#import "WBSuccessNoticeView.h"
+#import "TSMessage.h"
 #import <KiiSDK/KiiPushInstallation.h>
 #import <KiiSDK/KiiUser.h>
 #import <KiiSDK/Kii.h>
@@ -65,9 +64,8 @@ typedef enum {
     // Close progress
     [MBProgressHUD hideHUDForView:self.view animated:YES];
     if (error == nil) {
-        WBSuccessNoticeView *notice = [WBSuccessNoticeView successNoticeInView:self.view
-                                                                         title:@"Login Successed!!"];
-        [notice show];
+        [TSMessage showNotificationWithTitle:@"Login Successed!!"
+                                        type:TSMessageNotificationTypeSuccess];
     } else {
         message = [NSString stringWithFormat:@"%@", error];
         // Display Login Message
@@ -243,9 +241,8 @@ typedef enum {
                                               otherButtonTitles:nil];
         [messageAlert show];
     } else {
-        WBSuccessNoticeView *notice = [WBSuccessNoticeView successNoticeInView:self.view
-                                                                         title:@"Successed!!"];
-        [notice show];
+        [TSMessage showNotificationWithTitle:@"Successed!!"
+                                        type:TSMessageNotificationTypeSuccess];
     }
 }
 
