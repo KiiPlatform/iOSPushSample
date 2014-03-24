@@ -29,21 +29,48 @@
 #import "KiiPushMessage.h"
 #import "KiiAPNSFields.h"
 #import "KiiGCMFields.h"
+#import "KiiRTransfer.h"
+#import "KiiUploader.h"
+#import "KiiRTransferManager.h"
+#import "KiiResumableTransfer.h"
+#import "KiiRTransferInfo.h"
+#import "KiiDownloader.h"
+#import "KiiBaseBucket.h"
+#import "KiiServerCodeEntry.h"
+#import "KiiServerCodeEntryArgument.h"
+#import "KiiServerCodeExecResult.h"
+#import "KiiExperiment.h"
+#import "KiiVariation.h"
+#import "KiiVariationSampler.h"
+#import "KiiVariationSamplerByKiiUser.h"
+#import "KiiConversionEvent.h"
+#import "KiiIllegalStateException.h"
+#import "KiiGeoPoint.h"
+#import "KiiPushSubscription.h"
+#import "FileHolder.h"
+#import "KiiCloudPhotoColle.h"
+#import "KiiPhotoColleRTransferManager.h"
+#import "KiiPhotoColleSocialConnect.h"
 
 
 @class KiiFile, KiiUser, KiiBucket, KiiGroup;
 
-enum {
+/**
+* This enum represents KiiCloud server location.
+* This is used for <[Kii beginWithID:andKey:andSite:]>.
+*/
+typedef NS_ENUM(NSUInteger, KiiSite) {
+    /** Use cloud in US. */
     kiiSiteUS,
+    /** Use cloud in Japan. */
     kiiSiteJP,
+    /** Use cloud in China. */
     kiiSiteCN
 };
-typedef NSUInteger KiiSite;
-
 
 /** The main SDK class
  
- This class must be initialized on application launch using beginWithID:andKey:. This class also allows the application to make some high-level user calls and access some application-wide data at any time using static methods.
+ This class must be initialized on application launch using <beginWithID:andKey:>. This class also allows the application to make some high-level user calls and access some application-wide data at any time using static methods.
  */
 @interface Kii : NSObject
 
@@ -62,7 +89,7 @@ typedef NSUInteger KiiSite;
  If Kii has provided a custom URL, use this initializer to set it
  @param appId The application ID found in your Kii developer console
  @param appKey The application key found in your Kii developer console
- @param kiiSite One of the enumerator constants kiiSiteUS (United States) or kiiSiteJP (Japan), based on your desired location
+ @param kiiSite One of the enumerator constants kiiSiteUS (United States), kiiSiteJP (Japan) or kiiSiteCN (China), based on your desired location.
  */
 + (void) beginWithID:(NSString*)appId andKey:(NSString*)appKey andSite:(KiiSite)kiiSite;
 + (void) beginWithID:(NSString*)appId andKey:(NSString*)appKey andCustomURL:(NSString*)customURL;
@@ -71,7 +98,7 @@ typedef NSUInteger KiiSite;
 /** Get or create a bucket at the application level
  
  @param bucketName The name of the bucket you'd like to use
- @return An instance of a working KiiBucket
+ @return An instance of a working <KiiBucket>
  */
 + (KiiBucket*) bucketWithName:(NSString*)bucketName;
 
@@ -79,8 +106,8 @@ typedef NSUInteger KiiSite;
 /** Get a Topic at the application level
  Creation of App-scope topic is only supported by REST API calls, iOS SDK only has ability to get the app-scope topic object.
  
- @param TopicName The name of the topic you'd like to use
- @return An instance of a working KiiTopic
+ @param topicName The name of the topic you'd like to use. It has to match the pattern ^[A-Za-z0-9_-]{1,64}$, that is letters, numbers, '-' and '_' and non-multibyte characters with a length between 1 and 64 characters.
+ @return An instance of a working <KiiTopic>
  */
 + (KiiTopic*) topicWithName:(NSString*)topicName;
 
@@ -99,7 +126,7 @@ typedef NSUInteger KiiSite;
  
  If the group already exists, it should be be 'refreshed' to fill the data from the server
  @param groupName An application-specific group name
- @return a working KiiGroup
+ @return a working <KiiGroup>
  */
 + (KiiGroup*) groupWithName:(NSString*)groupName;
 
@@ -109,15 +136,15 @@ typedef NSUInteger KiiSite;
  If the group already exists, it should be be 'refreshed' to fill the data from the server
  @param groupName An application-specific group name
  @param members An array of members to automatically add to the group upon creation
- @return a working KiiGroup
+ @return a working <KiiGroup>
  */
 + (KiiGroup*) groupWithName:(NSString*)groupName andMembers:(NSArray*)members;
 
 + (void) setLogLevel:(int)level;
 
-/** Enable Kii APNS
- @param isProductionMode true if APNS production environment mode or false for development mode
- @param types ui remote notification type
+/** Enable Kii APNS with APNS environment setting.
+ @param isDevelopmentMode YES if APNS development environment mode or NO for production mode.
+ @param types of ui remote notification type.
  */
 +(void)enableAPNSWithDevelopmentMode:(BOOL) isDevelopmentMode
                andNotificationTypes:(UIRemoteNotificationType) types;
@@ -127,6 +154,22 @@ typedef NSUInteger KiiSite;
  */
 +(void) setAPNSDeviceToken:(NSData*) deviceToken;
 
-@property(nonatomic,strong) NSString* deviceToken;
+/** Create KiiServerCodeEntry instance with the given entry name.
+ @param entryName a specific entry name for this server code. Can not be nil and valid entryName pattern is "[a-zA-Z][_a-zA-Z0-9]*$"
+ @return KiiServerCodeEntry instance.
+ @exception NSInvalidArgumentException Thrown if given entryName is not valid.
+ */
++(KiiServerCodeEntry*)serverCodeEntry:(NSString*) entryName;
+
+/** Create KiiServerCodeEntry instance with the given entry name and version name.
+ @param entryName a specific entry name for this server code. Can not be nil and valid entryName pattern is "[a-zA-Z][_a-zA-Z0-9]*$" .
+ @param version a string that represent version of the server code, must not nil or empty.
+ @return KiiServerCodeEntry instance.
+ @exception NSInvalidArgumentException Thrown if given entryName is not valid or version is nil/empty.
+ @exception NSInvalidArgumentException Thrown if given version is nil or empty.
+ */
++(KiiServerCodeEntry*)serverCodeEntry:(NSString*) entryName withVersion:(NSString*) version;
+
 @property(assign) BOOL isDevelopmentMode;
+
 @end

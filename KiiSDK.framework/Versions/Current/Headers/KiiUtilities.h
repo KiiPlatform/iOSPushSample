@@ -10,13 +10,25 @@
 
 @interface KiiUtilities : NSObject
 
-+ (NSString *)hmacsha1:(NSString *)text key:(NSString *)secret;
+
 + (NSString *)urlEncode:(NSString*)string usingEncoding:(NSStringEncoding)encoding;
 + (UIImage*)generateThumbnail:(NSString*)filePath ofSize:(CGFloat)thumbSize;
 
 + (void) callMethod:(SEL)method onDelegate:(id)delegate withObjects:(id)firstObj, ...;
 + (void) performRequestMethod:(BOOL)async withBlock:(void (^)(void))block;
 
-//+ (void) executeBlock:(void (^)(id, va_list))block asynchronously:(BOOL)async withObjects:(id)firstObj, ...;
++ (void)performRequestMethodAsync:(void (^)())block;
+
++ (void)performRequestMethodSynchronous:(void (^)())block;
+
++ (NSString *)generateUUID;
+
++ (NSString *)currentTimeMillis;
+
++ (BOOL)isNilOrEmptyString:(NSString *)testString;
+
++ (BOOL)isNilOrNSNullOrEmptyString:(NSString *)testString;
+
++ (void) _callMethod:(SEL)method onDelegate:(id)delegate waitUntilDone : (BOOL) shouldWait withFirstObjects:(id)firstObj andArguments:(va_list)args;
 
 @end

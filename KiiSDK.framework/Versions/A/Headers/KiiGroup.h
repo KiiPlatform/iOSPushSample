@@ -29,7 +29,7 @@ typedef void (^KiiGroupBlock)(KiiGroup *group, NSError *error);
  
  If the group already exists, it should be be 'refreshed' to fill the data from the server
  @param groupName An application-specific group name
- @return a working KiiGroup
+ @return a working <KiiGroup>
  */
 + (KiiGroup*) groupWithName:(NSString*)groupName;
 
@@ -39,7 +39,7 @@ typedef void (^KiiGroupBlock)(KiiGroup *group, NSError *error);
  If the group already exists, it should be be 'refreshed' to fill the data from the server
  @param groupName An application-specific group name
  @param members An array of members to automatically add to the group upon creation
- @return a working KiiGroup
+ @return a working <KiiGroup>
  */
 + (KiiGroup*) groupWithName:(NSString*)groupName andMembers:(NSArray*)members;
 
@@ -48,7 +48,7 @@ typedef void (^KiiGroupBlock)(KiiGroup *group, NSError *error);
  
  To utilize existing group data, the group should be be 'refreshed' to fill the data from the server
  @param groupURI An application-specific group URI
- @return a working KiiGroup
+ @return a working <KiiGroup>
  */
 + (KiiGroup*) groupWithURI:(NSString*)groupURI;
 
@@ -57,14 +57,14 @@ typedef void (^KiiGroupBlock)(KiiGroup *group, NSError *error);
  
  If the bucket exists, it should be 'refreshed' to pull the latest information from the server. Otherwise, the bucket must be written to or explicitly created on the server before it will persist.
  @param bucketName The name of the bucket you'd like to use
- @return An instance of a working KiiBucket
+ @return An instance of a working <KiiBucket>
  */
 - (KiiBucket*) bucketWithName:(NSString*)bucketName;
 
 /** Get or create a Push notification topic at the group level
  
- @param topicName The name of the topic you'd like to use
- @return An instance of a working KiiTopic
+ @param topicName The name of the topic you'd like to use. It has to match the pattern ^[A-Za-z0-9_-]{1,64}$, that is letters, numbers, '-' and '_' and non-multibyte characters with a length between 1 and 64 characters.
+ @return An instance of a working <KiiTopic>
  */
 - (KiiTopic*) topicWithName:(NSString*)topicName;
 
@@ -103,9 +103,9 @@ typedef void (^KiiGroupBlock)(KiiGroup *group, NSError *error);
 
 /** Gets a list of all current members of a group
  
- Returns an array of KiiUser objects if successful. This method is blocking.
+ Returns an array of <KiiUser> objects if successful. This method is blocking.
  @param error An NSError object, set to nil, to test for errors
- @return An NSArray of KiiUser objects
+ @return An NSArray of <KiiUser> objects
  */
 - (NSArray*) getMemberListSynchronous:(NSError**)error;
 
@@ -136,7 +136,7 @@ typedef void (^KiiGroupBlock)(KiiGroup *group, NSError *error);
 
 /** Asynchronously gets the owner of the associated group
  
- Receives a KiiUser object representing the group's owner. This is a non-blocking request.
+ Receives a <KiiUser> object representing the group's owner. This is a non-blocking request.
  
      [g getOwnerWithBlock:^(KiiGroup *group, KiiUser *owner, NSError *error) {
          if(error == nil) {
@@ -150,16 +150,16 @@ typedef void (^KiiGroupBlock)(KiiGroup *group, NSError *error);
 
 /** Gets the owner of the associated group
  
- Returns a KiiUser object for this group's owner. This is a blocking method.
+ Returns a <KiiUser> object for this group's owner. This is a blocking method.
  @param error An NSError object, set to nil, to test for errors
- @return A KiiUser object representing the current group's owner
+ @return A <KiiUser> object representing the current group's owner
  */
 - (KiiUser*) getOwnerSynchronous:(NSError**)error;
 
 
 /** Asynchronously gets the owner of the associated group
  
- Receives a KiiUser object representing the group's owner. This is a non-blocking request.
+ Receives a <KiiUser> object representing the group's owner. This is a non-blocking request.
  @param delegate The object to make any callback requests to
  @param callback The callback method to be called when the request is completed. The callback method should have a signature similar to:
  
@@ -177,6 +177,19 @@ typedef void (^KiiGroupBlock)(KiiGroup *group, NSError *error);
  */
 - (void) getOwner:(id)delegate withCallback:(SEL)callback;
 
+/** Returns the owner of this group if this group holds the information of owner.
+
+ Group will holds the information of owner when "saving group on cloud" or "retrieving group info/owner from cloud".
+ The cache will not be shared among the different instances of KiiGroup.
+
+ @return A <KiiUser> object who owns this group, nil if this group doesn't hold the information of owner yet.
+ @note This API will not access to server. To update the group owner information on cloud, please call KiiGroup refresh or getOwner methods.
+ @warning This API does not return all the properties of the owner. To get all owner properties, KiiUser refresh is necessary.
+ @see getOwnerSynchronous:
+ @see getOwnerWithBlock:
+ @see getOwner:withCallback:
+ */
+- (KiiUser *)getCachedOwner;
 
 /** Asynchronously updates the local group's data with the group data on the server
  

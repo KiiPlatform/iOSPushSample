@@ -8,7 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-
 @class KiiPushInstallation;
 /** Block type for Kii Push installation*/
 typedef void (^KiiPushCallbackBlock)(KiiPushInstallation *installation, NSError *error);
@@ -51,6 +50,27 @@ Install APNS using deviceToken captured by Kii +(void) setAPNSDeviceToken. This 
 +(KiiPushInstallation*)installSynchronous:(NSError**) error;
 
 
+/** Asynchronously uninstall APNs feature.
+ Uninstall APNs using deviceToken captured by Kii +(void) setAPNSDeviceToken.
+ This method is non-blocking method.
 
+[KiiPushInstallation uninstallWithBlock:^(KiiPushInstallation *uninstallation, NSError *error) {
+    // do something with the result
+    if (error == nil) {
+        NSLog(@" Uninstallation succeeded");
+    }
+}];
+
+@param completion Block for uninstallation process
+ */
++(void) uninstallWithBlock:(KiiPushCallbackBlock) completion;
+
+/** Synchronously uninstall APNs feature.
+ Uninstall APNs using deviceToken captured by Kii +(void) setAPNSDeviceToken.
+ This method is blocking method.
+
+ @param error An NSError object, set to nil, to test for errors
+ */
++(KiiPushInstallation*)uninstallSynchronous:(NSError**) error;
 
 @end

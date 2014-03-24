@@ -7,13 +7,14 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "FileHolder.h"
 
-@class KiiACL, KiiBucket, KiiACL, KiiObject;
+@class KiiACL, KiiBucket, KiiACL, KiiObject,KiiUploader,KiiDownloader, KiiGeoPoint;
 typedef void (^KiiObjectBlock)(KiiObject *object, NSError *error);
 
 
 /** A server-compatible object for generic storage use cases */
-@interface KiiObject : NSObject
+@interface KiiObject : NSObject<FileHolder>
 
 /** The unique id of the object, assigned by the server */
 @property (readonly) NSString *uuid;
@@ -30,7 +31,7 @@ typedef void (^KiiObjectBlock)(KiiObject *object, NSError *error);
 /** The application-defined class name of the object */
 @property (strong, readonly) NSString *objectType;
 
-/** Get the ACL handle for this file. Any KiiACLEntry objects added or revoked from this ACL object will be appended to/removed from the server on ACL save. */
+/** Get the ACL handle for this file. Any <KiiACLEntry> objects added or revoked from this ACL object will be appended to/removed from the server on ACL save. */
 @property (readonly) KiiACL *objectACL;
 
 /** The bucket that owns this object */
@@ -56,11 +57,25 @@ typedef void (^KiiObjectBlock)(KiiObject *object, NSError *error);
 /** Sets a key/value pair to a KiiObject
  
  If the key already exists, its value will be written over. If the object is of invalid type, it will return false and an NSError will be thrown (quietly). Accepted types are any JSON-encodable objects.
+ ***NOTE: Before involving floating point value, please consider using integer instead. For example, use percentage, permil, ppm, etc.***
+ The reason is:
+ - Will dramatically improve the performance of bucket query.
+ - Bucket query does not support the mixed result of integer and floating point.
+ ex.) If you use same key for integer and floating point and inquire object with the
+ integer value, objects which has floating point value with the key would not be evaluated
+ in the query. (and vice versa)
  @param object The value to be set. Object must be of a JSON-encodable type (Ex: NSDictionary, NSArray, NSString, NSNumber, etc)
  @param key The key to set. The key must not be a system key (created, metadata, modified, type, uuid) or begin with an underscore (_)
  @return True if the object was set, false otherwise.
  */
 - (BOOL) setObject:(id)object forKey:(NSString*)key;
+
+/**
+  Set GeoPoint to this object with the specified key.
+  @param point GeoPoint to be set to the specified key.
+  @param key The key to set. The key must not be a system key (created, metadata, modified, type, uuid) or begin with an underscore (_)
+ */
+- (BOOL) setGeoPoint:(KiiGeoPoint*)point forKey:(NSString*)key;
 
 
 /** Checks to see if an object exists for a given key
@@ -72,7 +87,7 @@ typedef void (^KiiObjectBlock)(KiiObject *object, NSError *error);
 
 
 /** Removes a specific key/value pair from the object
- If the key exists, the key/value will be removed from the object. Please note that the object must be saved before the changes propogate to the server.
+ If the key exists, the key/value will be removed from the object. Please note that the object must be saved before the changes propagate to the server.
  @param key The key of the key/value pair that will be removed
  */
 - (void) removeObjectForKey:(NSString*)key;
@@ -84,6 +99,13 @@ typedef void (^KiiObjectBlock)(KiiObject *object, NSError *error);
  @return An object if the key exists, null otherwise
  */
 - (id) getObjectForKey:(NSString*)key;
+
+/** Gets the GeoPoint associated with the given key
+ 
+ @param key The key to retrieve
+ @return An object if the key exists, null otherwise
+ */
+- (KiiGeoPoint*) getGeoPointForKey:(NSString*)key;
 
 
 /** Asynchronously saves the latest object values to the server
@@ -97,6 +119,8 @@ typedef void (^KiiObjectBlock)(KiiObject *object, NSError *error);
      }];
  
  @param block The block to be called upon method completion. See example 
+ @note This API can not create new KiiObject on cloud when instantiated by <[KiiBucket createObjectWithID:]>, but can only update.
+ If you want to create new KiiObject with it, please use <saveAllFieldsSynchronous:withError:>, <saveAllFields:withBlock:> or <saveAllFields:withDelegate:andCallback:> instead.
 */
 - (void) saveWithBlock:(KiiObjectBlock)block;
 
@@ -118,7 +142,9 @@ typedef void (^KiiObjectBlock)(KiiObject *object, NSError *error);
              // there was a problem
          }
      }
- 
+
+ @note This API can not create new KiiObject on cloud when instantiated by <[KiiBucket createObjectWithID:]>, but can only update.
+ If you want to create new KiiObject with it, please use <saveAllFieldsSynchronous:withError:>, <saveAllFields:withBlock:> or <saveAllFields:withDelegate:andCallback:> instead.
  */
 - (void) save:(id)delegate withCallback:(SEL)callback;
 
@@ -127,6 +153,8 @@ typedef void (^KiiObjectBlock)(KiiObject *object, NSError *error);
  
  If the object does not yet exist, it will be created. If the object already exists, the fields that have changed locally will be updated accordingly. This is a blocking method.
  @param error An NSError object, set to nil, to test for errors
+ @note This API can not create new KiiObject on cloud when instantiated by <[KiiBucket createObjectWithID:]>, but can only update.
+ If you want to create new KiiObject with it, please use <saveAllFieldsSynchronous:withError:>, <saveAllFields:withBlock:> or <saveAllFields:withDelegate:andCallback:> instead.
  */
 - (void) saveSynchronous:(NSError**)error;
 
@@ -143,6 +171,8 @@ typedef void (^KiiObjectBlock)(KiiObject *object, NSError *error);
  
  @param forced Set to TRUE if the local copy should overwrite the remote copy, even if the remote copy is newer. Set to FALSE otherwise.
  @param block The block to be called upon method completion. See example
+ @note This API can not create new KiiObject on cloud when instantiated by <[KiiBucket createObjectWithID:]>, but can only update.
+ If you want to create new KiiObject with it, please use <saveAllFieldsSynchronous:withError:>, <saveAllFields:withBlock:> or <saveAllFields:withDelegate:andCallback:> instead.
 */
 - (void) save:(BOOL)forced withBlock:(KiiObjectBlock)block;
 
@@ -165,7 +195,9 @@ typedef void (^KiiObjectBlock)(KiiObject *object, NSError *error);
             // there was a problem
         }
     }
- 
+
+ @note This API can not create new KiiObject on cloud when instantiated by <[KiiBucket createObjectWithID:]>, but can only update.
+ If you want to create new KiiObject with it, please use <saveAllFieldsSynchronous:withError:>, <saveAllFields:withBlock:> or <saveAllFields:withDelegate:andCallback:> instead.
  */
 - (void) save:(BOOL)forced withDelegate:(id)delegate andCallback:(SEL)callback;
 
@@ -175,6 +207,8 @@ typedef void (^KiiObjectBlock)(KiiObject *object, NSError *error);
  If the object does not yet exist, it will be created. If the object already exists and forced is set to TRUE, all fields on the server will be replaced by the fields defined locally. Otherwise, only changed fields will be modified. This is a blocking method.
  @param forced Set to TRUE if the local copy should overwrite the remote copy, even if the remote copy is newer. Set to FALSE otherwise.
  @param error An NSError object, set to nil, to test for errors
+ @note This API can not create new KiiObject on cloud when instantiated by <[KiiBucket createObjectWithID:]>, but can only update.
+ If you want to create new KiiObject with it, please use <saveAllFieldsSynchronous:withError:>, <saveAllFields:withBlock:> or <saveAllFields:withDelegate:andCallback:> instead.
  */
 - (void) saveSynchronous:(BOOL)forced withError:(NSError**)error;
 
@@ -313,6 +347,26 @@ typedef void (^KiiObjectBlock)(KiiObject *object, NSError *error);
  */
 - (void) deleteSynchronous:(NSError**)error;
 
+/** Synchronously deletes an object's body from the server.
+ 
+ Delete an object's body from the server. This method is blocking.
+ @param error An NSError object, set to nil, to test for errors
+ */
+- (void) deleteBodySynchronous:(NSError**)error;
+
+/** Asynchronously deletes an object's body from the server.
+ 
+ Delete an object's body from the server. This method is non-blocking.
+ 
+     [obj deleteBodyWithBlock:^(KiiObject *object, NSError *error) {
+         if(error == nil) {
+            NSLog(@"Object's body deleted!");
+         }
+     }];
+ 
+ @param block The block to be called upon method completion. See example
+ */
+- (void) deleteBodyWithBlock:(KiiObjectBlock)block;
 
 /** Gets a dictionary value of the application-specific attributes of this object */
 - (NSDictionary*) dictionaryValue;
@@ -323,5 +377,21 @@ typedef void (^KiiObjectBlock)(KiiObject *object, NSError *error);
  */
 - (void) describe;
 
+///---------------------------------------------------------------------------------------
+/// @name Resumable Transfer Handling
+///---------------------------------------------------------------------------------------
 
+/**
+ Get uploader. If there is no uploader in the app, it will be created new instance
+ @param localPath Path that will be used by the uploader.
+ @return A KiiUploader instance associated to this object
+ */
+-(KiiUploader*) uploader : (NSString*) localPath;
+
+/**
+ Get downloader. If there is no downloader in the app, it will be created new instance
+ @param localPath Path that will be used by the downloader. If file exists, will be overwritten.
+ @return A KiiDownloader instance associated to this object
+ */
+-(KiiDownloader*) downloader : (NSString*) localPath;
 @end
