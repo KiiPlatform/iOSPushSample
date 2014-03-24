@@ -9,8 +9,8 @@
 /* Begin PBXBuildFile section */
 		747B97F71B818DAF003F2404 /* KiiSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 747B97F51B818D79003F2404 /* KiiSDK.framework */; };
 		747B97F91B818FF1003F2404 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 747B97F81B818FF1003F2404 /* libsqlite3.0.dylib */; };
+		7489C1221B8339180022A257 /* KiiLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 74F17DF71B8302EF001ACC08 /* KiiLoginViewController.m */; };
 		74DF8CFE1B81CB32004F7405 /* KiiSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 74DF8CFD1B81CB32004F7405 /* KiiSDK.framework */; };
-		74F17DF81B8302EF001ACC08 /* KiiLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 74F17DF71B8302EF001ACC08 /* KiiLoginViewController.m */; };
 		9B44ECD016C2366300693867 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B44ECCF16C2366300693867 /* UIKit.framework */; };
 		9B44ECD216C2366300693867 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B44ECD116C2366300693867 /* Foundation.framework */; };
 		9B44ECD416C2366300693867 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B44ECD316C2366300693867 /* CoreGraphics.framework */; };
@@ -40,27 +40,19 @@
 		9B94895216D20FEE00EC4B94 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B94894E16D20E0900EC4B94 /* Reachability.m */; };
 		9BCC263716DCD14C00765299 /* icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9BCC263616DCD14C00765299 /* icon@2x.png */; };
 		9BCC263916DCD15400765299 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 9BCC263816DCD15400765299 /* icon.png */; };
-		9BFFB27416D3807E004070F0 /* NoticeView.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 9BFFB25E16D3807E004070F0 /* NoticeView.bundle */; };
-		9BFFB27516D3807E004070F0 /* NSOperationQueue+WBNoticeExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BFFB26016D3807E004070F0 /* NSOperationQueue+WBNoticeExtensions.m */; };
-		9BFFB27616D3807E004070F0 /* UILabel+WBExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BFFB26216D3807E004070F0 /* UILabel+WBExtensions.m */; };
-		9BFFB27716D3807E004070F0 /* WBBlueGradientView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BFFB26416D3807E004070F0 /* WBBlueGradientView.m */; };
-		9BFFB27816D3807E004070F0 /* WBErrorNoticeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BFFB26616D3807E004070F0 /* WBErrorNoticeView.m */; };
-		9BFFB27916D3807E004070F0 /* WBGrayGradientView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BFFB26816D3807E004070F0 /* WBGrayGradientView.m */; };
-		9BFFB27A16D3807E004070F0 /* WBNoticeOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BFFB26A16D3807E004070F0 /* WBNoticeOperation.m */; };
-		9BFFB27B16D3807E004070F0 /* WBNoticeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BFFB26D16D3807E004070F0 /* WBNoticeView.m */; };
-		9BFFB27C16D3807E004070F0 /* WBRedGradientView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BFFB26F16D3807E004070F0 /* WBRedGradientView.m */; };
-		9BFFB27D16D3807E004070F0 /* WBStickyNoticeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BFFB27116D3807E004070F0 /* WBStickyNoticeView.m */; };
-		9BFFB27E16D3807E004070F0 /* WBSuccessNoticeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BFFB27316D3807E004070F0 /* WBSuccessNoticeView.m */; };
 		9BFFB28016D38089004070F0 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BFFB27F16D38089004070F0 /* QuartzCore.framework */; };
 		9BFFB34A16D62A7B004070F0 /* ODRefreshControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BFFB34916D62A7B004070F0 /* ODRefreshControl.m */; };
+		D35F48093C9C4E5EA735AB18 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 44C1EEA89AA345D095E11F11 /* libPods.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		44C1EEA89AA345D095E11F11 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		747B97F51B818D79003F2404 /* KiiSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = KiiSDK.framework; sourceTree = "<group>"; };
 		747B97F81B818FF1003F2404 /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
 		74DF8CFD1B81CB32004F7405 /* KiiSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = KiiSDK.framework; sourceTree = "<group>"; };
 		74F17DF61B8302EF001ACC08 /* KiiLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KiiLoginViewController.h; sourceTree = "<group>"; };
 		74F17DF71B8302EF001ACC08 /* KiiLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KiiLoginViewController.m; sourceTree = "<group>"; };
+		9103F514908DEADFEED54CF7 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		9B44ECCC16C2366300693867 /* iOSPushSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iOSPushSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9B44ECCF16C2366300693867 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		9B44ECD116C2366300693867 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -104,31 +96,10 @@
 		9B94895016D20ED200EC4B94 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		9BCC263616DCD14C00765299 /* icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon@2x.png"; path = "Images/icon@2x.png"; sourceTree = "<group>"; };
 		9BCC263816DCD15400765299 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon.png; path = Images/icon.png; sourceTree = "<group>"; };
-		9BFFB25E16D3807E004070F0 /* NoticeView.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = NoticeView.bundle; sourceTree = "<group>"; };
-		9BFFB25F16D3807E004070F0 /* NSOperationQueue+WBNoticeExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSOperationQueue+WBNoticeExtensions.h"; sourceTree = "<group>"; };
-		9BFFB26016D3807E004070F0 /* NSOperationQueue+WBNoticeExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSOperationQueue+WBNoticeExtensions.m"; sourceTree = "<group>"; };
-		9BFFB26116D3807E004070F0 /* UILabel+WBExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+WBExtensions.h"; sourceTree = "<group>"; };
-		9BFFB26216D3807E004070F0 /* UILabel+WBExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+WBExtensions.m"; sourceTree = "<group>"; };
-		9BFFB26316D3807E004070F0 /* WBBlueGradientView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WBBlueGradientView.h; sourceTree = "<group>"; };
-		9BFFB26416D3807E004070F0 /* WBBlueGradientView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WBBlueGradientView.m; sourceTree = "<group>"; };
-		9BFFB26516D3807E004070F0 /* WBErrorNoticeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WBErrorNoticeView.h; sourceTree = "<group>"; };
-		9BFFB26616D3807E004070F0 /* WBErrorNoticeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WBErrorNoticeView.m; sourceTree = "<group>"; };
-		9BFFB26716D3807E004070F0 /* WBGrayGradientView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WBGrayGradientView.h; sourceTree = "<group>"; };
-		9BFFB26816D3807E004070F0 /* WBGrayGradientView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WBGrayGradientView.m; sourceTree = "<group>"; };
-		9BFFB26916D3807E004070F0 /* WBNoticeOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WBNoticeOperation.h; sourceTree = "<group>"; };
-		9BFFB26A16D3807E004070F0 /* WBNoticeOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WBNoticeOperation.m; sourceTree = "<group>"; };
-		9BFFB26B16D3807E004070F0 /* WBNoticeView+ForSubclassEyesOnly.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WBNoticeView+ForSubclassEyesOnly.h"; sourceTree = "<group>"; };
-		9BFFB26C16D3807E004070F0 /* WBNoticeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WBNoticeView.h; sourceTree = "<group>"; };
-		9BFFB26D16D3807E004070F0 /* WBNoticeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WBNoticeView.m; sourceTree = "<group>"; };
-		9BFFB26E16D3807E004070F0 /* WBRedGradientView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WBRedGradientView.h; sourceTree = "<group>"; };
-		9BFFB26F16D3807E004070F0 /* WBRedGradientView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WBRedGradientView.m; sourceTree = "<group>"; };
-		9BFFB27016D3807E004070F0 /* WBStickyNoticeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WBStickyNoticeView.h; sourceTree = "<group>"; };
-		9BFFB27116D3807E004070F0 /* WBStickyNoticeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WBStickyNoticeView.m; sourceTree = "<group>"; };
-		9BFFB27216D3807E004070F0 /* WBSuccessNoticeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WBSuccessNoticeView.h; sourceTree = "<group>"; };
-		9BFFB27316D3807E004070F0 /* WBSuccessNoticeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WBSuccessNoticeView.m; sourceTree = "<group>"; };
 		9BFFB27F16D38089004070F0 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		9BFFB34816D62A7B004070F0 /* ODRefreshControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ODRefreshControl.h; sourceTree = "<group>"; };
 		9BFFB34916D62A7B004070F0 /* ODRefreshControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ODRefreshControl.m; sourceTree = "<group>"; };
+		E6D33F332B1325AC0A38133A /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -145,12 +116,22 @@
 				9B44ECD216C2366300693867 /* Foundation.framework in Frameworks */,
 				9B44ECD416C2366300693867 /* CoreGraphics.framework in Frameworks */,
 				74DF8CFE1B81CB32004F7405 /* KiiSDK.framework in Frameworks */,
+				D35F48093C9C4E5EA735AB18 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6CF7055E7A681A7AAA39EF4B /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				9103F514908DEADFEED54CF7 /* Pods.debug.xcconfig */,
+				E6D33F332B1325AC0A38133A /* Pods.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		9B44ECC316C2366300693867 = {
 			isa = PBXGroup;
 			children = (
@@ -158,6 +139,7 @@
 				9B44ECD516C2366300693867 /* iOSPushSample */,
 				9B44ECCE16C2366300693867 /* Frameworks */,
 				9B44ECCD16C2366300693867 /* Products */,
+				6CF7055E7A681A7AAA39EF4B /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -181,6 +163,7 @@
 				9B44ECFE16C2366400693867 /* SenTestingKit.framework */,
 				9B94895016D20ED200EC4B94 /* SystemConfiguration.framework */,
 				9B44ECCF16C2366300693867 /* UIKit.framework */,
+				44C1EEA89AA345D095E11F11 /* libPods.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -210,7 +193,6 @@
 				9B44ED1716C236A400693867 /* MBProgressHUD */,
 				9BFFB34716D62A7B004070F0 /* ODRefreshControl */,
 				9B94894616D2057600EC4B94 /* Reachability */,
-				9BFFB25D16D3807E004070F0 /* WBNoticeView */,
 				9B44ECD616C2366300693867 /* Supporting Files */,
 			);
 			path = iOSPushSample;
@@ -264,35 +246,6 @@
 			name = Images;
 			sourceTree = "<group>";
 		};
-		9BFFB25D16D3807E004070F0 /* WBNoticeView */ = {
-			isa = PBXGroup;
-			children = (
-				9BFFB25E16D3807E004070F0 /* NoticeView.bundle */,
-				9BFFB25F16D3807E004070F0 /* NSOperationQueue+WBNoticeExtensions.h */,
-				9BFFB26016D3807E004070F0 /* NSOperationQueue+WBNoticeExtensions.m */,
-				9BFFB26116D3807E004070F0 /* UILabel+WBExtensions.h */,
-				9BFFB26216D3807E004070F0 /* UILabel+WBExtensions.m */,
-				9BFFB26316D3807E004070F0 /* WBBlueGradientView.h */,
-				9BFFB26416D3807E004070F0 /* WBBlueGradientView.m */,
-				9BFFB26516D3807E004070F0 /* WBErrorNoticeView.h */,
-				9BFFB26616D3807E004070F0 /* WBErrorNoticeView.m */,
-				9BFFB26716D3807E004070F0 /* WBGrayGradientView.h */,
-				9BFFB26816D3807E004070F0 /* WBGrayGradientView.m */,
-				9BFFB26916D3807E004070F0 /* WBNoticeOperation.h */,
-				9BFFB26A16D3807E004070F0 /* WBNoticeOperation.m */,
-				9BFFB26B16D3807E004070F0 /* WBNoticeView+ForSubclassEyesOnly.h */,
-				9BFFB26C16D3807E004070F0 /* WBNoticeView.h */,
-				9BFFB26D16D3807E004070F0 /* WBNoticeView.m */,
-				9BFFB26E16D3807E004070F0 /* WBRedGradientView.h */,
-				9BFFB26F16D3807E004070F0 /* WBRedGradientView.m */,
-				9BFFB27016D3807E004070F0 /* WBStickyNoticeView.h */,
-				9BFFB27116D3807E004070F0 /* WBStickyNoticeView.m */,
-				9BFFB27216D3807E004070F0 /* WBSuccessNoticeView.h */,
-				9BFFB27316D3807E004070F0 /* WBSuccessNoticeView.m */,
-			);
-			path = WBNoticeView;
-			sourceTree = "<group>";
-		};
 		9BFFB34716D62A7B004070F0 /* ODRefreshControl */ = {
 			isa = PBXGroup;
 			children = (
@@ -309,9 +262,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9B44ED0F16C2366400693867 /* Build configuration list for PBXNativeTarget "iOSPushSample" */;
 			buildPhases = (
+				9CD726B1D6E740EEADA439E0 /* Check Pods Manifest.lock */,
 				9B44ECC816C2366300693867 /* Sources */,
 				9B44ECC916C2366300693867 /* Frameworks */,
 				9B44ECCA16C2366300693867 /* Resources */,
+				B7BF4A696C92461EAB687788 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -375,7 +330,6 @@
 				9B94893816D1949500EC4B94 /* bubble.png in Resources */,
 				9B94893A16D1949E00EC4B94 /* data.png in Resources */,
 				9B94893C16D194A700EC4B94 /* t-shirt.png in Resources */,
-				9BFFB27416D3807E004070F0 /* NoticeView.bundle in Resources */,
 				9BCC263716DCD14C00765299 /* icon@2x.png in Resources */,
 				9BCC263916DCD15400765299 /* icon.png in Resources */,
 			);
@@ -383,11 +337,45 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		9CD726B1D6E740EEADA439E0 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		B7BF4A696C92461EAB687788 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		9B44ECC816C2366300693867 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7489C1221B8339180022A257 /* KiiLoginViewController.m in Sources */,
 				9B94895216D20FEE00EC4B94 /* Reachability.m in Sources */,
 				9B44ECDC16C2366300693867 /* main.m in Sources */,
 				9B44ECE016C2366300693867 /* KiiAppDelegate.m in Sources */,
@@ -399,17 +387,6 @@
 				9B94893F16D1C96D00EC4B94 /* KiiAppError.m in Sources */,
 				9B94894216D1CBF800EC4B94 /* KiiObjectListViewController.m in Sources */,
 				9B94894516D1EF3500EC4B94 /* KiiObjectDetailsViewController.m in Sources */,
-				9BFFB27516D3807E004070F0 /* NSOperationQueue+WBNoticeExtensions.m in Sources */,
-				9BFFB27616D3807E004070F0 /* UILabel+WBExtensions.m in Sources */,
-				9BFFB27716D3807E004070F0 /* WBBlueGradientView.m in Sources */,
-				9BFFB27816D3807E004070F0 /* WBErrorNoticeView.m in Sources */,
-				9BFFB27916D3807E004070F0 /* WBGrayGradientView.m in Sources */,
-				9BFFB27A16D3807E004070F0 /* WBNoticeOperation.m in Sources */,
-				9BFFB27B16D3807E004070F0 /* WBNoticeView.m in Sources */,
-				74F17DF81B8302EF001ACC08 /* KiiLoginViewController.m in Sources */,
-				9BFFB27C16D3807E004070F0 /* WBRedGradientView.m in Sources */,
-				9BFFB27D16D3807E004070F0 /* WBStickyNoticeView.m in Sources */,
-				9BFFB27E16D3807E004070F0 /* WBSuccessNoticeView.m in Sources */,
 				9BFFB34A16D62A7B004070F0 /* ODRefreshControl.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -501,6 +478,7 @@
 		};
 		9B44ED1016C2366400693867 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9103F514908DEADFEED54CF7 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -515,12 +493,14 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Pods\"/**";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
 		};
 		9B44ED1116C2366400693867 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E6D33F332B1325AC0A38133A /* Pods.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -535,6 +515,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Pods\"/**";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
