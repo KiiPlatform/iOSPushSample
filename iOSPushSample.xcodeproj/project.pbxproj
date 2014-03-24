@@ -43,6 +43,11 @@
 		9B94894F16D20E0900EC4B94 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B94894E16D20E0900EC4B94 /* Reachability.m */; };
 		9B94895116D20ED300EC4B94 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B94895016D20ED200EC4B94 /* SystemConfiguration.framework */; };
 		9B94895216D20FEE00EC4B94 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B94894E16D20E0900EC4B94 /* Reachability.m */; };
+		9BAFB5C318E01BBC004C52EB /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BAFB5C218E01BBC004C52EB /* Social.framework */; };
+		9BAFB5C518E01BC4004C52EB /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BAFB5C418E01BC4004C52EB /* Accounts.framework */; };
+		9BAFB5C718E01BD6004C52EB /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BAFB5C618E01BD6004C52EB /* libsqlite3.dylib */; };
+		9BAFB5C918E01BEA004C52EB /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BAFB5C818E01BEA004C52EB /* ImageIO.framework */; };
+		9BAFB5CB18E01C36004C52EB /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BAFB5CA18E01C36004C52EB /* Security.framework */; };
 		9BCC263716DCD14C00765299 /* icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9BCC263616DCD14C00765299 /* icon@2x.png */; };
 		9BCC263916DCD15400765299 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 9BCC263816DCD15400765299 /* icon.png */; };
 		9BFFB27416D3807E004070F0 /* NoticeView.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 9BFFB25E16D3807E004070F0 /* NoticeView.bundle */; };
@@ -118,6 +123,11 @@
 		9B94894D16D20E0900EC4B94 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Reachability.h; path = Reachability/Reachability.h; sourceTree = "<group>"; };
 		9B94894E16D20E0900EC4B94 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Reachability.m; path = Reachability/Reachability.m; sourceTree = "<group>"; };
 		9B94895016D20ED200EC4B94 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		9BAFB5C218E01BBC004C52EB /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
+		9BAFB5C418E01BC4004C52EB /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
+		9BAFB5C618E01BD6004C52EB /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
+		9BAFB5C818E01BEA004C52EB /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
+		9BAFB5CA18E01C36004C52EB /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		9BCC263616DCD14C00765299 /* icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon@2x.png"; path = "Images/icon@2x.png"; sourceTree = "<group>"; };
 		9BCC263816DCD15400765299 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon.png; path = Images/icon.png; sourceTree = "<group>"; };
 		9BFFB25E16D3807E004070F0 /* NoticeView.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = NoticeView.bundle; sourceTree = "<group>"; };
@@ -152,6 +162,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9BAFB5CB18E01C36004C52EB /* Security.framework in Frameworks */,
+				9BAFB5C918E01BEA004C52EB /* ImageIO.framework in Frameworks */,
+				9BAFB5C718E01BD6004C52EB /* libsqlite3.dylib in Frameworks */,
+				9BAFB5C518E01BC4004C52EB /* Accounts.framework in Frameworks */,
+				9BAFB5C318E01BBC004C52EB /* Social.framework in Frameworks */,
 				9BFFB28016D38089004070F0 /* QuartzCore.framework in Frameworks */,
 				9B94895116D20ED300EC4B94 /* SystemConfiguration.framework in Frameworks */,
 				9B44ED1C16C2392200693867 /* MobileCoreServices.framework in Frameworks */,
@@ -198,6 +213,11 @@
 		9B44ECCE16C2366300693867 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9BAFB5CA18E01C36004C52EB /* Security.framework */,
+				9BAFB5C818E01BEA004C52EB /* ImageIO.framework */,
+				9BAFB5C618E01BD6004C52EB /* libsqlite3.dylib */,
+				9BAFB5C418E01BC4004C52EB /* Accounts.framework */,
+				9BAFB5C218E01BBC004C52EB /* Social.framework */,
 				9B44ECD316C2366300693867 /* CoreGraphics.framework */,
 				9B44ECD116C2366300693867 /* Foundation.framework */,
 				9B44ED1516C2369000693867 /* KiiSDK.framework */,
