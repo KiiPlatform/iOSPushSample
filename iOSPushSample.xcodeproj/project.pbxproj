@@ -23,7 +23,6 @@
 		9B44ED0916C2366400693867 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9B44ED0716C2366400693867 /* InfoPlist.strings */; };
 		9B44ED0C16C2366400693867 /* iOSPushSampleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B44ED0B16C2366400693867 /* iOSPushSampleTests.m */; };
 		9B44ED1616C2369000693867 /* KiiSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B44ED1516C2369000693867 /* KiiSDK.framework */; };
-		9B44ED1A16C236A400693867 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B44ED1916C236A400693867 /* MBProgressHUD.m */; };
 		9B44ED1C16C2392200693867 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B44ED1B16C2392200693867 /* MobileCoreServices.framework */; };
 		9B44ED1D16C2397300693867 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B44ED1B16C2392200693867 /* MobileCoreServices.framework */; };
 		9B44ED2416C4901E00693867 /* KiiAppSingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B44ED2316C4901E00693867 /* KiiAppSingleton.m */; };
@@ -40,9 +39,7 @@
 		9B94893F16D1C96D00EC4B94 /* KiiAppError.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B94893E16D1C96C00EC4B94 /* KiiAppError.m */; };
 		9B94894216D1CBF800EC4B94 /* KiiObjectListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B94894116D1CBF700EC4B94 /* KiiObjectListViewController.m */; };
 		9B94894516D1EF3500EC4B94 /* KiiObjectDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B94894416D1EF3400EC4B94 /* KiiObjectDetailsViewController.m */; };
-		9B94894F16D20E0900EC4B94 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B94894E16D20E0900EC4B94 /* Reachability.m */; };
 		9B94895116D20ED300EC4B94 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B94895016D20ED200EC4B94 /* SystemConfiguration.framework */; };
-		9B94895216D20FEE00EC4B94 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B94894E16D20E0900EC4B94 /* Reachability.m */; };
 		9BAFB5C318E01BBC004C52EB /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BAFB5C218E01BBC004C52EB /* Social.framework */; };
 		9BAFB5C518E01BC4004C52EB /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BAFB5C418E01BC4004C52EB /* Accounts.framework */; };
 		9BAFB5C718E01BD6004C52EB /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BAFB5C618E01BD6004C52EB /* libsqlite3.dylib */; };
@@ -51,7 +48,6 @@
 		9BCC263716DCD14C00765299 /* icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9BCC263616DCD14C00765299 /* icon@2x.png */; };
 		9BCC263916DCD15400765299 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 9BCC263816DCD15400765299 /* icon.png */; };
 		9BFFB28016D38089004070F0 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BFFB27F16D38089004070F0 /* QuartzCore.framework */; };
-		9BFFB34A16D62A7B004070F0 /* ODRefreshControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BFFB34916D62A7B004070F0 /* ODRefreshControl.m */; };
 		D35F48093C9C4E5EA735AB18 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 44C1EEA89AA345D095E11F11 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -88,8 +84,6 @@
 		9B44ED0A16C2366400693867 /* iOSPushSampleTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = iOSPushSampleTests.h; sourceTree = "<group>"; };
 		9B44ED0B16C2366400693867 /* iOSPushSampleTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = iOSPushSampleTests.m; sourceTree = "<group>"; };
 		9B44ED1516C2369000693867 /* KiiSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = KiiSDK.framework; sourceTree = "<group>"; };
-		9B44ED1816C236A400693867 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
-		9B44ED1916C236A400693867 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		9B44ED1B16C2392200693867 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		9B44ED2216C4901E00693867 /* KiiAppSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KiiAppSingleton.h; sourceTree = "<group>"; };
 		9B44ED2316C4901E00693867 /* KiiAppSingleton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KiiAppSingleton.m; sourceTree = "<group>"; };
@@ -111,8 +105,6 @@
 		9B94894116D1CBF700EC4B94 /* KiiObjectListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KiiObjectListViewController.m; sourceTree = "<group>"; };
 		9B94894316D1EF3300EC4B94 /* KiiObjectDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KiiObjectDetailsViewController.h; sourceTree = "<group>"; };
 		9B94894416D1EF3400EC4B94 /* KiiObjectDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KiiObjectDetailsViewController.m; sourceTree = "<group>"; };
-		9B94894D16D20E0900EC4B94 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Reachability.h; path = Reachability/Reachability.h; sourceTree = "<group>"; };
-		9B94894E16D20E0900EC4B94 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Reachability.m; path = Reachability/Reachability.m; sourceTree = "<group>"; };
 		9B94895016D20ED200EC4B94 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		9BAFB5C218E01BBC004C52EB /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		9BAFB5C418E01BC4004C52EB /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
@@ -122,8 +114,6 @@
 		9BCC263616DCD14C00765299 /* icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon@2x.png"; path = "Images/icon@2x.png"; sourceTree = "<group>"; };
 		9BCC263816DCD15400765299 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon.png; path = Images/icon.png; sourceTree = "<group>"; };
 		9BFFB27F16D38089004070F0 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		9BFFB34816D62A7B004070F0 /* ODRefreshControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ODRefreshControl.h; sourceTree = "<group>"; };
-		9BFFB34916D62A7B004070F0 /* ODRefreshControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ODRefreshControl.m; sourceTree = "<group>"; };
 		A39FA10F330D47A4901D4374 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -223,9 +213,6 @@
 				9B94892516D0B97C00EC4B94 /* KiiUserListViewController.h */,
 				9B94892616D0B97C00EC4B94 /* KiiUserListViewController.m */,
 				9B44ECE716C2366300693867 /* MainStoryboard.storyboard */,
-				9B44ED1716C236A400693867 /* MBProgressHUD */,
-				9BFFB34716D62A7B004070F0 /* ODRefreshControl */,
-				9B94894616D2057600EC4B94 /* Reachability */,
 				9B44ECD616C2366300693867 /* Supporting Files */,
 			);
 			path = iOSPushSample;
@@ -262,24 +249,6 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		9B44ED1716C236A400693867 /* MBProgressHUD */ = {
-			isa = PBXGroup;
-			children = (
-				9B44ED1816C236A400693867 /* MBProgressHUD.h */,
-				9B44ED1916C236A400693867 /* MBProgressHUD.m */,
-			);
-			path = MBProgressHUD;
-			sourceTree = "<group>";
-		};
-		9B94894616D2057600EC4B94 /* Reachability */ = {
-			isa = PBXGroup;
-			children = (
-				9B94894D16D20E0900EC4B94 /* Reachability.h */,
-				9B94894E16D20E0900EC4B94 /* Reachability.m */,
-			);
-			name = Reachability;
-			sourceTree = "<group>";
-		};
 		9B94895316D2555C00EC4B94 /* Images */ = {
 			isa = PBXGroup;
 			children = (
@@ -296,15 +265,6 @@
 				9B94893516D1928C00EC4B94 /* t-shirt@2x.png */,
 			);
 			name = Images;
-			sourceTree = "<group>";
-		};
-		9BFFB34716D62A7B004070F0 /* ODRefreshControl */ = {
-			isa = PBXGroup;
-			children = (
-				9BFFB34816D62A7B004070F0 /* ODRefreshControl.h */,
-				9BFFB34916D62A7B004070F0 /* ODRefreshControl.m */,
-			);
-			path = ODRefreshControl;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -458,10 +418,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9B94895216D20FEE00EC4B94 /* Reachability.m in Sources */,
 				9B44ECDC16C2366300693867 /* main.m in Sources */,
 				9B44ECE016C2366300693867 /* KiiAppDelegate.m in Sources */,
-				9B44ED1A16C236A400693867 /* MBProgressHUD.m in Sources */,
 				9B44ED2416C4901E00693867 /* KiiAppSingleton.m in Sources */,
 				9B94892716D0B97C00EC4B94 /* KiiUserListViewController.m in Sources */,
 				9B94892D16D1283F00EC4B94 /* KiiBucketListViewController.m in Sources */,
@@ -469,7 +427,6 @@
 				9B94893F16D1C96D00EC4B94 /* KiiAppError.m in Sources */,
 				9B94894216D1CBF800EC4B94 /* KiiObjectListViewController.m in Sources */,
 				9B94894516D1EF3500EC4B94 /* KiiObjectDetailsViewController.m in Sources */,
-				9BFFB34A16D62A7B004070F0 /* ODRefreshControl.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -479,7 +436,6 @@
 			files = (
 				9B44ED0C16C2366400693867 /* iOSPushSampleTests.m in Sources */,
 				9B44ED2516C4901E00693867 /* KiiAppSingleton.m in Sources */,
-				9B94894F16D20E0900EC4B94 /* Reachability.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
