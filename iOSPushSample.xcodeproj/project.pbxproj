@@ -317,6 +317,15 @@
 				CLASSPREFIX = Kii;
 				LastUpgradeCheck = 0460;
 				ORGANIZATIONNAME = "Kii Corporation";
+				TargetAttributes = {
+					9B44ECCB16C2366300693867 = {
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
+					};
+				};
 			};
 			buildConfigurationList = 9B44ECC716C2366300693867 /* Build configuration list for PBXProject "iOSPushSample" */;
 			compatibilityVersion = "Xcode 3.2";

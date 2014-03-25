@@ -300,6 +300,7 @@ typedef enum {
     // Create APNs message fields
     KiiAPNSFields *apnsFields = [KiiAPNSFields createFields];
     [apnsFields setAlertBody:message];
+    [apnsFields setContentAvailable:@1];
 
     // If you want to extra data, create dictionary and set to it.
     NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
