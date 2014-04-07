@@ -16,10 +16,10 @@ typedef void (^KiiErrorBlock)(NSError *error);
 
 /** Contains user profile/account information and methods
  
- The user class allows an application to generate a user, register them with the server and log them in during subsequent sessions. Since KiiUser is similar to KiiObject, the application can also set key/value pairs to this user.
+ The user class allows an application to generate a user, register them with the server and log them in during subsequent sessions. Since KiiUser is similar to <KiiObject>, the application can also set key/value pairs to this user.
  */
 
-@class KiiBucket, KiiFileBucket,KiiTopic;
+@class KiiBucket, KiiFileBucket, KiiTopic;
 @interface KiiUser : NSObject
 
 /** The unique id of the KiiUser object, assigned by the server */
@@ -62,7 +62,7 @@ typedef void (^KiiErrorBlock)(NSError *error);
 /** Create a user object to prepare for registration with credentials pre-filled
  Creates an pre-filled user object for manipulation. This user will not be authenticated until one of the authentication methods are called on it. Custom fields can be added to it before it is registered or authenticated.
  @param userUsername The user's desired username. Must be between 3 and 64 characters, which can include alphanumeric characters as well as underscores '_', dashes '-' and periods '.'
- @param userPassword The user's password. Must be at least 4 characters, made up of alphanumeric and/or: @,#,$,%,^,&
+ @param userPassword The user's password. Password must be 4-50 characters and can include these characters: a-z, A-Z, 0-9, @, #, $, %, ^, and &.
  @return a working KiiUser object
  */
 + (KiiUser*) userWithUsername:(NSString*)userUsername
@@ -73,7 +73,7 @@ typedef void (^KiiErrorBlock)(NSError *error);
  
  Creates an pre-filled user object for registration. This user will not be authenticated until the registration method is called on it. It can be treated as any other KiiUser before it is registered.
  @param phoneNumber The user's phone number
- @param userPassword The user's password. Must be at least 4 characters, made up of alphanumeric and/or: @,#,$,%,^,&
+ @param userPassword The user's password. Password must be 4-50 characters and can include these characters: a-z, A-Z, 0-9, @, #, $, %, ^, and &.
  @return a working KiiUser object
  */
 + (KiiUser*) userWithPhoneNumber:(NSString*)phoneNumber
@@ -84,7 +84,7 @@ typedef void (^KiiErrorBlock)(NSError *error);
  
  Creates an pre-filled user object for registration. This user will not be authenticated until the registration method is called on it. It can be treated as any other KiiUser before it is registered.
  @param emailAddress The user's email address
- @param userPassword The user's password. Must be at least 4 characters, made up of alphanumeric and/or: @,#,$,%,^,&
+ @param userPassword The user's password. Password must be 4-50 characters and can include these characters: a-z, A-Z, 0-9, @, #, $, %, ^, and &.
  @return a working KiiUser object
  */
 + (KiiUser*) userWithEmailAddress:(NSString*)emailAddress
@@ -95,9 +95,9 @@ typedef void (^KiiErrorBlock)(NSError *error);
 /** Create a user object to prepare for registration with credentials pre-filled
  
  Creates an pre-filled user object for registration. This user will not be authenticated until the registration method is called on it. It can be treated as any other KiiUser before it is registered.
- @param userUsername The user's desired username. Must be between 3 and 64 characters, which can include alphanumeric characters as well as underscores '_', dashes '-' and periods '.'
+ @param username The user's desired username. Must be between 3 and 64 characters, which can include alphanumeric characters as well as underscores '_', dashes '-' and periods '.'
  @param phoneNumber The user's phone number
- @param userPassword The user's password. Must be at least 4 characters, made up of alphanumeric and/or: @,#,$,%,^,&
+ @param userPassword The user's password. Password must be 4-50 characters and can include these characters: a-z, A-Z, 0-9, @, #, $, %, ^, and &.
  @return a working KiiUser object
  */
 + (KiiUser*) userWithUsername:(NSString*)username
@@ -108,9 +108,9 @@ typedef void (^KiiErrorBlock)(NSError *error);
 /** Create a user object to prepare for registration with credentials pre-filled
  
  Creates an pre-filled user object for registration. This user will not be authenticated until the registration method is called on it. It can be treated as any other KiiUser before it is registered.
- @param userUsername The user's desired username. Must be between 3 and 64 characters, which can include alphanumeric characters as well as underscores '_', dashes '-' and periods '.'
+ @param username The user's desired username. Must be between 3 and 64 characters, which can include alphanumeric characters as well as underscores '_', dashes '-' and periods '.'
  @param emailAddress The user's email address
- @param userPassword The user's password. Must be at least 4 characters, made up of alphanumeric and/or: @,#,$,%,^,&
+ @param userPassword The user's password. Password must be 4-50 characters and can include these characters: a-z, A-Z, 0-9, @, #, $, %, ^, and &.
  @return a working KiiUser object
  */
 + (KiiUser*) userWithUsername:(NSString*)username
@@ -123,7 +123,7 @@ typedef void (^KiiErrorBlock)(NSError *error);
  Creates an pre-filled user object for registration. This user will not be authenticated until the registration method is called on it. It can be treated as any other KiiUser before it is registered.
  @param emailAddress The user's email address
  @param phoneNumber The user's phone number
- @param userPassword The user's password. Must be at least 4 characters, made up of alphanumeric and/or: @,#,$,%,^,&
+ @param userPassword The user's password. Password must be 4-50 characters and can include these characters: a-z, A-Z, 0-9, @, #, $, %, ^, and &.
  @return a working KiiUser object
  */
 + (KiiUser*) userWithEmailAddress:(NSString*)emailAddress
@@ -134,10 +134,10 @@ typedef void (^KiiErrorBlock)(NSError *error);
 /** Create a user object to prepare for registration with credentials pre-filled
  
  Creates an pre-filled user object for registration. This user will not be authenticated until the registration method is called on it. It can be treated as any other KiiUser before it is registered.
- @param userUsername The user's desired username. Must be between 3 and 64 characters, which can include alphanumeric characters as well as underscores '_', dashes '-' and periods '.'
+ @param username The user's desired username. Must be between 3 and 64 characters, which can include alphanumeric characters as well as underscores '_', dashes '-' and periods '.'
  @param emailAddress The user's email address
  @param phoneNumber The user's phone number
- @param userPassword The user's password. Must be at least 4 characters, made up of alphanumeric and/or: @,#,$,%,^,&
+ @param userPassword The user's password. Password must be 4-50 characters and can include these characters: a-z, A-Z, 0-9, @, #, $, %, ^, and &.
  @return a working KiiUser object
  */
 + (KiiUser*) userWithUsername:(NSString*)username
@@ -171,8 +171,8 @@ typedef void (^KiiErrorBlock)(NSError *error);
         }];
  
  @param phoneNumber local phone number, it must be numeric and at least 7 digit
- @param password The user's password
- @param countryCode 2 digits phone contry code, it must be capital letters
+ @param password The user's password. Password must be 4-50 characters and can include these characters: a-z, A-Z, 0-9, @, #, $, %, ^, and &.
+ @param countryCode 2 digits phone country code, it must be capital letters
  @param block The block to be called upon method completion. See example
  */
 + (void) authenticateWithLocalPhoneNumber:(NSString*)phoneNumber
@@ -184,8 +184,8 @@ typedef void (^KiiErrorBlock)(NSError *error);
  
  Authenticates a user with the server. This method is blocking.
  @param phoneNumber local phone number, it must be numeric and at least 7 digit
- @param password The user's password
- @param countryCode 2 digits phone contry code, it must be capital letters
+ @param password The user's password. Password must be 4-50 characters and can include these characters: a-z, A-Z, 0-9, @, #, $, %, ^, and &.
+ @param countryCode 2 digits phone country code, it must be capital letters
  @param error An NSError object, set to nil, to test for errors
  @return The KiiUser object that was authenticated. NULL if failed to authenticate
  */
@@ -197,8 +197,8 @@ typedef void (^KiiErrorBlock)(NSError *error);
  
  Authenticates a user with the server. This method is non blocking.
  @param phoneNumber local phone number, it must be numeric and at least 7 digit
- @param password The user's password
- @param countryCode 2 digits phone contry code, it must be capital letters
+ @param password The user's password. Password must be 4-50 characters and can include these characters: a-z, A-Z, 0-9, @, #, $, %, ^, and &.
+ @param countryCode 2 digits phone country code, it must be capital letters
  @param delegate The object to make any callback requests to
  @param callback The callback method to be called when the request is completed. The callback method should have a signature similar to:
  
@@ -225,18 +225,14 @@ typedef void (^KiiErrorBlock)(NSError *error);
  
  Authenticates a user with the server. This method is non-blocking.
  
- [KiiUser authenticate:@"myusername"
- withPassword:@"mypassword"
- andBlock:^(KiiUser *user, NSError *error) {
- 
- if(error == nil) {
- NSLog(@"Authenticated user: %@", user);
- }
- 
- }];
+     [KiiUser authenticate:@"myusername" withPassword:@"mypassword" andBlock:^(KiiUser *user, NSError *error) {
+         if(error == nil) {
+             NSLog(@"Authenticated user: %@", user);
+         }
+     }];
  
  @param userIdentifier Can be a username or a verified phone number or a verified email address
- @param password The user's password. Must be at least 4 characters, made up of alphanumeric and/or: @,#,$,%,^,&
+ @param password The user's password. Password must be 4-50 characters and can include these characters: a-z, A-Z, 0-9, @, #, $, %, ^, and &.
  @param block The block to be called upon method completion. See example
  
  */
@@ -248,7 +244,7 @@ typedef void (^KiiErrorBlock)(NSError *error);
  
  Authenticates a user with the server. This method is non-blocking.
  @param userIdentifier Can be a username or a verified phone number or a verified email address
- @param password The user's password. Must be at least 4 characters, made up of alphanumeric and/or: @,#,$,%,^,&
+ @param password The user's password. Password must be 4-50 characters and can include these characters: a-z, A-Z, 0-9, @, #, $, %, ^, and &.
  @param delegate The object to make any callback requests to
  @param callback The callback method to be called when the request is completed. The callback method should have a signature similar to:
  
@@ -275,7 +271,7 @@ typedef void (^KiiErrorBlock)(NSError *error);
  
  Authenticates a user with the server. This method is blocking.
  @param userIdentifier Can be a username or a verified phone number or a verified email address
- @param password The user's password
+ @param password The user's password. Password must be 4-50 characters and can include these characters: a-z, A-Z, 0-9, @, #, $, %, ^, and &.
  @param error An NSError object, set to nil, to test for errors
  @return The KiiUser object that was authenticated. NULL if failed to authenticate
  */
@@ -398,7 +394,7 @@ typedef void (^KiiErrorBlock)(NSError *error);
      }];
  
  @param fromPassword The user's current password
- @param toPassword The user's desired password. Must be at least 4 characters, made up of alphanumeric and/or: @,#,$,%,^,&
+ @param toPassword The user's desired password. Password must be 4-50 characters and can include these characters: a-z, A-Z, 0-9, @, #, $, %, ^, and &.
  @param block The block to be called upon method completion. See example
 */
 - (void) updatePassword:(NSString*)fromPassword
@@ -409,7 +405,7 @@ typedef void (^KiiErrorBlock)(NSError *error);
  
  Update a user's password with the server. The fromPassword must be equal to the current password associated with the account in order to succeed. This method is non-blocking.
  @param fromPassword The user's current password
- @param toPassword The user's desired password. Must be at least 4 characters, made up of alphanumeric and/or: @,#,$,%,^,&
+ @param toPassword The user's desired password. Password must be 4-50 characters and can include these characters: a-z, A-Z, 0-9, @, #, $, %, ^, and &.
  @param delegate The object to make any callback requests to
  @param callback The callback method to be called when the request is completed. The callback method should have a signature similar to:
  
@@ -437,7 +433,7 @@ typedef void (^KiiErrorBlock)(NSError *error);
  Update a user's password with the server. The fromPassword must be equal to the current password associated with the account in order to succeed. This method is blocking.
  @param error An NSError object, set to nil, to test for errors
  @param fromPassword The user's current password
- @param toPassword The user's desired password. Must be at least 4 characters, made up of alphanumeric and/or: @,#,$,%,^,&
+ @param toPassword The user's desired password. Password must be 4-50 characters and can include these characters: a-z, A-Z, 0-9, @, #, $, %, ^, and &.
  */
 - (void) updatePasswordSynchronous:(NSError**)error
                               from:(NSString*)fromPassword
@@ -445,9 +441,9 @@ typedef void (^KiiErrorBlock)(NSError *error);
 
 
 
-/** Asynchronously reset a user's password on the server
+/** Asynchronously reset a user's password on the server.
  
- Reset a user's password on the server. The user is determined by the specified userIdentifier - which can be an email address or phone number that has already been associated with an account. Reset instructions will be sent to that identifier. This method is non-blocking.
+ Reset a user's password on the server. The user is determined by the specified email address that has already been associated with an account. Reset instructions will be sent to that email address. This method is non-blocking.
 
  
      [KiiUser resetPassword:@"myemail@address.com"
@@ -457,15 +453,15 @@ typedef void (^KiiErrorBlock)(NSError *error);
          }
      }];
 
- @param userIdentifier The email address or phone number which the account is associated with
- @param block The block to be called upon method completion. See example
+ @param userIdentifier The email address which the account is associated with.
+ @param block The block to be called upon method completion. See example.
 */
 + (void) resetPassword:(NSString*)userIdentifier withBlock:(KiiErrorBlock)block;
 
-/** Asynchronously reset a user's password on the server
+/** Asynchronously reset a user's password on the server.
  
- Reset a user's password on the server. The user is determined by the specified userIdentifier - which can be an email address or phone number that has already been associated with an account. Reset instructions will be sent to that identifier. This method is non-blocking.
- @param userIdentifier The email address or phone number which the account is associated with
+ Reset a user's password on the server. The user is determined by the specified email address that has already been associated with an account. Reset instructions will be sent to that email address. This method is non-blocking.
+ @param userIdentifier The email address which the account is associated with.
  @param delegate The object to make any callback requests to
  @param callback The callback method to be called when the request is completed. The callback method should have a signature similar to:
  
@@ -487,11 +483,11 @@ typedef void (^KiiErrorBlock)(NSError *error);
            andCallback:(SEL)callback;
 
 
-/** Synchronously reset a user's password on the server
+/** Synchronously reset a user's password on the server.
  
- Reset a user's password on the server. The user is determined by the specified userIdentifier - which can be an email address or phone number that has already been associated with an account. Reset instructions will be sent to that identifier. This method is blocking.
+ Reset a user's password on the server.The user is determined by the specified email address that has already been associated with an account. Reset instructions will be sent to that email address. This method is blocking.
  @param error An NSError object, set to nil, to test for errors
- @param userIdentifier The email address or phone number which the account is associated with
+ @param userIdentifier The email address which the account is associated with.
  */
 + (void) resetPasswordSynchronous:(NSError**)error
                withUserIdentifier:(NSString*)userIdentifier;
@@ -660,7 +656,7 @@ typedef void (^KiiErrorBlock)(NSError *error);
  
  This is a blocking method.
  @param error An NSError object, set to nil, to test for errors
- @return An array of KiiGroup objects
+ @return An array of <KiiGroup> objects
  */
 - (NSArray*) memberOfGroupsSynchronous:(NSError**)error;
 
@@ -693,7 +689,7 @@ typedef void (^KiiErrorBlock)(NSError *error);
 /** Get or create a bucket at the user level
  
  @param bucketName The name of the bucket you'd like to use
- @return An instance of a working KiiBucket
+ @return An instance of a working <KiiBucket>
  */
 - (KiiBucket*) bucketWithName:(NSString*)bucketName;
 
@@ -701,14 +697,14 @@ typedef void (^KiiErrorBlock)(NSError *error);
 /** Get or create a file bucket at the user level
  
  @param bucketName The name of the file bucket you'd like to use
- @return An instance of a working KiiFileBucket
+ @return An instance of a working <KiiFileBucket>
  */
 - (KiiFileBucket*) fileBucketWithName:(NSString*)bucketName;
 
 /** Get or create a Push notification topic at the user level
  
- @param topicName The name of the topic you'd like to use
- @return An instance of a working KiiTopic
+ @param topicName The name of the topic you'd like to use. It has to match the pattern ^[A-Za-z0-9_-]{1,64}$, that is letters, numbers, '-' and '_' and non-multibyte characters with a length between 1 and 64 characters.
+ @return An instance of a working <KiiTopic>
  */
 - (KiiTopic*) topicWithName:(NSString*)topicName;
 
@@ -1008,7 +1004,7 @@ typedef void (^KiiErrorBlock)(NSError *error);
          }
      }];
  
- @param username the username of user that want to be discovered
+ @param username The username of user that want to be discovered
  @param block The block to be called upon method completion. See example
  */
 +(void)  findUserByUsername:(NSString*) username withBlock:(KiiUserBlock) block;
@@ -1024,7 +1020,7 @@ typedef void (^KiiErrorBlock)(NSError *error);
          }
      }];
  
- @param email the email address of user that want to be discovered. User can only find specific user from email that has been verified.
+ @param emailAddress The email address of user that want to be discovered. User can only find specific user from email that has been verified.
  @param block The block to be called upon method completion. See example 
  */
 +(void) findUserByEmail:(NSString*) emailAddress  withBlock:(KiiUserBlock) block;
@@ -1048,7 +1044,7 @@ typedef void (^KiiErrorBlock)(NSError *error);
 
 /** Find user by username asynchronously using delegate and callback
   This is a non-blocking method.
- @param username the username of user that want to be discovered 
+ @param username The username of user that want to be discovered
  @param delegate The object to make any callback requests to
  @param callback The callback method to be called when the request is completed. The callback method should have a signature similar to:
  
@@ -1072,7 +1068,7 @@ typedef void (^KiiErrorBlock)(NSError *error);
 /** Find user by user e mail address asynchronously using delegate and callback
  This is a non-blocking method. This method can only get user that has verified email.
  
- @param email the email address of user that want to be discovered. User can only find specific user from email that has been verified.
+ @param emailAddress The email address of user that want to be discovered. User can only find specific user from email that has been verified.
  @param delegate The object to make any callback requests to
  @param callback The callback method to be called when the request is completed. The callback method should have a signature similar to:
      
@@ -1096,7 +1092,7 @@ typedef void (^KiiErrorBlock)(NSError *error);
 
 /** Find user by user phone asynchronously using delegate and callback
  This is a non-blocking method.  This method can only get user that has verified phone number.
- @param phoneNumber the global phone number of user that want to be discovered. Do not pass local phone number, it is not supported. User can only find specific user from phone number that has been verified.
+ @param phoneNumber The global phone number of user that want to be discovered. Do not pass local phone number, it is not supported. User can only find specific user from phone number that has been verified.
  @param delegate The object to make any callback requests to
  @param callback The callback method to be called when the request is completed. The callback method should have a signature similar to:
  
@@ -1120,7 +1116,7 @@ typedef void (^KiiErrorBlock)(NSError *error);
 /** Find user by username synchronously
   This is a blocking method. 
  
- @param username the username of user that want to be discovered
+ @param username The username of user that want to be discovered
  @param error An NSError object, set to nil, to test for errors
  */
 +(KiiUser*) findUserByUsernameSynchronous:(NSString*) username withError:(NSError**) error;
@@ -1130,7 +1126,7 @@ typedef void (^KiiErrorBlock)(NSError *error);
 /** Find user by user e mail address synchronously
  This is a blocking method. This method can only get user that has verified email.
  
- @param email the email address of user that want to be discovered. User can only find specific user from email that has been verified.
+ @param emailAddress The email address of user that want to be discovered. User can only find specific user from email that has been verified.
  @param error An NSError object, set to nil, to test for errors
  */
 +(KiiUser*) findUserByEmailSynchronous:(NSString*) emailAddress withError:(NSError**) error;
@@ -1140,11 +1136,42 @@ typedef void (^KiiErrorBlock)(NSError *error);
 /** Find user by user phone synchronously
  This is a blocking method. This method can only get user that has verified phone number.
  
- @param phoneNumber the global phone number of user that want to be discovered. Do not pass local phone number, it is not supported. User can only find specific user from phone number that has been verified.
+ @param phoneNumber The global phone number of user that want to be discovered. Do not pass local phone number, it is not supported. User can only find specific user from phone number that has been verified.
  @param error An NSError object, set to nil, to test for errors
  */
 +(KiiUser*) findUserByPhoneSynchronous:(NSString*) phoneNumber withError:(NSError**) error;
 
+
+
+/** Asynchronously gets the groups owned by this user.
+ Group in the returned array does not contain all the property of group. To get all the
+ property from cloud, KiiGroup refresh is necessary.
+ This method is non-blocking.
+
+     [u ownerOfGroupsWithBlock:^(KiiUser *user, NSArray *results, NSError *error) {
+         if(error == nil) {
+             NSLog(@"User %@ is owner of groups: %@", user, results);
+         }
+     }];
+
+ @param block The block to be called upon method completion. See example.
+ @see [KiiGroup refreshSynchronous:]
+ @see [KiiGroup refreshWithBlock:]
+ @see [KiiGroup refresh:withCallback:]
+ */
+- (void) ownerOfGroupsWithBlock:(KiiUserArrayBlock)block;
+
+/**
+ Synchronously gets groups owned by this user. Group in
+ the returned array does not contain all the property of group. To get all the
+ property from cloud, KiiGroup refresh is necessary.This method is blocking.
+ @param error An NSError object, set to nil, to test for errors.
+ @return An NSArray Array of groups owned by the user.
+ @see [KiiGroup refreshSynchronous:]
+ @see [KiiGroup refreshWithBlock:]
+ @see [KiiGroup refresh:withCallback:]
+ */
+- (NSArray*) ownerOfGroupsSynchronous:(NSError**)error;
 
 
 @end

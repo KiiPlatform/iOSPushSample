@@ -42,6 +42,7 @@ This application uses the following features:
 
 * iPhone/iPad (iOS 5.0 or later)
 * Xcode (version 4.2 or later)
+* CocoaPods
 
 ## Previous arrangement:
 
@@ -77,7 +78,8 @@ python setup_push.py
 
 ### 4. Build and install application
 
-* Open iOSPushSample.xcodeproj
+* Execute `pod install` on project root directory
+* Open iOSPushSample.xcworkspace
 * Open /Supporting Files/iOSPushSample-Prefix.pch
 * Edit APPID/APPKEY created on developer portal
 * Bulid and launch application on iOS devices

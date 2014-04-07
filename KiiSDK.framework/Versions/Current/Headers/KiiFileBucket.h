@@ -8,41 +8,43 @@
 
 #import <Foundation/Foundation.h>
 #import "KiiPushSubscription.h"
-@class KiiFile, KiiUser, KiiQuery, KiiACL, KiiFileBucket;
+#import "KiiBaseBucket.h"
+
+@class KiiFile, KiiUser, KiiQuery, KiiACL, KiiFileBucket, KiiRTransferManager;
 
 typedef void (^KiiFileQueryResultBlock)(KiiQuery *query, KiiFileBucket *bucket, NSArray *results, NSError *error);
 typedef void (^KiiFileBucketBlock)(KiiFileBucket *bucket, NSError *error);
 
-/** A reference to a bucket within a user's scope which contains KiiFile objects */
-@interface KiiFileBucket : NSObject <KiiSubscribable>
+/** A reference to a bucket within a user's scope which contains <KiiFile> objects */
+@interface KiiFileBucket : KiiBaseBucket <KiiSubscribable>
 
 
-/** Get the ACL handle for this bucket. Any KiiACLEntry objects added or revoked from this ACL object will be appended to/removed from the server on ACL save. */
+/** Get the ACL handle for this bucket. Any <KiiACLEntry> objects added or revoked from this ACL object will be appended to/removed from the server on ACL save. */
 @property (readonly) KiiACL *bucketACL;
 
 
-/** Create a KiiFile within the current bucket based on the given local path
+/** Create a <KiiFile> within the current bucket based on the given local path
  
- The object will not be created on the server until the KiiFile is explicitly saved. This method returns a working KiiFile with local attributes pre-filled. For empty file creation, the -file method is also available.
+ The object will not be created on the server until the <KiiFile> is explicitly saved. This method returns a working <KiiFile> with local attributes pre-filled. For empty file creation, the -file method is also available.
  @param filePath The path of the file to use
- @return An empty KiiObject with the specified type
+ @return An empty <KiiObject> with the specified type
  */
 - (KiiFile*) fileWithLocalPath:(NSString*)filePath;
 
-/** Create a KiiFile within the current bucket using the passed data
+/** Create a <KiiFile> within the current bucket using the passed data
  
- The object will not be created on the server until the KiiFile is explicitly saved. This method returns a working KiiFile with local attributes pre-filled. For empty file creation, the -file method is also available.
+ The object will not be created on the server until the <KiiFile> is explicitly saved. This method returns a working <KiiFile> with local attributes pre-filled. For empty file creation, the -file method is also available.
 
  @param fileData The data for the file to use
- @return An empty KiiObject with the specified type
+ @return An empty <KiiObject> with the specified type
  */
 - (KiiFile*) fileWithData:(NSData*)fileData;
 
 
-/** Create a KiiFile within the current bucket
+/** Create a <KiiFile> within the current bucket
  
- The file will not be created on the server until the KiiFile is explicitly saved. This method simply returns an empty working KiiFile.
- @return An empty KiiFile
+ The file will not be created on the server until the <KiiFile> is explicitly saved. This method simply returns an empty working <KiiFile>.
+ @return An empty <KiiFile>
  */
 - (KiiFile*) file;
 
@@ -145,5 +147,8 @@ typedef void (^KiiFileBucketBlock)(KiiFileBucket *bucket, NSError *error);
  */
 - (void) delete:(id)delegate withCallback:(SEL)callback;
 
-
+/** Get transfer manager object based on this file bucket
+ @return A transfer manager object based on this file bucket.
+ */
+- (KiiRTransferManager *) transferManager;
 @end

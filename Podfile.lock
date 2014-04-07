@@ -1,0 +1,22 @@
+PODS:
+  - HexColors (2.2.1)
+  - MBProgressHUD (0.8)
+  - ODRefreshControl (1.0.0)
+  - Reachability (3.1.1)
+  - TSMessages (0.9.6):
+    - HexColors
+
+DEPENDENCIES:
+  - MBProgressHUD (~> 0.8)
+  - ODRefreshControl (~> 1.0.0)
+  - Reachability (~> 3.1.1)
+  - TSMessages (~> 0.9.4)
+
+SPEC CHECKSUMS:
+  HexColors: 3a68db077cd6572a8f7d4aa1add284dd2436a934
+  MBProgressHUD: 2bbc6f470111daf7f3eaa4eb12b8cbf01c4c0622
+  ODRefreshControl: 64fd74956e8708c2f7df6d9f5d2689d7fffd7ce1
+  Reachability: be4883bb93f31e38266ae3365e5600a317aae735
+  TSMessages: 839edc3164b99ced48c30af9dde9710cd67bea4d
+
+COCOAPODS: 0.29.0

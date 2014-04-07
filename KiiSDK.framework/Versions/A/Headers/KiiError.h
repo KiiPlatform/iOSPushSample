@@ -13,6 +13,7 @@
  <h3>Application Errors (1xx)</h3>
  - *101* - The application received invalid credentials and was not initialized
  - *102* - The application was not found on the server. Please ensure your app id and key were entered correctly.
+ - *103* - The required operation is failed due to unexpected error. Should not thrown if using latest SDK.
 
  <h3>Connectivity Errors (2xx)</h3>
  - *201* - Unable to connect to the internet
@@ -23,10 +24,10 @@
  - *301* - Unable to retrieve valid access token
  - *302* - Unable to authenticate user
  - *303* - Unable to retrieve file list
- - *304* - Invalid password format. Password must be at least 4 characters and can include these characters: a-z, A-Z, 0-9, @, #, $, %, ^, and &
+ - *304* - Invalid password format. Password must be 4-50 printable ASCII characters.
  - *305* - Invalid email format. Email must be a valid address
  - *306* - Invalid user object. Please ensure the credentials were entered properly
- - *307* - Invalid username format. The username must be 5-50 alphanumeric characters - the first character must be a letter
+ - *307* - Invalid username format. The username must be 3-64 alphanumeric characters - the first character must be a letter
  - *308* - Invalid phone format. The phone number must be numeric between 7 and 20 digits, and it can begin with '+'
  - *309* - Unable to verify account. Please ensure the verification code provided is correct
  - *310* - Invalid displayname format. The displayname length is 4-50 chars (not byte), and allow Multi-Byte input.
@@ -36,6 +37,13 @@
  - *314* - The request could not be made - the key associated with the social network is invalid
  - *315* - Invalid country code.
  - *316* - Invalid local phone format. The phone number numerical and must be at least 7 digits
+ - *317* - Invalid credentials, please check whether the credentials associated with social network is valid
+ - *318* - Social network account has been already linked.
+ - *319* - Social network account is not linked.
+ - *320* - Social network authentication was canceled.
+ - *321* - Server side login is failed with error. Additional error info is available in userInfo[@"description"] and userInfo[@"server_code"].
+ - *322* - Unable to load authentication page. Additional error info is available in userInfo[@"description"].
+ - *323* - Unsupported Application structure. Server-side authentication needs rootViewController to be assigned on Application main window.
  
  <h3>File API Errors (4xx)</h3>
  - *401* - Unable to delete file from cloud
@@ -43,6 +51,7 @@
  - *403* - Unable to retrieve local file for uploading. May not exist, or may be a directory
  - *404* - Unable to shred file. Must be in the trash before it is permanently deleted
  - *405* - Unable to perform operation - a valid container must be set first
+ - *406* - Insufficient space in cloud to store data
  
  <h3>Core Object Errors (5xx)</h3>
  - *501* - Invalid objects passed to method. Must be already saved on server
@@ -59,35 +68,73 @@
  - *512* - The object you are saving is older than what is on the server. Use one of the KiiObject#save:forced: methods to forcibly override data on the server
  - *513* - The group name provided is not valid. Ensure it is alphanumeric and more than 0 characters in length
  - *514* - At least one of the ACL entries saved to an object failed. Please note there may also have been one or more successful entries
+ - *515* - Bucket parent(user/group) of the bucket does not exist in the cloud.
+ - *516* - The object you are trying to operate is illegal state. If you want to update KiiObject, please call <[KiiObject refreshSynchronous:]> before call this method.
 
  <h3>Query Errors (6xx)</h3>
  - *601* - No more query results exist
  - *602* - Query limit set too high
  - *603* - Query clauses is empty. Make sure "OR" and/or "AND" clauses have at least one correct sub-clauses
- 
- 
+
  <h3>Push Notification Errors (7xx)</h3>
  - *701* - Push installation error. Installation already exist
  - *702* - Push subscription already exists
  - *703* - Push subscription does not exist
- - *704* - Topic is already exist
+ - *704* - Topic already exists
  - *705* - Topic does not exist
  - *706* - Invalid push message data
  - *707* - APNS field is required
  - *708* - Push data is required
  - *709* - Device token is not set
+ - *710* - Push installation does not exist
+ - *711* - Topic ID is invalid. Topic ID must be alphanumeric character and between 1-64 length
+ - *712* - GCM payload key contains google reserved words
+ - *713* - Topic parent(user/group) does not exist in the cloud.
+
+ <h3>Resumable Transfer Errors (8xx)</h3>
+ - *801* - Resumable transfer object has already transferred completely
+ - *802* - File has been modified during transfer
+ - *803* - File path is invalid, can not get the file attribute
+ - *804* - File does not exist
+ - *805* - File path is a directory
+ - *806* - File size is 0 byte
+ - *807* - Invalid transfer state, transfer is already suspended
+ - *808* - Invalid transfer state, transfer is already terminated
+ - *809* - Transfer was suspended
+ - *810* - Transfer was terminated
+ - *811* - Transfer has already started
+ - *812* - Object body integrity not assured. ClientHash must be same during transfer.
+ - *813* - Object body range not satisfiable. Transfer has terminated, please start transfer again.
+ - *814* - File path is not writable.
+ - *815* - Invalid destination file, file range is not assured
+ - *816* - Unable to operate transfer manager. The transfer manager can not operate since current user is nil or different from the user who instantiate.
+
+ <h3>AB Testing Errors (9xx)</h3>
+ - *901* - Experiment with specified ID is not found.
+ - *902* - The experiment is in draft. you need to run experiment before starting A/B testing.
+ - *903* - The experiment has been paused.
+ - *904* - The experiment has been terminated with no specified variation.
+ - *905* - Variation with specified name is not found.
+ - *906* - Failed to apply variation due to no user logged in.
+
+  <h3>PhotoColle Errors (10xx)</h3>
+ - *1001* - Unsupported MIME type for PhotoColle transfer.
 
  */
 @interface KiiError : NSError
 
 + (NSError*) errorWithCode:(NSString*)code andMessage:(NSString*)message;
 
+/* Application Errors (1xx) */
 
 /* The application received invalid credentials and was not initialized. Make sure you have called [Kii begin...] with the proper app id and key before making any requests */
 + (NSError*) invalidApplication;
 
 /* The application was not found on the server. Please ensure your app id and key were entered correctly. */
 + (NSError*) appNotFound;
+
+/* The required operation is failed due to unexpected error. Should not thrown if using latest SDK. */
++ (NSError*) undefinedError;
 
 
 /* Connectivity Errors (2xx) */
@@ -113,7 +160,7 @@
 /* Unable to retrieve file list */
 + (NSError*) unableToRetrieveUserFileList;
 
-/* Invalid password format. Password must be at least 5 characters and can include these characters: a-z, A-Z, 0-9, @, #, $, %, ^, and & */
+/* Invalid password format. Password must be 4-50 printable ASCII characters */
 + (NSError*) invalidPasswordFormat;
 
 /* Invalid email format. Email must be a valid address */
@@ -122,7 +169,7 @@
 /* Invalid email address format or phone number format. A userIdentifier must be one of the two */
 + (NSError*) invalidUserIdentifier;
 
-/* Invalid username format. The username must be 5-50 alphanumeric characters - the first character must be a letter. */
+/* Invalid username format. The username must be 3-64 alphanumeric characters - the first character must be a letter. */
 + (NSError*) invalidUsername;
 
 /* Invalid user object. Please ensure the credentials were entered properly */
@@ -151,7 +198,26 @@
 /* The request could not be made - the key associated with the social network is invalid. */
 + (NSError*) invalidSocialNetworkKey;
 
+/* Invalid credentials, please check whether the credentials associated with social network is valid */
++ (NSError*) invalidCredentials;
 
+/* Social network account has been already linked */
++ (NSError*) socialAccountAlreadyLinked;
+
+/* Social network account has is not linked */
++ (NSError*) socialAccountNotLinked;
+
+/* Social network server-side authentication was canceled. */
++ (NSError*) socialNetworkAuthCanceled;
+
+/* Social network server-side login failed with error. */
++ (NSError*) serverSideLoginFailedWithErrorCode:(NSString*) code;
+
+/* Unable to load authentication page : <error message> */
++ (NSError*) unableToLoadAuthPageWithErrorMessage:(NSString*) message;
+
+/* Unsupported Application structure. Server-side authentication needs rootViewController to be assigned on Application main window. */
++ (NSError*) rootViewControllerNotSet;
 
 /* File API Errors (4xx) */
 
@@ -169,6 +235,9 @@
 
 /* Unable to perform operation - a valid container must be set first. */
 + (NSError*) fileContainerNotSpecified;
+
+/* Insufficient space in cloud to store data */
++ (NSError*) insufficientSpaceInCloud;
 
 
 /* Core Object Errors (5xx) */
@@ -212,7 +281,11 @@
 /* At least one of the ACL entries saved to an object failed. Please note there may also have been one or more successful entries. */
 + (NSError*) partialACLFailure;
 
+/* Bucket parent of the bucket(user/group) does not exist in the cloud. */
++ (NSError *)bucketParentNotExistInCloud;
 
+/* The object you are trying to operate is illegal state. If you want to update KiiObject, please call <[KiiObject refreshSynchronous:]> before call this method. */
++ (NSError *)illegalStateObject;
 
 /* Query Errors (6xx) */
 
@@ -237,7 +310,7 @@
 /*Push subscription does not exist*/
 + (NSError*) subscriptionNotExist;
 
-/* Topic is already exist */
+/* Topic already exists */
 + (NSError*) topicAlreadyExist;
 
 /* Topic does not exist */
@@ -254,4 +327,94 @@
 
 /* Device token is not set*/
 + (NSError*) deviceTokenNotSet;
+
+/* Installation does not exist*/
++ (NSError*) installationNotFound;
+
+/* Topic ID is invalid. Topic ID must be alphanumeric character and between 1-64 length.*/
++ (NSError*) invalidTopicID;
+
+/* GCM payload key contains google reserved words.*/
++ (NSError*) containsGCMReservedKey;
+
+/* Topic parent(user/group) does not exist in the cloud.*/
++ (NSError*) topicParentNotExistInCloud;
+
+/* Resumable Transfer Errors (8xx) */
+
+/* Resumable transfer object has already transferred completely*/
++ (NSError*) transferAlreadyCompleted ;
+
+/* File has been modified during transfer*/
++ (NSError*) fileModifiedDuringTransfer;
+
+/* File path is invalid, can not get the file attribute*/
++ (NSError*) cannotGetFileAttribute;
+
+/* File does not exist*/
++ (NSError*) fileNotExist;
+
+/* File path is a directory*/
++ (NSError*) filePathIsDirectory;
+
+/* File size is 0 byte*/
++ (NSError*) fileSizeIsZeroByte;
+
+/* Transfer is already suspended*/
++ (NSError*) transferAlreadySuspended;
+
+/* Transfer is already terminated*/
++ (NSError*) transferAlreadyTerminated;
+
+/* Transfer was suspended*/
++ (NSError*) transferWasSuspended;
+
+/* Transfer was terminated*/
++ (NSError*) transferWasTerminated;
+
+/* Transfer has already started*/
++ (NSError*) transferAlreadyStarted;
+
+/* Object body integrity not assured. ClientHash must be same during transfer. */
++ (NSError *)objectBodyIntegrityNotAssured;
+
+/* Object body range not satisfiable. Transfer has terminated, please start transfer again. */
++ (NSError *)objectBodyRangeNotSatisfiable;
+
+/* File path is not writable */
++ (NSError *)filePathIsNotWritable;
+
+/* Invalid destination file, file range is not assured */
++ (NSError*) fileRangeNotValid;
+
+/* Unable to operate transfer manager. The transfer manager can not operate since current user is nil or different from the user who instantiate. */
++ (NSError *)unableToOperateTransferManager;
+
+/**Experiment with specified ID is not found.
+ */
++ (NSError*) experimentNotFound;
+
+/** The experiment has been terminated with no specified variation.
+ */
++ (NSError*) experimentTerminatedWithNoVariation;
+
+/** The experiment has been paused.
+ */
++ (NSError*) experimentPaused;
+
+/** The experiment is in draft. you need to run experiment before starting A/B testing.
+ */
++ (NSError*) experimentIsInDraft;
+
+/** Variation with specified name is not found.
+ */
++ (NSError*) variationNotFound;
+
+/** Failed to apply variation due to no user logged in.
+ */
++ (NSError*) failedToApplyVariationDueToNoUserLoggedIn;
+
+/* Unsupported MIME type for PhotoColle transfer. */
++ (NSError *)unsupportedMIMETypeForPhotoColleTransfer;
+
 @end

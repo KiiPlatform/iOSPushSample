@@ -11,7 +11,7 @@
 #import "MBProgressHUD.h"
 #import "KiiAppSingleton.h"
 #import "KiiAppError.h"
-#import "WBSuccessNoticeView.h"
+#import "TSMessage.h"
 #import <KiiSDK/KiiUser.h>
 #import <KiiSDK/KiiBucket.h>
 #import <KiiSDK/KiiObject.h>
@@ -168,9 +168,8 @@ typedef enum {
                                                   initWithTitle:@"Title" message:errorMessage delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [messageAlert show];
     } else {
-        WBSuccessNoticeView *notice = [WBSuccessNoticeView successNoticeInView:self.view
-                                                                         title:@"Successed!!"];
-        [notice show];
+        [TSMessage showNotificationWithTitle:@"Successed!!"
+                                        type:TSMessageNotificationTypeSuccess];
     }
 }
 
@@ -301,6 +300,7 @@ typedef enum {
     // Create APNs message fields
     KiiAPNSFields *apnsFields = [KiiAPNSFields createFields];
     [apnsFields setAlertBody:message];
+    [apnsFields setContentAvailable:@1];
 
     // If you want to extra data, create dictionary and set to it.
     NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];

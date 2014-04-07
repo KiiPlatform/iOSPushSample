@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "FileHolder.h"
 
-@class KiiQuery, KiiFileBucket, KiiFile, KiiACL;
+@class KiiQuery, KiiFileBucket, KiiFile, KiiACL,KiiUploader,KiiDownloader;
 
 typedef void (^KiiFileProgressBlock)(KiiFile *file, double progress);
 typedef void (^KiiFileBlock)(KiiFile *file, NSError *error);
@@ -21,7 +22,7 @@ typedef void (^KiiFilePublishBlock)(KiiFile* file, NSString *toURL, NSError *err
  
  There are also File System methods available which are called statically, and provide system functions such as retrieving and emptying the trash.
  */
-@interface KiiFile : NSObject
+@interface KiiFile : NSObject <FileHolder>
 
 
 /** The bucket that contains this file */
@@ -63,13 +64,13 @@ typedef void (^KiiFilePublishBlock)(KiiFile* file, NSString *toURL, NSError *err
 /** Get a specifically formatted string referencing the file. The file must exist in the cloud (have a valid UUID). */
 @property (strong, readonly) NSString *objectURI;
 
-/** Get the ACL handle for this file. Any KiiACLEntry objects added or revoked from this ACL object will be appended to/removed from the server on ACL save. */
+/** Get the ACL handle for this file. Any <KiiACLEntry> objects added or revoked from this ACL object will be appended to/removed from the server on ACL save. */
 @property (readonly) KiiACL *fileACL;
 
 #pragma mark - single file methods
 
 ///---------------------------------------------------------------------------------------
-/// @name Single File Methods
+/// @name Single File Handling
 ///---------------------------------------------------------------------------------------
 
 /** Generates a KiiFile object based on an existing file URI
@@ -99,6 +100,7 @@ typedef void (^KiiFilePublishBlock)(KiiFile* file, NSString *toURL, NSError *err
 
  @param progress The callback block to be called when progress is made on the request. See the example
  @param completion The callback block to be called when the request is completed. See the example
+ @note This API save file metadata and file body if target local file or data exists, but save only file metadata if target local file or data does NOT exist.
 */
 - (void) saveFileWithProgressBlock:(KiiFileProgressBlock)progress andCompletionBlock:(KiiFileBlock)completion;
 
@@ -130,6 +132,7 @@ typedef void (^KiiFilePublishBlock)(KiiFile* file, NSString *toURL, NSError *err
      }
  
  Error code 403 indicates that the local file specified was unable to be uploaded. If you receive this error, the file metadata and object was created on the server, but the body was not uploaded.
+ @note This API save file metadata and file body if target local file or data exists, but save only file metadata if target local file or data does NOT exist.
  */
 - (void) saveFile:(id)delegate withProgress:(SEL)progress andCallback:(SEL)callback;
 
@@ -138,6 +141,7 @@ typedef void (^KiiFilePublishBlock)(KiiFile* file, NSString *toURL, NSError *err
  
  Saves the file data, overwriting the contents on the server with the local contents. This is a blocking method.
  @param err An NSError object, passed by reference. If the error is nil, the request was successful. Otherwise, the error contains a description of the issue. Error code 403 indicates that the local file specified was unable to be uploaded. If you receive this error, the file metadata and object was created on the server, but the body was not uploaded.
+ @note This API save file metadata and file body if target local file or data exists, but save only file metadata if target local file or data does NOT exist.
  */
 - (void) saveFileSynchronous:(NSError**)err; //
 
@@ -258,7 +262,7 @@ typedef void (^KiiFilePublishBlock)(KiiFile* file, NSString *toURL, NSError *err
  @param progress The callback block to be called when progress is made on the request. See the example
  @param completion The callback block to be called when the request is completed. See the example
 */
-- (void) getFileBody:(NSString*)toPath withProgressBlock:(KiiFileProgressBlock)progress andCompletionBlock:(KiiFileDownloadBlock)complete;
+- (void) getFileBody:(NSString*)toPath withProgressBlock:(KiiFileProgressBlock)progress andCompletionBlock:(KiiFileDownloadBlock)completion;
 
 
 /** Retrieves the file body from the server
@@ -495,7 +499,6 @@ typedef void (^KiiFilePublishBlock)(KiiFile* file, NSString *toURL, NSError *err
          }
      }];
  
- @param expiresAt The date at which the link should expire
  @param block The block to be called upon method completion. See example
  */
 - (void) publishWithBlock:(KiiFilePublishBlock)block;
@@ -537,6 +540,23 @@ typedef void (^KiiFilePublishBlock)(KiiFile* file, NSString *toURL, NSError *err
  */
 - (void) describe;
 
+///---------------------------------------------------------------------------------------
+/// @name Resumable Transfer Handling
+///---------------------------------------------------------------------------------------
+
+/**
+ Get uploader. If there is no uploader in the app, it will be created new instance
+ @param localPath Path that will be used by the uploader.
+ @return A KiiUploader instance associated to this object
+ */
+-(KiiUploader*) uploader : (NSString*) localPath;
+
+/**
+ Get downloader. If there is no downloader in the app, it will be created new instance
+ @param localPath Path that will be used by the downloader. If file exists, will be overwritten.
+ @return A KiiDownloader instance associated to this object
+ */
+-(KiiDownloader*) downloader : (NSString*) localPath;
 @end
 
 

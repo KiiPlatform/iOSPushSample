@@ -12,7 +12,7 @@
 
 @class KiiObject, KiiCallback, KiiFile;
 
-typedef enum { GET, PUT, POST, FORMPOST, DELETE } HttpMethods;
+typedef enum { GET, PUT, POST, FORMPOST, DELETE , HEAD } HttpMethods;
 
 @interface KiiRequest : NSObject {
         
@@ -29,15 +29,6 @@ typedef enum { GET, PUT, POST, FORMPOST, DELETE } HttpMethods;
     NSString *filePath;
     NSData *_fileData;
     NSString *downloadPath;
-    
-    BOOL complete;
-    NSMutableData *responseData;
-    NSError *responseError;
-    NSInteger responseCode;
-    NSDictionary *responseHeaders;
-    long long responseExpectedSize;
-    long long uploadFileSize;
-    
 }
 
 @property (nonatomic, strong) NSValue *operation;
@@ -46,7 +37,7 @@ typedef enum { GET, PUT, POST, FORMPOST, DELETE } HttpMethods;
 @property (nonatomic, unsafe_unretained) KiiFileProgressBlock progressBlock;
 @property (nonatomic, strong) KiiFile *mFile;
 @property (nonatomic, strong) NSData *fileData;
-
+@property (nonatomic, strong) NSData *chunkDownloadData;
 
 @property (nonatomic, strong) NSString *requestPath;
 @property (nonatomic, strong) NSDictionary *postData;
@@ -61,14 +52,26 @@ typedef enum { GET, PUT, POST, FORMPOST, DELETE } HttpMethods;
 
 @property (nonatomic, strong) NSMutableArray *customHeaders;
 @property (nonatomic, strong) KiiObject *mObject;
+@property (nonatomic, assign) BOOL isChunkUpload;
+@property (nonatomic, assign) BOOL isChunkDownload;
+@property (nonatomic, assign) BOOL isObjectBodyMetadata;
+@property (nonatomic, assign) long long uploadFileSize;
+
+
+
+@property (nonatomic,copy,readonly) NSDictionary *responseHeaders;
 
 - (id) initWithPath:(NSString*)path andApp:(BOOL)appInPath;
 - (id) initWithPath:(NSString*)path;
+
+- (id) initWithUrl:(NSString *)url;
 
 - (void) setRequestPath:(NSString *)reqPath withApp:(BOOL)appInURL;
 
 - (NSDictionary*) makeSynchronousRequest:(NSError**)sendError andResponse:(int*)response withETag:(NSString**) etag discardBody:(BOOL)discardBody;
 - (NSDictionary*) makeSynchronousRequest:(NSError**)sendError andResponse:(int*)response discardBody:(BOOL)discardBody;
 - (NSDictionary*) makeSynchronousRequest:(NSError**)sendError;
+-(void) responseDataReceived:(NSMutableData *)data withExpectedSize:(long long) size;
+-(void) requestDataSend:(NSInteger) totalBytesWritten;
 
 @end
