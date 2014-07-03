@@ -23,6 +23,7 @@
 @property (nonatomic, strong) Reachability *reachabilityInstance;
 @property(nonatomic) BOOL debugMode;
 @property(nonatomic) BOOL messageShowOffMode;
+@property (nonatomic,strong) NSData* deviceToken;
 
 + (KiiAppSingleton *)sharedInstance;
 
