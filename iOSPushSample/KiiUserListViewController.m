@@ -205,7 +205,7 @@
             [messageAlert show];
             return;
         }
-        NSError *error = nil;
+        
         // TODO : Delete push installation same time. (For avoiding installation conflict)
     }
 }

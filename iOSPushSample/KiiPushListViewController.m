@@ -248,7 +248,10 @@ typedef enum {
 
 // Push installation
 - (void)installationPush:(NSError **)error {
-    [KiiPushInstallation installSynchronous:error];
+    
+    [KiiPushInstallation installSynchronousWithDeviceToken:[KiiAppSingleton sharedInstance].deviceToken
+                                        andDevelopmentMode:YES
+                                                  andError:error];
 }
 
 // Push uninstallation. But not support this operation.
