@@ -259,15 +259,15 @@ class ApiHelper(object):
 
 if __name__ == '__main__':
     helper = ApiHelper()
-    helper.removeAPNSDevCertificate()
-    helper.setAPNSDevCertificate()
-    helper.removeAPNSDevPassword()
-    helper.setAPNSDevPassword()
-    if helper.apnsCertDevOnlyMode() != '1':
-        helper.removeAPNSProductionCertificate()
-        helper.setAPNSProductionCertificate()
-        helper.removeAPNSProductionPassword()
-        helper.setAPNSProductionPassword()
+    #helper.removeAPNSDevCertificate()
+    #helper.setAPNSDevCertificate()
+    #helper.removeAPNSDevPassword()
+    #helper.setAPNSDevPassword()
+    #if helper.apnsCertDevOnlyMode() != '1':
+    #    helper.removeAPNSProductionCertificate()
+    #    helper.setAPNSProductionCertificate()
+    #    helper.removeAPNSProductionPassword()
+    #    helper.setAPNSProductionPassword()
     helper.createAppTopic()
     helper.grantSubscriptionOfAppTopic()
     helper.createAppBucketObject()
