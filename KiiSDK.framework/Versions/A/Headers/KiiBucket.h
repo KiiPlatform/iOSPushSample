@@ -14,6 +14,7 @@
 
 typedef void (^KiiBucketBlock)(KiiBucket *bucket, NSError *error);
 typedef void (^KiiQueryResultBlock)(KiiQuery *query, KiiBucket *bucket, NSArray *results, KiiQuery *nextQuery, NSError *error);
+typedef void (^KiiCountQueryResultBlock)(KiiBucket *bucket, KiiQuery *query, NSUInteger result, NSError *error);
 
 /** A reference to a bucket within an application, group or user's scope which contains KiiObjects */
 @interface KiiBucket : KiiBaseBucket <KiiSubscribable>
@@ -39,7 +40,8 @@ typedef void (^KiiQueryResultBlock)(KiiQuery *query, KiiBucket *bucket, NSArray 
 
 /** Instantiate KiiObject specifying its ID.
 
- If the object has not existed on KiiCloud, <KiiObject#saveSynchronous:>
+ If the object has not existed on KiiCloud,
+ <saveAllFieldsSynchronous:withError:>, <saveAllFields:withBlock:> or <saveAllFields:withDelegate:andCallback:>
  will create new Object which has ID specified in the argument.
  If the object exists in KiiCloud, references the existing object which has specified ID,
  use <KiiObject#refreshSynchronous:> to retrieve the contents of KiiObject.
@@ -139,6 +141,70 @@ typedef void (^KiiQueryResultBlock)(KiiQuery *query, KiiBucket *bucket, NSArray 
  
  */
 - (void) executeQuery:(KiiQuery*)query withDelegate:(id)delegate andCallback:(SEL)callback;
+
+/**Synchronously execute count aggregation of all clause query on current bucket.
+ This is blocking method.
+ @param error An NSError object, set to nil, to test for errors.
+ @return NSUInteger number of object inside the current bucket.
+ */
+- (NSUInteger) countSynchronous:(NSError**) error;
+
+/**Synchronously execute count aggregation of specific query on current bucket.
+ This is blocking method.
+ 
+ Do not pass query from next query of <executeQuerySynchronous:withError:andNext:> or nextQuery from callback/block, otherwise an error (code 604) will be returned.
+ 
+ If the given query is not supported, an error (code 604) will be returned.
+
+ @param error An NSError object, set to nil, to test for errors.
+ @param query The query to execute. If nil, KiiQuery with all clause wil be set by default.
+ @return NSUInteger number of object inside the current bucket.
+ */
+- (NSUInteger) countSynchronousWithQuery:(KiiQuery*) query andError:(NSError**) error;
+
+/**Asynchronously execute count aggregation of all clause query on current bucket.
+ This is non-blocking method. 
+ 
+        KiiBucket *bucket = ...;
+        [bucket count:^(KiiBucket *bucket, KiiQuery *query, NSUInteger result, NSError *error){
+        
+            if(error){
+                // do something with error;
+                return;
+            }
+     
+            NSLog(@"count :%d",result);
+
+        };
+ 
+ @param block The block to be called upon method completion. See example.
+ */
+- (void) count:(KiiCountQueryResultBlock) block;
+
+/**Asynchronously execute count aggregation of specific query on current bucket.
+ This is non-blocking method. 
+ 
+ Do not pass query from next query of <executeQuerySynchronous:withError:andNext:> or nextQuery from callback/block, otherwise an error (code 604) will be returned.
+ 
+ If the given query is not supported, an error (code 604) will be returned.
+ 
+        KiiBucket *bucket = ...;
+        KiiQuery *query = ...;
+        [bucket countWithQuery:query andBlock:^(KiiBucket *bucket, KiiQuery *query, NSUInteger result, NSError *error){
+
+            if(error){
+            // do something with error;
+            return;
+            }
+
+            NSLog(@"count :%d",result);
+        };
+ 
+ @param block The block to be called upon method completion. See example.
+ @param query The query to execute. If nil, KiiQuery with all clause wil be set by default.
+ */
+- (void) countWithQuery:(KiiQuery*) query andBlock:(KiiCountQueryResultBlock) block;
+
 
 /** Asynchronously deletes a bucket from the server.
  

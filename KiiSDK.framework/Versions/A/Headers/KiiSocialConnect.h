@@ -10,6 +10,7 @@
 
 @class KiiSocialConnectNetwork;
 @class KiiSCNFacebook;
+@class KiiUser;
 
 /**
 * This enum represents social networks identifier.
@@ -25,28 +26,33 @@ typedef NS_ENUM(NSUInteger, KiiSocialNetworkName) {
 /**
  * This enum represents social network that is supported by Kii Social Network Connector
  */
-typedef NS_ENUM(NSUInteger, Provider) {
+typedef NS_ENUM(NSUInteger, KiiConnectorProvider) {
     /** Use Facebook to authenticate */
     kiiConnectorFacebook,
     /** Use Twitter to authenticate */
     kiiConnectorTwitter,
     /** Use LinkedIn to authenticate */
-    kiiConnectorLinkedin,
+    kiiConnectorLinkedIn,
     /** Use Yahoo to authenticate */
     kiiConnectorYahoo,
     /** Use Google to authenticate */
     kiiConnectorGoogle,
     /** Use Dropbox to authenticate */
-    kiiConnectorDropBox,
+    kiiConnectorDropbox,
     /** Use Box to authenticate */
     kiiConnectorBox,
-    /** Use RenRen to authenticate */
-    kiiConnectorRenRen,
+    /** Use Renren to authenticate */
+    kiiConnectorRenren,
     /** Use Sina Weibo to authenticate */
     kiiConnectorSina,
-    /** Use QQ Weibo to authenticate */
-    kiiConnectorQQ
+    /** Use Live to authenticate */
+    kiiConnectorLive
 };
+
+/**
+ * The block to be called upon method completion.
+ */
+typedef void (^KiiSocialConnectBlock)(KiiUser *user, KiiSocialNetworkName name, NSError *error);
 
 /** An interface to link users to social networks
  
@@ -218,8 +224,38 @@ typedef NS_ENUM(NSUInteger, Provider) {
  @note This method should be called from main thread.
  @exception KiiIllegalStateException will be thrown if setupNetwork: is not called.
  @exception NSInvalidParameterException will be thrown if options is not valid (see description above).
+ @see logIn:usingOptions:andBlock:
  */
 + (void) logIn:(KiiSocialNetworkName)network usingOptions:(NSDictionary*)options withDelegate:(id)delegate andCallback:(SEL)callback;
+
+/** Login with specified social network.
+ 
+ This will initiate the login process for the given network, which provides OAuth like Facebook/Twitter,
+ will send the user to the Facebook/Twitter app for authentication. If the social network user has already linked with a KiiUser,
+ that user will be used as signed user. Otherwise, KiiCloud creates a new user and link with the specified social network account.
+ The network must already be set up via <setupNetwork:withKey:andSecret:andOptions:>
+
+ Snippet for login with social network :<br>
+ 
+    [KiiSocialConnect logIn:kiiSCNConnector usingOptions:@{@"provider":@(kiiConnectorFacebook)}
+        andBlock:^(KiiUser *user, KiiSocialNetworkName name, NSError *error) {
+        if (error == nil) {
+            // login successful. Do someting with the user.
+        } else {
+            // something went wrong.
+        }
+    }];
+ 
+ @param network One of the supported <KiiSocialNetworkName> values
+ @param options A dictionary of key/values to pass to KiiSocialConnect. Can be nil for Facebook and kiiSCNConnector but should not nil/empty for Twitter.
+ For details about options, refer to <logIn:usingOptions:withDelegate:andCallback:>
+ @param block To be called upon login completion.
+ @note This API access to server. Should not be executed in UI/Main thread.
+ @exception KiiIllegalStateException will be thrown if setupNetwork: is not called.
+ @exception NSInvalidParameterException will be thrown if options is not valid (see description above).
+ @see logIn:usingOptions:withDelegate:andCallback:
+ */
++ (void) logIn:(KiiSocialNetworkName)network usingOptions:(NSDictionary*)options andBlock: (KiiSocialConnectBlock) block;
 
 /** Link the currently logged in user with a social network
  
@@ -310,11 +346,41 @@ typedef NS_ENUM(NSUInteger, Provider) {
      }
  @exception KiiIllegalStateException will be thrown if setupNetwork: is not called.
  @exception NSInvalidParameterException will be thrown if options is not valid (see description above) or if kiiSCNConnector network name is passed.
+ @see linkCurrentUserWithNetwork:usingOptions:andBlock:
  */
 + (void) linkCurrentUserWithNetwork:(KiiSocialNetworkName)network
                        usingOptions:(NSDictionary*)options
                        withDelegate:(id)delegate
                         andCallback:(SEL)callback;
+
+
+/** Link the currently logged in user with a social network
+ 
+ This will initiate the login process for the given network, which for SSO-enabled services like Facebook/Twitter, will send the user to the Facebook/Twitter app for authentication. There must be a currently authenticated <KiiUser>. Otherwise, you can use the logIn: method to create and log in a <KiiUser> using Facebook/Twitter. The network must already be set up via <setupNetwork:withKey:andSecret:andOptions:>
+ 
+ Snippet for link with social network :<br>
+ 
+    [KiiSocialConnect linkCurrentUserWithNetwork:kiiSCNConnector usingOptions:@{@"provider":@(kiiConnectorFacebook)}
+        andBlock:^(KiiUser *user, KiiSocialNetworkName name, NSError *error) {
+        if (error == nil) {
+            // link successful. Do someting with the user.
+        } else {
+            // something went wrong.
+        }
+    }];
+ 
+ @param network One of the supported <KiiSocialNetworkName> values.
+ @param options A dictionary of key/values to pass to KiiSocialConnect. Can be nil for Facebook but should not nil/empty for Twitter.
+ For details about options, refer to <linkCurrentUserWithNetwork:usingOptions:withDelegate:andCallback:>
+ @param block To be called upon link completion.
+ @note This API access to server. Should not be executed in UI/Main thread.
+ @exception KiiIllegalStateException will be thrown if setupNetwork: is not called.
+ @exception NSInvalidParameterException will be thrown if options is not valid (see description above) or if kiiSCNConnector network name is passed.
+ @see linkCurrentUserWithNetwork:usingOptions:withDelegate:andCallback:
+ */
++ (void) linkCurrentUserWithNetwork:(KiiSocialNetworkName)network
+                       usingOptions:(NSDictionary*)options
+                          andBlock:(KiiSocialConnectBlock) block;
 
 
 /** Unlink the currently logged in user from the social network. This operation is not supported for kiiSCNConnector network name.
@@ -337,10 +403,36 @@ typedef NS_ENUM(NSUInteger, Provider) {
      }
  @exception KiiIllegalStateException will be thrown if setupNetwork: is not called.
  @exception NSInvalidParameterException will be thrown if kiiSCNConnector network name is passed.
+ @see unLinkCurrentUserWithNetwork:andBlock:
  */
 + (void) unLinkCurrentUserWithNetwork:(KiiSocialNetworkName)network
                          withDelegate:(id)delegate
                           andCallback:(SEL)callback;
+
+
+/** Unlink the currently logged in user from the social network. This operation is not supported for kiiSCNConnector network name.
+ 
+ The network must already be set up via <setupNetwork:withKey:andSecret:andOptions:>
+ 
+ Snippet for unlink current user with network. :<br>
+ 
+    [KiiSocialConnect unLinkCurrentUserWithNetwork:kiiSCNConnector
+        andBlock:^(KiiUser *user, KiiSocialNetworkName name, NSError *error) {
+        if (error == nil) {
+            // unlink successful.
+        } else {
+            // something went wrong.
+        }
+    }];
+ @param network One of the supported <KiiSocialNetworkName> values.
+ @param block To be called upon unlink completion.
+ @note This API access to server. Should not be executed in UI/Main thread.
+ @exception KiiIllegalStateException will be thrown if setupNetwork: is not called.
+ @exception NSInvalidParameterException will be thrown if kiiSCNConnector network name is passed.
+ @see unLinkCurrentUserWithNetwork:withDelegate:andCallback:
+ */
++ (void) unLinkCurrentUserWithNetwork:(KiiSocialNetworkName)network
+                         andBlock:(KiiSocialConnectBlock)block;
 
 
 

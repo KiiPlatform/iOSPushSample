@@ -13,16 +13,6 @@
 @class UINavigationController;
 
 /**
- The type of display
- */
-typedef NS_ENUM(NSInteger, KiiDCDisplayType) {
-    /** Diplay type for smart phone. */
-    KIIDCDISPLAYTYPE_SMART_PHONE = 0,
-    /** Diplay type for tablet. */
-    KIIDCDISPLAYTYPE_TABLET = 1
-};
-
-/**
  * An interface to link users to PhotoColle network.
  *
  * KiiPhotoColleSocialConnect is singleton class. You can get the
@@ -40,28 +30,53 @@ typedef NS_ENUM(NSInteger, KiiDCDisplayType) {
 @interface KiiPhotoColleSocialConnect : NSObject
 
 /**
- * Set up KiiPhotoColleSocialConnect.
- * You must call this method before calling other methods of
- * KiiPhotoColleSocialConnect.
- * @param clientId The client id string which is issued for your service.
- * @param clientSecret The client secret string which is issued for your
- * service.
- * @param redirectUri The redirect URI which you registered.
- * @param displayType Type of display of target device.  See
- * `DCDisplayType` for details. DCDisplayType is defined in
- * PhotoColleSDK.framework.
- * @exception NSInvalidArgumentException Thrown if:
- * <UL>
- *  <LI>ClientId, clientSecret or redirectUri is nil or empty.</LI>
- *  <LI>displayType is nil.</LI>
- * </UL>
- * @exception NSInternalInconsistencyException PhotoColleSDK.framework
- * is not linked.
- */
+ Set up KiiPhotoColleSocialConnect.
+ You must call this method before calling other methods of
+ KiiPhotoColleSocialConnect.
+ @param clientId The client id string which is issued for your service.
+ @param clientSecret The client secret string which is issued for your
+ service.
+ @param redirectUri The redirect URI which you registered.
+ @param scopes Scopes to request permissions to docomo authentication
+ server. must not be nil or empty. Elements of this array must be
+ NSString. Elements of this array must not be nil or
+ empty. Applications can get scopes defined in a specification of
+ docomo Developer support version 2.0.0 with class methods in
+ DCScope. Applications also use scopes defined after a specification
+ of docomo Developer support version 2.0.0 by appending scope string
+ defined in a newer specification to this array. Even if applications
+ set same scope strings into this array, PhotoColleSDK sends only one
+ scope and ignore other same scopes.
+ @param accessibility Accessibility of saved
+ authentication. KiiPhotoColleSocialConnect saves
+ <DCAuthenticationContext> to keychain when
+ <linkCurrentUserOnNavigationController:withBlock:> or
+ <logInOnNavigationController:withBlock:> succeed. This
+ accessibility is used to set stored
+ <DCAuthenticationContext>. Acceptable values are followrings:
+
+  - kSecAttrAccessibleWhenUnlocked
+  - kSecAttrAccessibleAfterFirstUnlock
+  - kSecAttrAccessibleAlways
+  - kSecAttrAccessibleWhenUnlockedThisDeviceOnly
+  - kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly
+  - kSecAttrAccessibleAlwaysThisDeviceOnly
+
+ @exception NSInvalidArgumentException Thrown if:
+ <UL>
+  <LI>ClientId, clientSecret or redirectUri is nil or empty.</LI>
+  <LI>displayType is nil.</LI>
+  <LI>scopes is nil or empty.</LI>
+  <LI>Elements of scopes is not NSString.</LI>
+ </UL>
+ @exception NSInternalInconsistencyException PhotoColleSDK.framework
+ is not linked.
+*/
 + (void)setupNetworkWithClientId:(NSString *)clientId
                     clientSecret:(NSString *)clientSecret
                      redirectUri:(NSString *)redirectUri
-                     displayType:(KiiDCDisplayType)displayType;
+                          scopes:(NSArray *)scopes
+                   accessibility:(CFTypeRef)accessibility;
 
 /**
  * Get KiiPhotoColleSocialConnect instance.
@@ -85,15 +100,15 @@ typedef NS_ENUM(NSInteger, KiiDCDisplayType) {
  linked to PhotoColle network.
 
  Termination of authentication process is notified by
- callback. Example of the callback is following:
+ completion block. Example of the block is following:
 
-     // controller is a UINavigationController to show authantication
+     // controller is a UINavigationController to show authentication
      // page. Application must implement and provide this
      // UINavigationController.
      
      [[KiiPhotoColleSocialConnect sharedInstance]
              logInOnNavigationController:controller
-                            withCallback:^(KiiUser *user, NSError *error)
+                            withBlock:^(KiiUser *user, NSError *error)
              {
                  if (error == nil) {
                      // Success. Do something which an application needs.
@@ -105,10 +120,10 @@ typedef NS_ENUM(NSInteger, KiiDCDisplayType) {
 
  @param controller UINavigationController which is described in PhotoColle
  authentication page.
- @param callback The callback method to be called when the operation is completed.
+ @param completion The block to be called when the operation is completed.
  */
 - (void)logInOnNavigationController:(UINavigationController *)controller
-                       withCallback:(KiiUserBlock)callback;
+                          withBlock:(KiiUserBlock)completion;
 
 /**
  Link the currently logged in user with PhotoColle network.
@@ -120,16 +135,16 @@ typedef NS_ENUM(NSInteger, KiiDCDisplayType) {
  This will initiate the login process for PhotoColle network with
  the currently logged in user. There must be a currently
  authenticated <KiiUser>. Otherwise, you can use the
- <logInOnNavigationController:withCallback:> to create and login a
+ <logInOnNavigationController:withBlock:> to create and login a
  <KiiUser> using PhotoColle.
 
-    // controller is a UINavigationController to show authantication
+    // controller is a UINavigationController to show authentication
     // page. Application must implement and provide this
     // UINavigationController.
     
     [[KiiPhotoColleSocialConnect sharedInstance]
             linkCurrentUserOnNavigationController:controller
-                                     withCallback:^(
+                                     withBlock:^(
                                          KiiUser *user,
                                          NSError *error)
             {
@@ -143,37 +158,37 @@ typedef NS_ENUM(NSInteger, KiiDCDisplayType) {
 
  @param controller UINavigationController which is described PhotoColle
  authentication page.
- @param callback The callback method to be called when the operation is completed.
+ @param completion The block to be called when the operation is completed.
  */
 - (void)linkCurrentUserOnNavigationController:(UINavigationController *)controller
-                       withCallback:(KiiUserBlock)callback;
+                                    withBlock:(KiiUserBlock)completion;
 
 /**
  * Unlink the currently logged in user from PhotoColle network.
- * @param callback The callback method to be called when the operation is completed.
+ * @param completion The block method to be called when the operation is completed.
  */
-- (void)unlinkCurrentUserWithCallback:(KiiUserBlock)callback;
+- (void)unlinkCurrentUserWithBlock:(KiiUserBlock)completion;
 
 /**
    Get <KiiCloudPhotoColle> object.
 
-   Applications must link with PhotoColle newtwrok with
+   Applications must link with PhotoColle network with
    <[KiiPhotoColleSocialConnect
-   logInOnNavigationController:withCallback:]> or
+   logInOnNavigationController:withBlock:]> or
    <[KiiPhotoColleSocialConnect
-   linkCurrentUserOnNavigationController:withCallback:]> before
+   linkCurrentUserOnNavigationController:withBlock:]> before
    getting <KiiCloudPhotoColle> object.
 
    <KiiCloudPhotoColle> instance holds credentials authenticated by
    <[KiiPhotoColleSocialConnect
-   logInOnNavigationController:withCallback:]> or
+   logInOnNavigationController:withBlock:]> or
    <[KiiPhotoColleSocialConnect
-   linkCurrentUserOnNavigationController:withCallback:]>. The
+   linkCurrentUserOnNavigationController:withBlock:]>. The
    credentials will not change after <[KiiPhotoColleSocialConnect
-   logInOnNavigationController:withCallback:]>,
+   logInOnNavigationController:withBlock:]>,
    <[KiiPhotoColleSocialConnect
-   linkCurrentUserOnNavigationController:withCallback:]>,
-   <[KiiPhotoColleSocialConnect unlinkCurrentUserWithCallback:]> or
+   linkCurrentUserOnNavigationController:withBlock:]>,
+   <[KiiPhotoColleSocialConnect unlinkCurrentUserWithBlock:]> or
    <[KiiUser logOut]> called. Please make sure to invalidate the
    KiiCloudPhotoColle instance (ex. nullify) when you switch the login
    user.
@@ -181,8 +196,8 @@ typedef NS_ENUM(NSInteger, KiiDCDisplayType) {
    @return If one of following conditions is applied,
    <KiiCloudPhotoColle> instance is returned.
 
-   * <[KiiPhotoColleSocialConnect logInOnNavigationController:withCallback:]> or <[KiiPhotoColleSocialConnect linkCurrentUserOnNavigationController:withCallback:]> has been executed and succeeded.
-   * Current longin user's photocolle token has been stored.
+   * <[KiiPhotoColleSocialConnect logInOnNavigationController:withBlock:]> or <[KiiPhotoColleSocialConnect linkCurrentUserOnNavigationController:withBlock:]> has been executed and succeeded.
+   * Current login user's photocolle token has been stored.
 
    Otherwise, returns null.
  */
