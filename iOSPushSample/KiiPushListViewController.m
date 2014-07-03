@@ -261,9 +261,8 @@ typedef enum {
 
 // Push uninstallation. But not support this operation.
 - (void)uninstallationPush:(NSError **)error {
-    NSMutableDictionary *errorDetails = [NSMutableDictionary dictionary];
-    [errorDetails setValue:@"This operation not supported." forKey:NSLocalizedDescriptionKey];
-    *error = [NSError errorWithDomain:@"iOSPushSample App" code:999 userInfo:errorDetails];
+    [KiiPushInstallation uninstallSynchronousWithDeviceToken:[KiiAppSingleton sharedInstance].deviceToken
+                                                    andError:error];
 }
 
 // Subscribe bucket
