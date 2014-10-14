@@ -144,7 +144,7 @@ KiiCloud specific fields are as follows:
 @property(nonatomic,strong) NSNumber* sendToDevelopment;
 
 /** Boolean. Not required.
- If true this message will be sent to the devices that have the property "development" to "false" or null in their installations. Default is true.
+ If true this message will be sent to the devices that have the property "development" to "false" or nil in their installations. Default is true.
  */
 @property(nonatomic,strong) NSNumber* sendToProduction;
 

@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 
 @class KiiUser;
+@class KiiIdentityData;
+@class KiiUserFields;
 typedef void (^KiiUserBlock)(KiiUser *user, NSError *error);
 typedef void (^KiiUserArrayBlock)(KiiUser *user, NSArray *results, NSError *error);
 typedef void (^KiiErrorBlock)(NSError *error);
@@ -22,8 +24,14 @@ typedef void (^KiiErrorBlock)(NSError *error);
 @class KiiBucket, KiiFileBucket, KiiTopic;
 @interface KiiUser : NSObject
 
-/** The unique id of the KiiUser object, assigned by the server */
-@property (readonly) NSString *uuid;
+/** The unique ID of the KiiUser object, assigned by the server*/
+@property (readonly) NSString *userID;
+
+/** The unique id of the KiiUser object, assigned by the server 
+ @deprecated Use <[KiiUser userID]> instead.
+ */
+@property (readonly) NSString *uuid __attribute__((deprecated("Use [KiiUser userID] instead.")));
+
 
 /** Username to use for authentication or for display. Must be between 3 and 64 characters, which can include alphanumeric characters as well as underscores '_' and periods '.' */
 @property (readonly) NSString *username;
@@ -58,6 +66,14 @@ typedef void (^KiiErrorBlock)(NSError *error);
 /** The access token for the user - only available if the user is currently logged in. */
 @property (strong, readonly) NSString *accessToken;
 
+/** YES if this instance is pseudo user. otherwise NO.
+
+ If this method is not called for current login user, calling the
+ [KiiUser refreshWithBlock:]>, the <[KiiUser refresh:withCallback:]>
+ or the <[KiiUser refreshSynchronous:]> method is necessary to get a
+ correct value.
+*/
+@property (readonly) BOOL isPseudoUser;
 
 /** Create a user object to prepare for registration with credentials pre-filled
  Creates an pre-filled user object for manipulation. This user will not be authenticated until one of the authentication methods are called on it. Custom fields can be added to it before it is registered or authenticated.
@@ -153,11 +169,26 @@ typedef void (^KiiErrorBlock)(NSError *error);
  */
 + (KiiUser*) userWithURI:(NSString*)uri;
 
+/** Instantiate KiiUser that refers to existing user which has specified ID.
+ 
+ You have to specify the ID of existing KiiUser. Unlike KiiObject,
+ you can not assign ID in the client side.
+ @note This API does not access to the server. After instantiation, it should be 'refreshed' to fetch the properties from server.
+ @param userID ID of the KiiUser to instantiate.
+ @return instance of KiiUser.
+ */
++ (KiiUser*) userWithID:(NSString*)userID;
+
 
 
 /** Asynchronously authenticates a user with the server using local phone number, country code and password
  
  Authenticates a user with the server. This method is non blocking.
+ If successful, the user is cached inside SDK as current user, and accessible via <[KiiUser currentUser]>.
+ This user token is also cached and used by the SDK when the access token is required.
+ Access token won't be expired unless you set it explicitly by <[Kii setAccessTokenExpiration:]>.
+ User token can be get by <[KiiUser accessToken]>.
+ From next time, it is possible to login with the access token until the token is expired.
  
  Example:
         [KiiUser authenticateWithLocalPhoneNumber:@"9812345"
@@ -196,6 +227,11 @@ typedef void (^KiiErrorBlock)(NSError *error);
 /** Asynchronously authenticates a user with the server using local phone number, country code and password
  
  Authenticates a user with the server. This method is non blocking.
+ If successful, the user is cached inside SDK as current user, and accessible via <[KiiUser currentUser]>.
+ This user token is also cached and used by the SDK when the access token is required.
+ Access token won't be expired unless you set it explicitly by <[Kii setAccessTokenExpiration:]>.
+ User token can be get by <[KiiUser accessToken]>.
+ From next time, it is possible to login with the access token until the token is expired.
  @param phoneNumber local phone number, it must be numeric and at least 7 digit
  @param password The user's password. Password must be 4-50 characters and can include these characters: a-z, A-Z, 0-9, @, #, $, %, ^, and &.
  @param countryCode 2 digits phone country code, it must be capital letters
@@ -224,6 +260,11 @@ typedef void (^KiiErrorBlock)(NSError *error);
 /** Asynchronously authenticates a user with the server
  
  Authenticates a user with the server. This method is non-blocking.
+ If successful, the user is cached inside SDK as current user, and accessible via <[KiiUser currentUser]>.
+ This user token is also cached and used by the SDK when the access token is required.
+ Access token won't be expired unless you set it explicitly by <[Kii setAccessTokenExpiration:]>.
+ User token can be get by <[KiiUser accessToken]>.
+ From next time, it is possible to login with the access token until the token is expired.
  
      [KiiUser authenticate:@"myusername" withPassword:@"mypassword" andBlock:^(KiiUser *user, NSError *error) {
          if(error == nil) {
@@ -243,6 +284,12 @@ typedef void (^KiiErrorBlock)(NSError *error);
 /** Asynchronously authenticates a user with the server
  
  Authenticates a user with the server. This method is non-blocking.
+ If successful, the user is cached inside SDK as current user, and accessible via <[KiiUser currentUser]>.
+ This user token is also cached and used by the SDK when the access token is required.
+ Access token won't be expired unless you set it explicitly by <[Kii setAccessTokenExpiration:]>.
+ User token can be get by <[KiiUser accessToken]>.
+ From next time, it is possible to login with the access token until the token is expired.
+ 
  @param userIdentifier Can be a username or a verified phone number or a verified email address
  @param password The user's password. Password must be 4-50 characters and can include these characters: a-z, A-Z, 0-9, @, #, $, %, ^, and &.
  @param delegate The object to make any callback requests to
@@ -270,6 +317,13 @@ typedef void (^KiiErrorBlock)(NSError *error);
 /** Synchronously authenticates a user with the server
  
  Authenticates a user with the server. This method is blocking.
+ 
+ If successful, the user is cached inside SDK as current user, and accessible via <[KiiUser currentUser]>.
+ This user token is also cached and used by the SDK when the access token is required.
+ Access token won't be expired unless you set it explicitly by <[Kii setAccessTokenExpiration:]>.
+ User token can be get by <[KiiUser accessToken]>.
+ From next time, it is possible to login with the access token until the token is expired.
+ 
  @param userIdentifier Can be a username or a verified phone number or a verified email address
  @param password The user's password. Password must be 4-50 characters and can include these characters: a-z, A-Z, 0-9, @, #, $, %, ^, and &.
  @param error An NSError object, set to nil, to test for errors
@@ -283,7 +337,7 @@ typedef void (^KiiErrorBlock)(NSError *error);
 
 /** Asynchronously authenticates a user with the server using a valid access token
  
- Authenticates a user with the server. This method is non-blocking.
+  Authenticates a user with the server. This method is non-blocking.
  
     [KiiUser authenticateWithToken:@"my-user-token"
                           andBlock:^(KiiUser *user, NSError *error) {
@@ -291,16 +345,53 @@ typedef void (^KiiErrorBlock)(NSError *error);
             NSLog(@"Authenticated user: %@", user);
         }
      }];
-
+ 
+ @note If successful, the user is cached inside SDK as current user, and accessible via <[KiiUser currentUser]>.
+ Specified token is also cached and can be get by
+ <[KiiUser accessTokenDictionary]> . Note that, token expiration
+ time is not cached and set to [NSDate distantFuture].
+ If you want token expiration time also be cached, use <[KiiUser authenticateWithTokenSynchronous:andExpiresAt:andError:]> instead.
  @param accessToken A valid access token associated with the desired user
  @param block The block to be called upon method completion. See example
 */
 + (void) authenticateWithToken:(NSString *)accessToken
                       andBlock:(KiiUserBlock)block;
 
+/** Asynchronously authenticates a user with the server using specified access token. This method is non-blocking.
+ 
+ 
+    [KiiUser authenticateWithToken:@"my-user-token" 
+                      andExpiresAt: expiresAt
+                          andBlock:^(KiiUser *user, NSError *error) {
+        if(error == nil) {
+        NSLog(@"Authenticated user: %@", user);
+        }
+    }];
+ 
+ Specified expiresAt won't be used by SDK. IF login successful, we set this property so that you
+ can get it later along with token by <[KiiUser accessTokenDictionary]>.
+ Also, if successful, the user is cached inside SDK as current user and accessible
+ via <[KiiUser currentUser]>.
+ 
+ @param accessToken A valid access token associated with the desired user.
+ @param expiresAt NSDate representation of accessToken expiration obtained from <[KiiUser accessTokenDictionary]>.
+ @param block The block to be called upon method completion. See example.
+ @return The KiiUser object that was authenticated. NULL if failed to authenticate.
+ */
++ (void) authenticateWithToken:(NSString *)accessToken
+                  andExpiresAt:(NSDate*) expiresAt
+                      andBlock:(KiiUserBlock)block;
+
 /** Asynchronously authenticates a user with the server using a valid access token
  
  Authenticates a user with the server. This method is non-blocking.
+ If the specified token is expired, authenticataiton will be failed.
+ Authenticate the user again to renew the token.
+ @note If successful, the user is cached inside SDK as current user, and accessible via <[KiiUser currentUser]>.
+ Specified token is also cached and can be get by
+ <[KiiUser accessTokenDictionary]> . Note that, token expiration
+ time is not cached and set to [NSDate distantFuture].
+ If you want token expiration time also be cached, use <[KiiUser authenticateWithTokenSynchronous:andExpiresAt:andError:]> instead.
  @param accessToken A valid access token associated with the desired user
  @param delegate The object to make any callback requests to
  @param callback The callback method to be called when the request is completed. The callback method should have a signature similar to:
@@ -323,9 +414,18 @@ typedef void (^KiiErrorBlock)(NSError *error);
                    andCallback:(SEL)callback;
 
 
+
 /** Synchronously authenticates a user with the server using a valid access token
  
  Authenticates a user with the server. This method is blocking.
+ If the specified token is expired, authenticataiton will be failed. 
+ Authenticate the user again to renew the token.
+ @note If successful, the user is cached inside SDK as current user, and
+ accessible via <[KiiUser currentUser]>. Specified token is also cached and
+ can be get by <[KiiUser accessTokenDictionary]> . Note that, token expiration
+ time is not cached and set to [NSDate distantFuture].
+ If you want token expiration time also be cached, use 
+ <[KiiUser authenticateWithTokenSynchronous:andExpiresAt:andError:]> instead.
  @param accessToken A valid access token associated with the desired user
  @param error An NSError object, set to nil, to test for errors
  @return The KiiUser object that was authenticated. NULL if failed to authenticate
@@ -333,11 +433,27 @@ typedef void (^KiiErrorBlock)(NSError *error);
 + (KiiUser*) authenticateWithTokenSynchronous:(NSString*)accessToken
                                      andError:(NSError**)error;
 
-
+/** Synchronously authenticates a user with the server using specified access token. This method is blocking.
+ 
+ Specified expiresAt won't be used by SDK. IF login successful, we set this property so that you
+ can get it later along with token by <[KiiUser accessTokenDictionary]>.
+ Also, if successful, the user is cached inside SDK as current user and accessible
+ via <[KiiUser currentUser]>.
+ 
+ @param accessToken A valid access token associated with the desired user.
+ @param expiresAt NSDate representation of accessToken expiration obtained from <[KiiUser accessTokenDictionary]>.
+ @param error An NSError object, set to nil, to test for errors.
+ @return The KiiUser object that was authenticated. NULL if failed to authenticate.
+ */
++ (KiiUser*) authenticateWithTokenSynchronous:(NSString*)accessToken
+                                 andExpiresAt:(NSDate*)expiresAt
+                                     andError:(NSError**)error;
 
 /** Asynchronously registers a user object with the server
  
  Registers a user with the server. The user object must have an associated email/password combination. This method is non-blocking.
+ If the specified token is expired, authenticataiton will be failed.
+ Authenticate the user again to renew the token.
  
      [u performRegistrationWithBlock:^(KiiUser *user, NSError *error) {
          if(error == nil) {
@@ -765,6 +881,7 @@ typedef void (^KiiErrorBlock)(NSError *error);
      }];
  
  @param block The block to be called upon method completion. See example
+ @deprecated This method is deprecated. Use <[KiiUser updateWithIdentityData:userFields:block:]> instead.
 */
 - (void) saveWithBlock:(KiiUserBlock)block;
 
@@ -786,6 +903,7 @@ typedef void (^KiiErrorBlock)(NSError *error);
          }
      }
  
+ @deprecated This method is deprecated. Use <[KiiUser updateWithIdentityData:userFields:block:]> instead.
  */
 - (void) save:(id)delegate withCallback:(SEL)callback;
 
@@ -794,9 +912,124 @@ typedef void (^KiiErrorBlock)(NSError *error);
  
  The user must exist in order to make this method call. If the user does exist, the application-specific fields that have changed will be updated accordingly. This is a blocking method.
  @param error An NSError object, set to nil, to test for errors
+ @deprecated This method is deprecated. Use <[KiiUser updateWithIdentityDataSynchronous:userFields:error:]> instead.
  */
 - (void) saveSynchronous:(NSError**)error;
 
+
+/** Asynchronously update user attributes.
+
+ Note: This method is exclusive to logged-in user. If you use this
+ method by non logged-in user, then this method fails and notifies
+ NSError.
+
+ Note: Local modification done by <KiiUser country> <KiiUser
+ displayName> and other setter methods in <KiiUser> will be ignored.
+ Please make sure to set new values in KiiUserFields.
+
+     [pseudoUser updateWithUserFields:userFields
+                                block:^(KiiUser *user, NSError *error) {
+                           if (error != nil) {
+                               // fail to update. notify to user.
+                               return;
+                           }
+                           // success to update.
+                       }
+     ];
+
+
+ @param userFields Mandatory. Must not be empty.
+ @param block The block to be called upon method completion. See example.
+ @exception NSInvalidArgumentException userFields and/or block is nil.
+ */
+- (void) updateWithUserFields:(KiiUserFields *)userFields
+                        block:(KiiUserBlock)block;
+
+/** Asynchronously update user attributes.
+
+ Notes:
+
+ - This method is exclusive to logged-in user. If you use this
+ method by non logged-in user, then this method fails and notifies
+ NSError.
+ 
+ - If this user is pseudo user and valid identityData given,
+ execlution is failed and NSError is passed as KiiUserBlock argument.
+
+ - Local modification done by <KiiUser country> <KiiUser
+ displayName> and other setter methods in <KiiUser> will be ignored.
+ Please make sure to set new values in KiiUserFields.
+
+ - At least one of identityData or userFields must be set.
+
+     [pseudoUser updateWithIdentityData:identityData
+                             userFields:userFields
+                                  block:^(KiiUser *user, NSError *error) {
+                           if (error != nil) {
+                               // fail to update. notify to user.
+                               return;
+                           }
+                           // success to update.
+                       }
+     ];
+
+
+ @param identityData Optional. If nil is passed, Identity data would not
+ be updated and current value would be retained.
+ @param userFields Optional. If nil is passed, display name, country
+ and other custom field would not be set. To set those fields, create
+ UserFields instance and pass to this API. fields which is not included
+ in this instance
+ @param block The block to be called upon method completion. See example.
+ @exception NSInvalidArgumentException
+ If this user is not pseudo user, raised when Both of identityData and
+ userFields are nil. block should not be nil for both pseudo user and non pseudo user.
+ */
+- (void) updateWithIdentityData:(KiiIdentityData *)identityData
+                     userFields:(KiiUserFields *)userFields
+                          block:(KiiUserBlock)block;
+
+/** Synchronously update user attributes.
+
+ Note: This method is exclusive to logged-in user. If you use this
+ method by non logged-in user, then this method fails and notifies
+ NSError.
+
+ @param userFields Optional. If nil is passed, display name, country
+ and other custom field would not be set. To set those fields, create
+ UserFields instance and pass to this API. fields which is not included
+ in this instance
+ @param error An NSError object, can be nil but not recommended.
+ */
+- (void) updateWithUserFieldsSynchronous:(KiiUserFields *)userFields
+                                   error:(NSError **)error;
+
+/** Synchronously update user attributes.
+
+ Note: This method is exclusive to logged-in user. If you use this
+ method by non logged-in user, then this method fails and notifies
+ NSError.
+
+ Note: Local modification done by <KiiUser country> <KiiUser
+ displayName> and other setter methods in <KiiUser> will be ignored.
+ Please make sure to set new values in KiiUserFields.
+
+ Note: At least one of identityData or userFields must be set.
+
+ @param identityData Optional. If nil is passed, Identity data would not
+ be updated and current value would be retained.
+ @param userFields Optional. If nil is passed, display name, country
+ and other custom field would not be set. To set those fields, create
+ UserFields instance and pass to this API. fields which is not included
+ in this instance
+ @param error An NSError object, can be nil but not recommended.
+ @exception NSInvalidArgumentException If this user is pseudo user, raised when identityData is not nil.
+ If this user is not pseudo user, raised when Both of identityData and
+ userFields are nil.
+ */
+- (void) updateWithIdentityDataSynchronous:(KiiIdentityData *)identityData
+                                userFields:(KiiUserFields *)userFields
+                                     error:(NSError **)error;
 
 /** Asynchronously deletes the user from the server
  
@@ -855,7 +1088,7 @@ typedef void (^KiiErrorBlock)(NSError *error);
  
  If the key already exists, its value will be written over. If the object is of invalid type, it will return false and an NSError will be thrown (quietly). Accepted types are any JSON-encodable objects.
  @param object The value to be set. Object must be of a JSON-encodable type (Ex: NSDictionary, NSArray, NSString, NSNumber, etc)
- @param key The key to set. The key must not be a system key (created, metadata, modified, type, uuid) or begin with an underscore (_)
+ @param key The key to set. The key must not begin with an underscore (_)
  @return True if the object was set, false otherwise.
  */
 - (BOOL) setObject:(id)object forKey:(NSString*)key;
@@ -879,7 +1112,7 @@ typedef void (^KiiErrorBlock)(NSError *error);
 /** Gets the value associated with the given key
  
  @param key The key to retrieve
- @return An object if the key exists, null otherwise
+ @return An object if the key exists, nil otherwise
  */
 - (id) getObjectForKey:(NSString*)key;
 
@@ -1174,6 +1407,120 @@ typedef void (^KiiErrorBlock)(NSError *error);
  */
 - (NSArray*) ownerOfGroupsSynchronous:(NSError**)error;
 
+/** Set identity data to pseudo user.
+
+ This user must be current user. password is mandatory and needs to
+ provide at least one of login name, email address or phone number.
+ Before call this method, calling refreshing method such as
+ refreshWithBlock: is necessary to keep custom fields, otherwise
+ custom fields will be gone.
+
+ Note: This method is exclusive to logged-in pseudo user. If you use
+ this method by non logged-in user, then this method fails and
+ notifies NSError.
+
+ @param identityData Identity data must not be nil.
+ @param userFields Optional. If nil is passed, display name, country
+ and other custom field would not be update. To update those fields,
+ create UserFields instance and pass to this API. fields which is not
+ included in this instance
+ @param password Password must not be nil. password must match a
+ following regular expression: ^[a-zA-Z0-9]{4,64}$
+ @param error An NSError object, can be nil but not recommended.
+ @exception NSInvalidArgumentException One or more arguments are invalid.
+ @exception NSInternalInconsistencyException Current user is not
+ pseudo user.
+ */
+- (void)putIdentityDataSynchronous:(KiiIdentityData *)identityData
+                    userFields:(KiiUserFields *)userFields
+                      password:(NSString *)password
+                         error:(NSError **)error;
+
+/** Register this user as pseudo user on KiiCloud.
+
+ This method registers this user as pseudo user on KiiCloud.
+ @param userFields Optional. If nil is passed, display name, country
+ and other custom field would not be set. To set those fields, create
+ UserFields instance and pass to this API. fields which is not included
+ in this instance
+ @param error An NSError object, can be nil but not recommended.
+ @return Registered new KiiUser.
+ */
++ (KiiUser *)registerAsPseudoUserSynchronousWithUserFields:(KiiUserFields *)userFields
+                                                     error:(NSError **)error;
+
+/** Set identity data to pseudo user.
+
+ This user must be current user. password is mandatory and needs to
+ provide at least one of login name, email address or phone number.
+ Before call this method, calling refreshing method such as
+ refreshWithBlock: is necessary to keep custom fields, otherwise
+ custom fields will be gone. This method is non-blocking.
+
+
+     [pseudoUser putIdentityData:identity
+                        password:password
+                           block:^(KiiUser *user, NSError *error) {
+                           if (error != nil) {
+                               // fail to putIdentity. notify to user.
+                               return;
+                           }
+                           // success to putIdentity.
+                       }
+     ];
+
+ Note: This method is exclusive to logged-in pseudo user. If you use
+ this method by non logged-in user, then this method fails and
+ notifies NSError.
+
+ @param identityData Identity data must not be nil.
+ @param userFields Optional. If nil is passed, display name, country
+ and other custom field would not be update. To update those fields,
+ create UserFields instance and pass to this API. fields which is not
+ included in this instance
+ @param password Password must not be nil. password must match a
+ following regular expression: ^[a-zA-Z0-9]{4,64}$
+ @param block The block to be called upon method completion. must not
+ be nil. See example.
+
+ @exception NSInvalidArgumentException block is nil.
+ @exception NSInternalInconsistencyException raised when this user is not a
+ pseudo user.
+ */
+- (void)putIdentityData:(KiiIdentityData *)identityData
+             userFields:(KiiUserFields *)userFields
+               password:(NSString *)password
+                  block:(KiiUserBlock)block;
+
+/** Register this user as pseudo user on KiiCloud.
+
+ This method registers this user as pseudo user on KiiCloud.
+
+ custom fields will be gone. This method is non-blocking.
+
+
+     [KiiUser registerAsPseudoUserWithUserFields:nil
+                                           block:^(KiiUser *user, NSError *error) {
+                 if (error != nil) {
+                     // fail to register. notify to user.
+                     return;
+                 }
+                 // success to register.
+             }
+     ];
+
+
+ @param userFields Optional. If nil is passed, display name, country
+ and other custom field would not be set. To set those fields, create
+ UserFields instance and pass to this API. fields which is not included
+ in this instance
+ @param block The block to be called upon method completion. must not
+ be nil. See example.
+ @exception NSInvalidArgumentException One or more arguments are invalid.
+ */
++ (void)registerAsPseudoUserWithUserFields:(KiiUserFields *)userFields
+                                     block:(KiiUserBlock)block;
+
 /**
  Return YES when the specified KiiUser is in following conditions.
  - KiiUser ID is equal to this one.
@@ -1184,5 +1531,29 @@ typedef void (^KiiErrorBlock)(NSError *error);
 - (BOOL)isEqual:(id)object;
 
 - (NSUInteger)hash;
+/**
+ Return the access tokens in a dictionary.
 
+ Dictionary contains following key/values.
+ <table border=4 width=250>
+   <tr>
+    <th>Key</th>
+    <th>Type</th>
+    <th>Value</th>
+   </tr>
+   <tr>
+    <td>"access_token"</td>
+    <td>NSString</td>
+    <td>required for accessing KiiCloud</td>
+   </tr>
+   <tr>
+    <td>"expires_at"</td>
+    <td>NSDate</td>
+    <td>Access token expiration date time (Since January 1, 1970 00:00:00 UTC),
+ or [NSDate distantFuture] if the session doesn't expire.</td>
+   </tr>
+ </table>
+ @return Dictionary contains accessToken information (see table above),returns nil if user not logged in.  
+ */
+- (NSDictionary *) accessTokenDictionary;
 @end

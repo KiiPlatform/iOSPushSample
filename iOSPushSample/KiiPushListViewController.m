@@ -59,7 +59,8 @@ typedef enum {
 
     // Login to KiiCloud
     NSError *error = nil;
-    [[KiiAppSingleton sharedInstance] doLogInSynchronous:&error];
+    
+    //[[KiiAppSingleton sharedInstance] doLogInSynchronous:&error];
 
     // Close progress
     [MBProgressHUD hideHUDForView:self.view animated:YES];

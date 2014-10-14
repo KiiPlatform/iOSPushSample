@@ -12,6 +12,7 @@
 @class KiiSCNFacebook;
 @class KiiUser;
 
+#ifndef KII_SWIFT_ENVIRONMENT
 /**
 * This enum represents social networks identifier.
 */
@@ -23,6 +24,22 @@ typedef NS_ENUM(NSUInteger, KiiSocialNetworkName) {
     /** Use Kii Social Network Connect */
     kiiSCNConnector
 };
+#else
+/**
+ * This enum represents social networks identifier.
+ */
+typedef NS_ENUM(NSUInteger, KiiSocialNetworkName) {
+    /** Use Facebook */
+    SCNFacebook,
+    /** Use Twitter */
+    SCNTwitter,
+    /** Use Kii Social Network Connect */
+    SCNConnector
+};
+#endif
+    
+
+#ifndef KII_SWIFT_ENVIRONMENT
 /**
  * This enum represents social network that is supported by Kii Social Network Connector
  */
@@ -48,6 +65,34 @@ typedef NS_ENUM(NSUInteger, KiiConnectorProvider) {
     /** Use Live to authenticate */
     kiiConnectorLive
 };
+#else
+/**
+ * This enum represents social network that is supported by Kii Social Network Connector
+ */
+typedef NS_ENUM(NSUInteger, KiiConnectorProvider) {
+    /** Use Facebook to authenticate */
+    KiiFacebook,
+    /** Use Twitter to authenticate */
+    KiiTwitter,
+    /** Use LinkedIn to authenticate */
+    KiiLinkedIn,
+    /** Use Yahoo to authenticate */
+    KiiYahoo,
+    /** Use Google to authenticate */
+    KiiGoogle,
+    /** Use Dropbox to authenticate */
+    KiiDropbox,
+    /** Use Box to authenticate */
+    KiiBox,
+    /** Use Renren to authenticate */
+    KiiRenren,
+    /** Use Sina Weibo to authenticate */
+    KiiSina,
+    /** Use Live to authenticate */
+    KiiLive
+};
+#endif
+
 
 /**
  * The block to be called upon method completion.
@@ -107,6 +152,10 @@ typedef void (^KiiSocialConnectBlock)(KiiUser *user, KiiSocialNetworkName name, 
  This will initiate the login process for the given network, which provides OAuth like Facebook/Twitter,
  will send the user to the Facebook/Twitter app for authentication. If the social network user has already linked with a KiiUser,
  that user will be used as signed user. Otherwise, KiiCloud creates a new user and link with the specified social network account.
+ If successful, the user is cached inside SDK as current user,and accessible via <[KiiUser currentUser]>.
+ User token is also cached and can be get by <[KiiUser accessToken]>.
+ Access token won't be expired unless you set it explicitly by <[Kii setAccessTokenExpiration:]>
+ 
  The network must already be set up via <setupNetwork:withKey:andSecret:andOptions:>
  @param network One of the supported <KiiSocialNetworkName> values
  @param options A dictionary of key/values to pass to KiiSocialConnect. Can be nil for Facebook and kiiSCNConnector but should not nil/empty for Twitter.
@@ -233,7 +282,10 @@ typedef void (^KiiSocialConnectBlock)(KiiUser *user, KiiSocialNetworkName name, 
  This will initiate the login process for the given network, which provides OAuth like Facebook/Twitter,
  will send the user to the Facebook/Twitter app for authentication. If the social network user has already linked with a KiiUser,
  that user will be used as signed user. Otherwise, KiiCloud creates a new user and link with the specified social network account.
- The network must already be set up via <setupNetwork:withKey:andSecret:andOptions:>
+ 
+ If successful, the user is cached inside SDK as current user,and accessible via <[KiiUser currentUser]>.
+ User token is also cached and can be get by <[KiiUser accessToken]>.
+ Access token won't be expired unless you set it explicitly by <[Kii setAccessTokenExpiration:]>
 
  Snippet for login with social network :<br>
  

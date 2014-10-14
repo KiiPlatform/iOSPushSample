@@ -10,7 +10,7 @@
 #import "KiiVariationSampler.h"
 
 /** Sampler using Time based sampler.
- This does not require user login. Random seed will generated based on execution timestamp.
+ This does not require user login. Random seed will be generated based on execution timestamp.
  */
 @interface KiiRandomVariationSampler : NSObject<KiiVariationSampler>
 

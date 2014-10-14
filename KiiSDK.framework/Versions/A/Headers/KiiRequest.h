@@ -72,5 +72,5 @@ typedef enum { KiiRequestGET, KiiRequestPUT, KiiRequestPOST, KiiRequestFORMPOST,
 - (NSDictionary*) makeSynchronousRequest:(NSError**)sendError;
 -(void) responseDataReceived:(NSMutableData *)data withExpectedSize:(long long) size;
 -(void) requestDataSend:(NSInteger) totalBytesWritten;
-
+- (void) makeSynchronousRequest:(NSError **)sendError andResponseCode:(int *)outResponseCode withETag:(NSString **)etag withJSONResponse: (NSDictionary**)jsonResp;
 @end

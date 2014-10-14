@@ -47,6 +47,8 @@
  - *323* - Unsupported Application structure. Server-side authentication needs rootViewController to be assigned on Application main window.
  - *324* - User not found. The User object that is processed by the request is not available on the cloud.
  - *325* - Group not found. The Group object that is processed by the request is not available on the cloud.
+ - *326* - Local phone number requires country code.
+ - *327* - Non logged-in user can not use this method.
  
  <h3>File API Errors (4xx)</h3>
  - *401* - Unable to delete file from cloud
@@ -134,7 +136,6 @@
 @interface KiiError : NSError
 
 #pragma mark - static factory
-+ (NSError*) errorWithServerCode:(NSString*)code andServerMessage:(NSString*)message;
 
 + (NSError*) errorWithCode:(NSInteger)code userInfo:(NSDictionary*)userInfo;
 
@@ -149,7 +150,7 @@
 + (NSInteger) codeAppNotFound;
 
 /* The required operation is failed due to unexpected error. Should not thrown if using latest SDK. */
-+ (NSError*) undefinedError;
+
 + (NSInteger) codeUndefinedError;
 
 #pragma mark - 200 codes (Connectivity Errors)
@@ -241,6 +242,15 @@
 /* Group not found. The Group object that is processed by the request is not available on the cloud.*/
 + (NSInteger) codeGroupNotFound;
 
+/* Local phone number requires country code. */
++ (NSInteger) codeLocalPhoneRequiresCountryCode;
+
+/* Non logged-in user can not use this method. */
++ (NSInteger) codeNonLoggedInUserIsNotAllowed;
+
+/* Non pseudo user can not use this method. */
++ (NSInteger) codePseudoUserIsNotAllowed;
+
 #pragma mark - 400 codes (File API Errors)
 /* File API Errors (4xx) */
 
@@ -255,9 +265,6 @@
 
 /* Unable to shred file. Must be in the trash before it is permanently deleted. */
 + (NSInteger) codeShreddedFileMustBeInTrash;
-
-/* Unable to perform operation - a valid container must be set first. */
-+ (NSError*) fileContainerNotSpecified;
 
 /* Insufficient space in cloud to store data */
 + (NSInteger) codeFileContainerNotSpecified;

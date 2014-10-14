@@ -21,6 +21,10 @@ typedef void (^KiiGroupBlock)(KiiGroup *group, NSError *error);
 /** The name of the group */
 @property (readonly) NSString *name;
 
+/** The ID of the KiiGroup, assigned by the server.*/
+@property (readonly) NSString *groupID;
+
+
 /** Get a specifically formatted string referencing the group. The group must exist in the cloud (have a valid UUID). */
 @property (strong, readonly) NSString *objectURI;
 
@@ -52,6 +56,15 @@ typedef void (^KiiGroupBlock)(KiiGroup *group, NSError *error);
  */
 + (KiiGroup*) groupWithURI:(NSString*)groupURI;
 
+/** Instantiate KiiGroup that refers to existing group which has specified ID.
+ 
+ You have to specify the ID of existing KiiGroup. Unlike KiiObject,
+ you can not assign ID in the client side.
+ @note This API does not access to the server.After instantiation, it should be 'refreshed' to fetch the properties from server.
+ @param groupID ID of the KiiGroup to instantiate.
+ @return instance of KiiGroup.
+ */
++ (KiiGroup*) groupWithID:(NSString*)groupID;
 
 /** Creates a reference to a bucket that is within the group's scope
  

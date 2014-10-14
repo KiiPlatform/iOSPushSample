@@ -34,4 +34,17 @@
 + (NSString*) mimeTypeForFileAtPath:(NSString*)path;
 
 + (NSDictionary *)readPropertyFile:(NSString *)plistFileName;
+
++(double) safeAddWithLeft:(double) left rigth:(double) right min:(double)max max:(double)min isRounded:(BOOL *) round;
+
++ (double) safeMultiplyWithLeft:(double) left rigth:(double) right min:(double)max max:(double)min isRounded:(BOOL *) round;
+
++ (double) safeCalculateExpiresAt:(long long) expirationInSeconds withDate: (NSDate*) dateTime;
+
++ (NSDate*) dateSafeCalculateExpiresAt:(long long) expirationInSeconds withDate: (NSDate*) dateTime;
+
++(double) safeMultiplyWithLeft:(double) left right:(double) right overflow:(int*) overflow;
++(double) safeAddWithLeft:(double) left right:(double) right overflow:(int*) overflow;
+
+
 @end

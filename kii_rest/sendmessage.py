@@ -31,11 +31,11 @@ def sendTopicMessage(helper, path, filename):
             'application/vnd.kii.SendPushMessageRequest+json'
     currenttime = int(time.time() * 1000)
     gcm = {'enabled': True}
-    alert = {'body' : currenttime}
+    alert = {'body' : "Invitations "}
     contentAvailable = False
     if helper.contentAvailable == "1":
         contentAvailable = True
-    apns = {'enabled': True, 'contentAvailable': contentAvailable, 'alert': alert}
+    apns = {'enabled': True, 'contentAvailable': contentAvailable,"category":"INVITE_CATEGORY", 'alert': alert}
     pushData = {'pushdata': helper.message}
     body = {'data': pushData, 'gcm': gcm, 'apns': apns}
     jsonBody = json.dumps(body)

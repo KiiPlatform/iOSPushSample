@@ -51,15 +51,19 @@
 #import "KiiCloudPhotoColle.h"
 #import "KiiPhotoColleRTransferManager.h"
 #import "KiiPhotoColleSocialConnect.h"
-
+#import "KiiUserFields.h"
+#import "KiiIdentityData.h"
+#import "KiiIdentityDataBuilder.h"
 
 @class KiiFile, KiiUser, KiiBucket, KiiGroup;
 
+#ifndef KII_SWIFT_ENVIRONMENT
 /**
 * This enum represents KiiCloud server location.
 * This is used for <[Kii beginWithID:andKey:andSite:]>.
 */
 typedef NS_ENUM(NSUInteger, KiiSite) {
+
     /** Use cloud in US. */
     kiiSiteUS,
     /** Use cloud in Japan. */
@@ -69,6 +73,23 @@ typedef NS_ENUM(NSUInteger, KiiSite) {
     /** Use cloud in Singapore. */
     kiiSiteSG
 };
+#else
+/**
+ * This enum represents KiiCloud server location.
+ * This is used for <[Kii beginWithID:andKey:andSite:]>.
+ */
+typedef NS_ENUM(NSUInteger, KiiSite) {
+    /** Use cloud in US. */
+    KiiUS,
+    /** Use cloud in Japan. */
+    KiiJP,
+    /** Use cloud in China. */
+    KiiCN,
+    /** Use cloud in Singapore. */
+    KiiSG
+};
+#endif
+
 
 /** The main SDK class
  
@@ -98,6 +119,28 @@ typedef NS_ENUM(NSUInteger, KiiSite) {
 + (void) beginWithID:(NSString*)appId andKey:(NSString*)appKey andSite:(KiiSite)kiiSite;
 + (void) beginWithID:(NSString*)appId andKey:(NSString*)appKey andCustomURL:(NSString*)customURL;
 
+/**
+ Set the access token lifetime in seconds.
+ 
+ If you don't call this method or call it with 0, token won't be expired.
+ Call this method if you like the access token to be expired after a certain period.
+ Once called, token retrieved by each authentication will have the specified lifetime.
+ Note that, it will not update the lifetime of token received prior calling this method.
+ Once expired, you have to login again to renew the token.
+ @param expiresIn  The life time of access token in seconds.
+ @exception throw NSInvalidArgumentException if expiresIn is negative value or greater than maximum long long.
+ @exception throw KiiIllegalStateException if Kii initialization is not called.
+ */
++(void) setAccessTokenExpiration:(long long) expiresIn;
+
+
+/**
+ Returns access token lifetime. If access token lifetime has not
+ set explicitly by <setAccessTokenExpiration:>, returns 0.
+ @return access token lifetime in seconds.
+ @exception throw KiiIllegalStateException if Kii initialization is not called.
+ */
++(long long) accessTokenExpiration;
 
 /** Get or create a bucket at the application level
  
