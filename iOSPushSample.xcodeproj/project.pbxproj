@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		747B97F71B818DAF003F2404 /* KiiSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 747B97F51B818D79003F2404 /* KiiSDK.framework */; };
 		747B97F91B818FF1003F2404 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 747B97F81B818FF1003F2404 /* libsqlite3.0.dylib */; };
+		74DF8CFE1B81CB32004F7405 /* KiiSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 74DF8CFD1B81CB32004F7405 /* KiiSDK.framework */; };
 		9B44ECD016C2366300693867 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B44ECCF16C2366300693867 /* UIKit.framework */; };
 		9B44ECD216C2366300693867 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B44ECD116C2366300693867 /* Foundation.framework */; };
 		9B44ECD416C2366300693867 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B44ECD316C2366300693867 /* CoreGraphics.framework */; };
@@ -19,16 +20,9 @@
 		9B44ECE416C2366300693867 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B44ECE316C2366300693867 /* Default@2x.png */; };
 		9B44ECE616C2366300693867 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B44ECE516C2366300693867 /* Default-568h@2x.png */; };
 		9B44ECE916C2366300693867 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9B44ECE716C2366300693867 /* MainStoryboard.storyboard */; };
-		9B44ECFF16C2366400693867 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B44ECFE16C2366400693867 /* SenTestingKit.framework */; };
-		9B44ED0016C2366400693867 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B44ECCF16C2366300693867 /* UIKit.framework */; };
-		9B44ED0116C2366400693867 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B44ECD116C2366300693867 /* Foundation.framework */; };
-		9B44ED0916C2366400693867 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9B44ED0716C2366400693867 /* InfoPlist.strings */; };
-		9B44ED0C16C2366400693867 /* iOSPushSampleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B44ED0B16C2366400693867 /* iOSPushSampleTests.m */; };
 		9B44ED1A16C236A400693867 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B44ED1916C236A400693867 /* MBProgressHUD.m */; };
 		9B44ED1C16C2392200693867 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B44ED1B16C2392200693867 /* MobileCoreServices.framework */; };
-		9B44ED1D16C2397300693867 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B44ED1B16C2392200693867 /* MobileCoreServices.framework */; };
 		9B44ED2416C4901E00693867 /* KiiAppSingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B44ED2316C4901E00693867 /* KiiAppSingleton.m */; };
-		9B44ED2516C4901E00693867 /* KiiAppSingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B44ED2316C4901E00693867 /* KiiAppSingleton.m */; };
 		9B94892716D0B97C00EC4B94 /* KiiUserListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B94892616D0B97C00EC4B94 /* KiiUserListViewController.m */; };
 		9B94892D16D1283F00EC4B94 /* KiiBucketListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B94892C16D1283F00EC4B94 /* KiiBucketListViewController.m */; };
 		9B94893016D1349D00EC4B94 /* KiiPushListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B94892F16D1349D00EC4B94 /* KiiPushListViewController.m */; };
@@ -41,7 +35,6 @@
 		9B94893F16D1C96D00EC4B94 /* KiiAppError.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B94893E16D1C96C00EC4B94 /* KiiAppError.m */; };
 		9B94894216D1CBF800EC4B94 /* KiiObjectListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B94894116D1CBF700EC4B94 /* KiiObjectListViewController.m */; };
 		9B94894516D1EF3500EC4B94 /* KiiObjectDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B94894416D1EF3400EC4B94 /* KiiObjectDetailsViewController.m */; };
-		9B94894F16D20E0900EC4B94 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B94894E16D20E0900EC4B94 /* Reachability.m */; };
 		9B94895116D20ED300EC4B94 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B94895016D20ED200EC4B94 /* SystemConfiguration.framework */; };
 		9B94895216D20FEE00EC4B94 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B94894E16D20E0900EC4B94 /* Reachability.m */; };
 		9BCC263716DCD14C00765299 /* icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9BCC263616DCD14C00765299 /* icon@2x.png */; };
@@ -61,19 +54,10 @@
 		9BFFB34A16D62A7B004070F0 /* ODRefreshControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BFFB34916D62A7B004070F0 /* ODRefreshControl.m */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		9B44ED0216C2366400693867 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 9B44ECC416C2366300693867 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 9B44ECCB16C2366300693867;
-			remoteInfo = iOSPushSample;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
 		747B97F51B818D79003F2404 /* KiiSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = KiiSDK.framework; sourceTree = "<group>"; };
 		747B97F81B818FF1003F2404 /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
+		74DF8CFD1B81CB32004F7405 /* KiiSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = KiiSDK.framework; sourceTree = "<group>"; };
 		9B44ECCC16C2366300693867 /* iOSPushSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iOSPushSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9B44ECCF16C2366300693867 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		9B44ECD116C2366300693867 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -88,12 +72,7 @@
 		9B44ECE316C2366300693867 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default@2x.png"; path = "Images/Default@2x.png"; sourceTree = "<group>"; };
 		9B44ECE516C2366300693867 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x.png"; path = "Images/Default-568h@2x.png"; sourceTree = "<group>"; };
 		9B44ECE816C2366300693867 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
-		9B44ECFD16C2366400693867 /* iOSPushSampleTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iOSPushSampleTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9B44ECFE16C2366400693867 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
-		9B44ED0616C2366400693867 /* iOSPushSampleTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "iOSPushSampleTests-Info.plist"; sourceTree = "<group>"; };
-		9B44ED0816C2366400693867 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		9B44ED0A16C2366400693867 /* iOSPushSampleTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = iOSPushSampleTests.h; sourceTree = "<group>"; };
-		9B44ED0B16C2366400693867 /* iOSPushSampleTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = iOSPushSampleTests.m; sourceTree = "<group>"; };
 		9B44ED1816C236A400693867 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
 		9B44ED1916C236A400693867 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		9B44ED1B16C2392200693867 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
@@ -162,17 +141,7 @@
 				9B44ECD016C2366300693867 /* UIKit.framework in Frameworks */,
 				9B44ECD216C2366300693867 /* Foundation.framework in Frameworks */,
 				9B44ECD416C2366300693867 /* CoreGraphics.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		9B44ECF916C2366400693867 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				9B44ED1D16C2397300693867 /* MobileCoreServices.framework in Frameworks */,
-				9B44ECFF16C2366400693867 /* SenTestingKit.framework in Frameworks */,
-				9B44ED0016C2366400693867 /* UIKit.framework in Frameworks */,
-				9B44ED0116C2366400693867 /* Foundation.framework in Frameworks */,
+				74DF8CFE1B81CB32004F7405 /* KiiSDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -184,7 +153,6 @@
 			children = (
 				747B97F51B818D79003F2404 /* KiiSDK.framework */,
 				9B44ECD516C2366300693867 /* iOSPushSample */,
-				9B44ED0416C2366400693867 /* iOSPushSampleTests */,
 				9B44ECCE16C2366300693867 /* Frameworks */,
 				9B44ECCD16C2366300693867 /* Products */,
 			);
@@ -194,7 +162,6 @@
 			isa = PBXGroup;
 			children = (
 				9B44ECCC16C2366300693867 /* iOSPushSample.app */,
-				9B44ECFD16C2366400693867 /* iOSPushSampleTests.octest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -202,6 +169,7 @@
 		9B44ECCE16C2366300693867 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				74DF8CFD1B81CB32004F7405 /* KiiSDK.framework */,
 				747B97F81B818FF1003F2404 /* libsqlite3.0.dylib */,
 				9B44ECD316C2366300693867 /* CoreGraphics.framework */,
 				9B44ECD116C2366300693867 /* Foundation.framework */,
@@ -251,25 +219,6 @@
 				9B44ECD816C2366300693867 /* InfoPlist.strings */,
 				9B44ECDB16C2366300693867 /* main.m */,
 				9B44ECDD16C2366300693867 /* iOSPushSample-Prefix.pch */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		9B44ED0416C2366400693867 /* iOSPushSampleTests */ = {
-			isa = PBXGroup;
-			children = (
-				9B44ED0A16C2366400693867 /* iOSPushSampleTests.h */,
-				9B44ED0B16C2366400693867 /* iOSPushSampleTests.m */,
-				9B44ED0516C2366400693867 /* Supporting Files */,
-			);
-			path = iOSPushSampleTests;
-			sourceTree = "<group>";
-		};
-		9B44ED0516C2366400693867 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				9B44ED0616C2366400693867 /* iOSPushSampleTests-Info.plist */,
-				9B44ED0716C2366400693867 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -368,25 +317,6 @@
 			productReference = 9B44ECCC16C2366300693867 /* iOSPushSample.app */;
 			productType = "com.apple.product-type.application";
 		};
-		9B44ECFC16C2366400693867 /* iOSPushSampleTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 9B44ED1216C2366400693867 /* Build configuration list for PBXNativeTarget "iOSPushSampleTests" */;
-			buildPhases = (
-				9B44ECF816C2366400693867 /* Sources */,
-				9B44ECF916C2366400693867 /* Frameworks */,
-				9B44ECFA16C2366400693867 /* Resources */,
-				9B44ECFB16C2366400693867 /* ShellScript */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				9B44ED0316C2366400693867 /* PBXTargetDependency */,
-			);
-			name = iOSPushSampleTests;
-			productName = iOSPushSampleTests;
-			productReference = 9B44ECFD16C2366400693867 /* iOSPushSampleTests.octest */;
-			productType = "com.apple.product-type.bundle.ocunit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -420,7 +350,6 @@
 			projectRoot = "";
 			targets = (
 				9B44ECCB16C2366300693867 /* iOSPushSample */,
-				9B44ECFC16C2366400693867 /* iOSPushSampleTests */,
 			);
 		};
 /* End PBXProject section */
@@ -447,31 +376,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		9B44ECFA16C2366400693867 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				9B44ED0916C2366400693867 /* InfoPlist.strings in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		9B44ECFB16C2366400693867 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		9B44ECC816C2366300693867 /* Sources */ = {
@@ -503,25 +408,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		9B44ECF816C2366400693867 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				9B44ED0C16C2366400693867 /* iOSPushSampleTests.m in Sources */,
-				9B44ED2516C4901E00693867 /* KiiAppSingleton.m in Sources */,
-				9B94894F16D20E0900EC4B94 /* Reachability.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		9B44ED0316C2366400693867 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 9B44ECCB16C2366300693867 /* iOSPushSample */;
-			targetProxy = 9B44ED0216C2366400693867 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		9B44ECD816C2366300693867 /* InfoPlist.strings */ = {
@@ -540,14 +427,6 @@
 			name = MainStoryboard.storyboard;
 			sourceTree = "<group>";
 		};
-		9B44ED0716C2366400693867 /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				9B44ED0816C2366400693867 /* en */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
@@ -563,6 +442,8 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -576,8 +457,9 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -594,14 +476,15 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_ENTITLEMENTS = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
@@ -614,6 +497,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)",
@@ -624,7 +508,7 @@
 				INFOPLIST_FILE = "iOSPushSample/iOSPushSample-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "f9d04a21-a8ae-4ba0-8f56-c889050a95d5";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -633,6 +517,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)",
@@ -643,42 +528,8 @@
 				INFOPLIST_FILE = "iOSPushSample/iOSPushSample-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "f9d04a21-a8ae-4ba0-8f56-c889050a95d5";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
-			};
-			name = Release;
-		};
-		9B44ED1316C2366400693867 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/iOSPushSample.app/iOSPushSample";
-				FRAMEWORK_SEARCH_PATHS = (
-					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
-					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "iOSPushSample/iOSPushSample-Prefix.pch";
-				INFOPLIST_FILE = "iOSPushSampleTests/iOSPushSampleTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = octest;
-			};
-			name = Debug;
-		};
-		9B44ED1416C2366400693867 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/iOSPushSample.app/iOSPushSample";
-				FRAMEWORK_SEARCH_PATHS = (
-					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
-					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "iOSPushSample/iOSPushSample-Prefix.pch";
-				INFOPLIST_FILE = "iOSPushSampleTests/iOSPushSampleTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = octest;
 			};
 			name = Release;
 		};
@@ -699,15 +550,6 @@
 			buildConfigurations = (
 				9B44ED1016C2366400693867 /* Debug */,
 				9B44ED1116C2366400693867 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		9B44ED1216C2366400693867 /* Build configuration list for PBXNativeTarget "iOSPushSampleTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				9B44ED1316C2366400693867 /* Debug */,
-				9B44ED1416C2366400693867 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
