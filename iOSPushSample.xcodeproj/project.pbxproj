@@ -399,6 +399,11 @@
 				TargetAttributes = {
 					9B44ECCB16C2366300693867 = {
 						DevelopmentTeam = N5QLD3RVE2;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 0;
+							};
+						};
 					};
 				};
 			};
@@ -619,6 +624,7 @@
 				INFOPLIST_FILE = "iOSPushSample/iOSPushSample-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "f9d04a21-a8ae-4ba0-8f56-c889050a95d5";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -637,6 +643,7 @@
 				INFOPLIST_FILE = "iOSPushSample/iOSPushSample-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "f9d04a21-a8ae-4ba0-8f56-c889050a95d5";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

@@ -11,5 +11,6 @@
 @interface KiiAppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
+@property NSData* deviceToken;
 
 @end

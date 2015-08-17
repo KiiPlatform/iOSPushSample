@@ -14,6 +14,7 @@
 #import <KiiSDK/KiiPushInstallation.h>
 #import <KiiSDK/KiiUser.h>
 #import <KiiSDK/Kii.h>
+#import "KiiAppDelegate.h"
 
 typedef enum {
     kApp,
@@ -251,7 +252,14 @@ typedef enum {
 
 // Push installation
 - (void)installationPush:(NSError **)error {
-    [KiiPushInstallation installSynchronous:error];
+    KiiAppDelegate *app = [[UIApplication sharedApplication]delegate];
+    if (app.deviceToken == nil) {
+        NSLog(@"No device token found.");
+        return;
+    }
+    [KiiPushInstallation
+     installSynchronousWithDeviceToken:app.deviceToken andDevelopmentMode:YES
+                                                  andError:error];
 }
 
 // Push uninstallation. But not support this operation.

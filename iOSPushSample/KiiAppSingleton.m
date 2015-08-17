@@ -65,11 +65,13 @@
 }
 
 - (void)loginWithNewUserSynchronous:(NSError **)error {
-    NSString *username = [self randomUserName];
-    NSString *password = [self randomString:10];
-    KiiUser *user = [KiiUser userWithUsername:username andPassword:password];
-    [user performRegistrationSynchronous:error];
-    user = [KiiUser authenticateSynchronous:username withPassword:password andError:error];
+//    NSString *username = [self randomUserName];
+//    NSString *password = [self randomString:10];
+    NSString *username = @"pass1234";
+    NSString *password = @"1234";
+//    KiiUser *user = [KiiUser userWithUsername:username andPassword:password];
+//    [user performRegistrationSynchronous:error];
+    KiiUser* user = [KiiUser authenticateSynchronous:username withPassword:password andError:error];
     [self setCurrentUser:user];
     NSLog(@"%@", *error);
     if (*error == nil) {

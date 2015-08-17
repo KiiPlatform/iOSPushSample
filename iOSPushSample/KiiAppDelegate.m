@@ -39,7 +39,11 @@
     NSLog(@"deviceToken = %@", deviceToken);
 
     // Set APNs device token.
-    [Kii setAPNSDeviceToken:deviceToken];
+    self.deviceToken = deviceToken;
+}
+
+- (void) application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
+    NSLog(@"Failed to register Remote Notification: %@", error.description);
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
