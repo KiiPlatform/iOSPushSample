@@ -10,13 +10,41 @@
 
 @interface KiiUtilities : NSObject
 
-+ (NSString *)hmacsha1:(NSString *)text key:(NSString *)secret;
+
 + (NSString *)urlEncode:(NSString*)string usingEncoding:(NSStringEncoding)encoding;
 + (UIImage*)generateThumbnail:(NSString*)filePath ofSize:(CGFloat)thumbSize;
 
 + (void) callMethod:(SEL)method onDelegate:(id)delegate withObjects:(id)firstObj, ...;
 + (void) performRequestMethod:(BOOL)async withBlock:(void (^)(void))block;
 
-//+ (void) executeBlock:(void (^)(id, va_list))block asynchronously:(BOOL)async withObjects:(id)firstObj, ...;
++ (void)performRequestMethodAsync:(void (^)(void))block;
+
++ (void)performRequestMethodSynchronous:(void (^)(void))block;
+
++ (NSString *)generateUUID;
+
++ (NSString *)currentTimeMillis;
+
++ (BOOL)isNilOrEmptyString:(NSString *)testString;
+
++ (BOOL)isNilOrNSNullOrEmptyString:(NSString *)testString;
+
++ (void) _callMethod:(SEL)method onDelegate:(id)delegate waitUntilDone : (BOOL) shouldWait withFirstObjects:(id)firstObj andArguments:(va_list)args;
+
++ (NSString*) mimeTypeForFileAtPath:(NSString*)path;
+
++ (NSDictionary *)readPropertyFile:(NSString *)plistFileName;
+
++(double) safeAddWithLeft:(double) left rigth:(double) right min:(double)max max:(double)min isRounded:(BOOL *) round;
+
++ (double) safeMultiplyWithLeft:(double) left rigth:(double) right min:(double)max max:(double)min isRounded:(BOOL *) round;
+
++ (double) safeCalculateExpiresAt:(long long) expirationInSeconds withDate: (NSDate*) dateTime;
+
++ (NSDate*) dateSafeCalculateExpiresAt:(long long) expirationInSeconds withDate: (NSDate*) dateTime;
+
++(double) safeMultiplyWithLeft:(double) left right:(double) right overflow:(int*) overflow;
++(double) safeAddWithLeft:(double) left right:(double) right overflow:(int*) overflow;
+
 
 @end

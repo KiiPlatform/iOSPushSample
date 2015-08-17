@@ -13,12 +13,11 @@
 typedef void (^KiiACLArrayBlock)(KiiACL *acl, NSArray *aclList, NSError *error);
 typedef void (^KiiACLSaveBlock)(KiiACL *acl, NSArray *succeeded, NSArray *failed, NSError *error);
 
-/** A reference to the ACL of a KiiObject or KiiFile
+/** A reference to the ACL of a <KiiObject>
  
- A single KiiACL object can contain multiple KiiACLEntry objects, which grant/prevent access of the associated object to users and groups.
+ A single KiiACL object can contain multiple <KiiACLEntry> objects, which grant/prevent access of the associated object to users and groups.
  */
 @interface KiiACL : NSObject
-
 
 /** Asynchronously gets the list of active ACLs associated with this object from the server
  
@@ -37,8 +36,8 @@ typedef void (^KiiACLSaveBlock)(KiiACL *acl, NSArray *succeeded, NSArray *failed
 /** Get the list of active ACLs associated with this object from the server
  
  This is a blocking method
- @param error An NSError object, set to nil, to test for errors
- @return An array of KiiACLEntry objects
+ @param error On input, a pointer to an error object. If an error occurs, this pointer is set to an actual error object containing the error information. You can not specify nil for this parameter or it will cause runtime error.
+ @return An array of <KiiACLEntry> objects
  */
 - (NSArray*) listACLEntriesSynchronous:(NSError**)error; 
 
@@ -65,23 +64,23 @@ typedef void (^KiiACLSaveBlock)(KiiACL *acl, NSArray *succeeded, NSArray *failed
 - (void) listACLEntries:(id)delegate withCallback:(SEL)callback; 
 
 
-/** Add a KiiACLEntry to the local object, if not already present
+/** Add a <KiiACLEntry> to the local object, if not already present
  
- @param entry The KiiACLEntry to add
+ @param entry The <KiiACLEntry> to add
  @return TRUE if the entry was added, FALSE otherwise
  */
 - (BOOL) putACLEntry:(KiiACLEntry*)entry;
 
 
-/** Remove a KiiACLEntry from the local object
+/** Remove a <KiiACLEntry> from the local object
  
- @param entry The KiiACLEntry to remove
+ @param entry The <KiiACLEntry> to remove
  @return TRUE if the entry was removed, FALSE otherwise
  */
 - (BOOL) removeACLEntry:(KiiACLEntry*)entry; 
 
 
-/** Asynchronously saves the list of ACLEntry objects associated with this ACL object to the server
+/** Asynchronously saves the list of ACLEntry objects associated with this ACL object to the server.
  
  This is a non-blocking method
  
@@ -93,6 +92,9 @@ typedef void (^KiiACLSaveBlock)(KiiACL *acl, NSArray *succeeded, NSArray *failed
      }];
  
  @param block The block to be called upon method completion. See example
+ @note Subscribe or send message to topic is not supported for <KiiAnonymousUser>.
+ Saving <KiiACLEntry> created with <KiiAnonymousUser> and
+ KiiACLTopicActionSubscribe or KiiACLTopicActionSend will be failed with error code 514.
 */
 - (void) saveWithBlock:(KiiACLSaveBlock)block;
 
@@ -100,9 +102,12 @@ typedef void (^KiiACLSaveBlock)(KiiACL *acl, NSArray *succeeded, NSArray *failed
 /** Save the list of ACLEntry objects associated with this ACL object to the server
  
  This is a blocking method
- @param error An NSError object, set to nil, to test for errors. If this error shows partial success, one or more of the ACL entries was unsuccessfully saved - check the succeeded/failed parameters.
- @param succeeded An NSArray object of KiiACLEntry objects that were successfully updated
- @param failed An NSArray object of KiiACLEntry objects that failed to update
+ @param error On input, a pointer to an error object. If an error occurs, this pointer is set to an actual error object containing the error information. You can not specify nil for this parameter or it will cause runtime error. If this error shows partial success, one or more of the ACL entries was unsuccessfully saved - check the succeeded/failed parameters.
+ @param succeeded An NSArray object of <KiiACLEntry> objects that were successfully updated
+ @param failed An NSArray object of <KiiACLEntry> objects that failed to update
+ @note Subscribe or send message to topic is not supported for <KiiAnonymousUser>.
+ Saving <KiiACLEntry> created with <KiiAnonymousUser> and
+ KiiACLTopicActionSubscribe or KiiACLTopicActionSend will be failed with error code 514.
  */
 - (void) saveSynchronous:(NSError**)error
               didSucceed:(NSArray**)succeeded
@@ -127,7 +132,11 @@ typedef void (^KiiACLSaveBlock)(KiiACL *acl, NSArray *succeeded, NSArray *failed
          }
      }
  
+ @note Subscribe or send message to topic is not supported for <KiiAnonymousUser>.
+ Saving <KiiACLEntry> created with <KiiAnonymousUser> and
+ KiiACLTopicActionSubscribe or KiiACLTopicActionSend will be failed with error code 514.
+ 
  */
-- (void) save:(id)delegate withCallback:(SEL)callback; 
+- (void) save:(id)delegate withCallback:(SEL)callback;
 
 @end

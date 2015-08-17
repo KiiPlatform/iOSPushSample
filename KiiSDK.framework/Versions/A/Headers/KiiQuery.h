@@ -11,9 +11,9 @@
 @class KiiClause;
 
 
-/** A class to handle queries agains the data store.
+/** A class to handle queries against the data store.
  
- This class gives an application the opportunity to query the server for a refined set of results. A query must be initialized with a collection (class) to query against, can be composed of various attributes, and must contain a KiiClause for its main definition.
+ This class gives an application the opportunity to query the server for a refined set of results. A query must be initialized with a collection (class) to query against, can be composed of various attributes, and must contain a <KiiClause> for its main definition.
  */
 @interface KiiQuery : NSObject
 
@@ -34,13 +34,27 @@
 @property (readonly) BOOL sortDescending;
 
 
-/** Create a KiiQuery object based on a KiiClause
+/** Create a KiiQuery object based on a <KiiClause>
  
  By passing nil as the 'clause' parameter, all objects can be retrieved.
  
- @param clause The KiiClause to be executed with the query
+ @param clause The <KiiClause> to be executed with the query
  */
 + (KiiQuery*) queryWithClause:(KiiClause*)clause;
+
+
+/**
+ Create KiiQuery from Dictionary
+
+ You may not use this method.
+
+ This is introduced for internal use.
+ 
+ @param Dictinary represents query. Should be equibalent to JSON object constructed for query REST api.
+ @return KiiQuery instatnce
+ 
+ */
++ (KiiQuery*) queryWithDictionary:(NSDictionary *)queryDict;
 
 
 /** Set the query to sort by a field in descending order
