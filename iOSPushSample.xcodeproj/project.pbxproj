@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		747B97F71B818DAF003F2404 /* KiiSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 747B97F51B818D79003F2404 /* KiiSDK.framework */; };
+		747B97F91B818FF1003F2404 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 747B97F81B818FF1003F2404 /* libsqlite3.0.dylib */; };
 		9B44ECD016C2366300693867 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B44ECCF16C2366300693867 /* UIKit.framework */; };
 		9B44ECD216C2366300693867 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B44ECD116C2366300693867 /* Foundation.framework */; };
 		9B44ECD416C2366300693867 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B44ECD316C2366300693867 /* CoreGraphics.framework */; };
@@ -72,6 +73,7 @@
 
 /* Begin PBXFileReference section */
 		747B97F51B818D79003F2404 /* KiiSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = KiiSDK.framework; sourceTree = "<group>"; };
+		747B97F81B818FF1003F2404 /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
 		9B44ECCC16C2366300693867 /* iOSPushSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iOSPushSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9B44ECCF16C2366300693867 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		9B44ECD116C2366300693867 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -152,6 +154,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				747B97F91B818FF1003F2404 /* libsqlite3.0.dylib in Frameworks */,
 				747B97F71B818DAF003F2404 /* KiiSDK.framework in Frameworks */,
 				9BFFB28016D38089004070F0 /* QuartzCore.framework in Frameworks */,
 				9B94895116D20ED300EC4B94 /* SystemConfiguration.framework in Frameworks */,
@@ -199,6 +202,7 @@
 		9B44ECCE16C2366300693867 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				747B97F81B818FF1003F2404 /* libsqlite3.0.dylib */,
 				9B44ECD316C2366300693867 /* CoreGraphics.framework */,
 				9B44ECD116C2366300693867 /* Foundation.framework */,
 				9B44ED1B16C2392200693867 /* MobileCoreServices.framework */,
