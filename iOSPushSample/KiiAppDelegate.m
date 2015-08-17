@@ -15,7 +15,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Initialize Kii
-    [Kii beginWithID:APPID andKey:APPKEY andSite:kiiSiteUS];
+    [Kii beginWithID:APPID andKey:APPKEY andSite:APPSITE];
     // For push notification.
     UIUserNotificationType types = UIUserNotificationTypeBadge | UIUserNotificationTypeSound | UIUserNotificationTypeAlert;
 
