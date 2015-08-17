@@ -16,8 +16,12 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Initialize Kii
     [Kii beginWithID:APPID andKey:APPKEY andSite:kiiSiteUS];
-    // For push notification. (Development mode : ON)
-    [Kii enableAPNSWithDevelopmentMode:YES andNotificationTypes:(UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
+    // For push notification.
+    UIUserNotificationType types = UIUserNotificationTypeBadge | UIUserNotificationTypeSound | UIUserNotificationTypeAlert;
+
+    UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:types categories:nil];
+    [[UIApplication sharedApplication] registerForRemoteNotifications];
+    [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
     // Set Log level is verbose
     [Kii setLogLevel:3];
     return YES;
