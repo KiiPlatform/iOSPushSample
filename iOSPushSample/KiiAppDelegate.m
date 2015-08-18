@@ -9,19 +9,77 @@
 #import "KiiAppDelegate.h"
 #import "KiiAppSingleton.h"
 #import "Reachability.h"
+#import "TSMessage.h"
 #import <KiiSDK/Kii.h>
 
 @implementation KiiAppDelegate
 
+- (void) setUpPushNotification {
+    UIUserNotificationType types = UIUserNotificationTypeBadge | UIUserNotificationTypeSound | UIUserNotificationTypeAlert;
+
+    UIMutableUserNotificationAction *acceptAction = [[UIMutableUserNotificationAction alloc] init];
+    acceptAction.identifier = @"ACCEPT_IDENTIFIER";
+    acceptAction.title = @"Accept";
+    acceptAction.destructive = NO;
+
+    UIMutableUserNotificationAction *declineAction = [[UIMutableUserNotificationAction alloc] init];
+    declineAction.identifier = @"DECLINE_IDENTIFIER";
+    declineAction.title = @"Decline";
+    declineAction.destructive = YES;
+    declineAction.activationMode = UIUserNotificationActivationModeBackground;
+    declineAction.authenticationRequired = NO;
+
+    UIMutableUserNotificationCategory *inviteCategory = [[UIMutableUserNotificationCategory alloc] init];
+
+    inviteCategory.identifier = @"INVITE_CATEGORY";
+
+    [inviteCategory setActions:@[acceptAction, declineAction]
+                    forContext:UIUserNotificationActionContextDefault];
+    [inviteCategory setActions:@[acceptAction, declineAction]
+                    forContext:UIUserNotificationActionContextMinimal];
+
+    NSSet *categories= [NSSet setWithObject:inviteCategory];
+
+    UIUserNotificationSettings *mySettings = [UIUserNotificationSettings
+                                              settingsForTypes:types
+                                              categories:categories];
+
+    [[UIApplication sharedApplication] registerForRemoteNotifications];
+    [[UIApplication sharedApplication] registerUserNotificationSettings:mySettings];
+}
+
+#ifdef __IPHONE_8_0
+- (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings
+{
+    //register to receive notifications
+}
+
+- (void)application:(UIApplication *)application handleActionWithIdentifier:(NSString *)identifier forRemoteNotification:(NSDictionary *)userInfo completionHandler:(void(^)())completionHandler
+{
+    //handle the actions
+    NSDictionary* aps = userInfo[@"aps"];
+    //categorized push
+    if ([aps[@"category"] isEqualToString:@"INVITE_CATEGORY"]) {
+        if ([identifier isEqualToString:@"DECLINE_IDENTIFIER"]){
+            NSLog(@"Receive remote notification in background mode : %@", [userInfo description]);
+            //invitation declined
+        }
+        else if ([identifier isEqualToString:@"ACCEPT_IDENTIFIER"]){
+            NSLog(@"Receive remote notification in foreground mode : %@", [userInfo description]);
+            [TSMessage showNotificationWithTitle:@"Invitation Accepted!!"
+                                            type:TSMessageNotificationTypeSuccess];
+        }
+    } else {
+        [self showMessageAlert:userInfo];
+    }
+    completionHandler();
+}
+#endif
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Initialize Kii
     [Kii beginWithID:APPID andKey:APPKEY andSite:APPSITE];
-    // For push notification.
-    UIUserNotificationType types = UIUserNotificationTypeBadge | UIUserNotificationTypeSound | UIUserNotificationTypeAlert;
-
-    UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:types categories:nil];
-    [[UIApplication sharedApplication] registerForRemoteNotifications];
-    [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
+    [self setUpPushNotification];
     // Set Log level is verbose
     [Kii setLogLevel:3];
     return YES;
@@ -47,12 +105,13 @@
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
+    UIApplicationState state = [[UIApplication sharedApplication] applicationState];
+    if (state == UIApplicationStateBackground || state == UIApplicationStateInactive)
+    {
+        //return if called from background
+        return;
+    }
     NSLog(@"Receive remote notification : %@", [userInfo description]);
-    [self showMessageAlert:userInfo];
-}
-
-- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult result))handler {
-    NSLog(@"Receive remote notification in background mode : %@", [userInfo description]);
     [self showMessageAlert:userInfo];
 }
 

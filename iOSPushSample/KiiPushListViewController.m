@@ -261,7 +261,12 @@ typedef enum {
 
 // Push uninstallation. But not support this operation.
 - (void)uninstallationPush:(NSError **)error {
-    [KiiPushInstallation uninstallSynchronousWithDeviceToken:[KiiAppSingleton sharedInstance].deviceToken
+    KiiAppDelegate *app = [[UIApplication sharedApplication]delegate];
+    if (app.deviceToken == nil) {
+        NSLog(@"No device token found.");
+        return;
+    }
+    [KiiPushInstallation uninstallSynchronousWithDeviceToken:app.deviceToken
                                                     andError:error];
 }
 
