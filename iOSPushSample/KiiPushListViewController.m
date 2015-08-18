@@ -251,7 +251,8 @@ typedef enum {
 - (void)installationPush:(NSError **)error {
     KiiAppDelegate *app = [[UIApplication sharedApplication]delegate];
     if (app.deviceToken == nil) {
-        NSLog(@"No device token found.");
+        NSError *e = [NSError errorWithDomain:@"No device token found." code:0 userInfo:nil];
+        *error = e;
         return;
     }
     [KiiPushInstallation
@@ -263,7 +264,8 @@ typedef enum {
 - (void)uninstallationPush:(NSError **)error {
     KiiAppDelegate *app = [[UIApplication sharedApplication]delegate];
     if (app.deviceToken == nil) {
-        NSLog(@"No device token found.");
+        NSError *e = [NSError errorWithDomain:@"No device token found." code:0 userInfo:nil];
+        *error = e;
         return;
     }
     [KiiPushInstallation uninstallSynchronousWithDeviceToken:app.deviceToken
