@@ -13,10 +13,10 @@ DEPENDENCIES:
   - TSMessages (~> 0.9.4)
 
 SPEC CHECKSUMS:
-  HexColors: 3a68db077cd6572a8f7d4aa1add284dd2436a934
-  MBProgressHUD: 2bbc6f470111daf7f3eaa4eb12b8cbf01c4c0622
-  ODRefreshControl: 64fd74956e8708c2f7df6d9f5d2689d7fffd7ce1
-  Reachability: be4883bb93f31e38266ae3365e5600a317aae735
-  TSMessages: 839edc3164b99ced48c30af9dde9710cd67bea4d
+  HexColors: 01384d2bbe8dc4ffa43c3b4135db6e976952d153
+  MBProgressHUD: c356980b0cd097f19acec959b49dca5eb8ec31be
+  ODRefreshControl: 022f465cd1e14e09291e6e7b474a0573d0a94618
+  Reachability: 8e9635e3cb4f98e7f825e51147f677ecc694d0e7
+  TSMessages: 8337e6b14b369db136ca9a07a32193fc2a7feb19
 
-COCOAPODS: 0.29.0
+COCOAPODS: 0.32.1

@@ -16,8 +16,8 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Initialize Kii
     [Kii beginWithID:APPID andKey:APPKEY andSite:kiiSiteUS];
-    // For push notification. (Development mode : ON)
-    [Kii enableAPNSWithDevelopmentMode:YES andNotificationTypes:(UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
+    // For push notification.
+    [application registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
     // Set Log level is verbose
     [Kii setLogLevel:3];
     return YES;
@@ -35,7 +35,7 @@
     NSLog(@"deviceToken = %@", deviceToken);
 
     // Set APNs device token.
-    [Kii setAPNSDeviceToken:deviceToken];
+    [KiiAppSingleton sharedInstance].deviceToken = deviceToken;
 }
 
 

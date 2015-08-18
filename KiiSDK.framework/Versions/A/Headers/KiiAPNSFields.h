@@ -34,7 +34,9 @@
 /**Number. Not required. encapsulation of badge key on APNS  property*/
 @property(nonatomic,strong) NSNumber* badge;
 
-/**Number. Not required. encapsulation of content-available key on APNS  property*/
+/** Number. Not required. encapsulation of content-available key on APNS property.
+ If 0, content-available payload is not delivered.
+ Otherwise, content-available=1 payload is delivered. */
 @property(nonatomic,strong) NSNumber* contentAvailable;
 
 /** Define APNS specific metadata

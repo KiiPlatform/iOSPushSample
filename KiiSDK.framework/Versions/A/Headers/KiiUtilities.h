@@ -17,9 +17,9 @@
 + (void) callMethod:(SEL)method onDelegate:(id)delegate withObjects:(id)firstObj, ...;
 + (void) performRequestMethod:(BOOL)async withBlock:(void (^)(void))block;
 
-+ (void)performRequestMethodAsync:(void (^)())block;
++ (void)performRequestMethodAsync:(void (^)(void))block;
 
-+ (void)performRequestMethodSynchronous:(void (^)())block;
++ (void)performRequestMethodSynchronous:(void (^)(void))block;
 
 + (NSString *)generateUUID;
 
@@ -31,4 +31,7 @@
 
 + (void) _callMethod:(SEL)method onDelegate:(id)delegate waitUntilDone : (BOOL) shouldWait withFirstObjects:(id)firstObj andArguments:(va_list)args;
 
++ (NSString*) mimeTypeForFileAtPath:(NSString*)path;
+
++ (NSDictionary *)readPropertyFile:(NSString *)plistFileName;
 @end
