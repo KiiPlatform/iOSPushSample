@@ -47,7 +47,16 @@
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
+    NSLog(@"Receive remote notification : %@", [userInfo description]);
+    [self showMessageAlert:userInfo];
+}
 
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult result))handler {
+    NSLog(@"Receive remote notification in background mode : %@", [userInfo description]);
+    [self showMessageAlert:userInfo];
+}
+
+- (void)showMessageAlert:(NSDictionary *)userInfo {
     if ([[KiiAppSingleton sharedInstance] debugMode]) {
         long long int receiveTime = [[[KiiAppSingleton sharedInstance] currentTimeMillisByNSString] longLongValue];
         long long int sendTime = [[userInfo objectForKey:@"w"] longLongValue];
@@ -61,15 +70,13 @@
         }
 
         UIAlertView *messageAlert = [[UIAlertView alloc]
-                                                  initWithTitle:@"RemotePushMessage"
-                                                        message:message
-                                                       delegate:nil cancelButtonTitle:@"OK"
-                                              otherButtonTitles:nil];
+                                     initWithTitle:@"RemotePushMessage"
+                                     message:message
+                                     delegate:nil cancelButtonTitle:@"OK"
+                                     otherButtonTitles:nil];
         // Display Alert Message
         [messageAlert show];
     } else {
-        NSLog(@"Receive remote notification: %@", [userInfo description]);
-
         // If do not show dialog,
         if ([[KiiAppSingleton sharedInstance] messageShowOffMode]) {
             return;
