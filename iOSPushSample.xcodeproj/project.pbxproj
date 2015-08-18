@@ -21,7 +21,6 @@
 		9B44ECE416C2366300693867 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B44ECE316C2366300693867 /* Default@2x.png */; };
 		9B44ECE616C2366300693867 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B44ECE516C2366300693867 /* Default-568h@2x.png */; };
 		9B44ECE916C2366300693867 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9B44ECE716C2366300693867 /* MainStoryboard.storyboard */; };
-		9B44ED1A16C236A400693867 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B44ED1916C236A400693867 /* MBProgressHUD.m */; };
 		9B44ED1C16C2392200693867 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B44ED1B16C2392200693867 /* MobileCoreServices.framework */; };
 		9B44ED2416C4901E00693867 /* KiiAppSingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B44ED2316C4901E00693867 /* KiiAppSingleton.m */; };
 		9B94892716D0B97C00EC4B94 /* KiiUserListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B94892616D0B97C00EC4B94 /* KiiUserListViewController.m */; };
@@ -37,11 +36,9 @@
 		9B94894216D1CBF800EC4B94 /* KiiObjectListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B94894116D1CBF700EC4B94 /* KiiObjectListViewController.m */; };
 		9B94894516D1EF3500EC4B94 /* KiiObjectDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B94894416D1EF3400EC4B94 /* KiiObjectDetailsViewController.m */; };
 		9B94895116D20ED300EC4B94 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B94895016D20ED200EC4B94 /* SystemConfiguration.framework */; };
-		9B94895216D20FEE00EC4B94 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B94894E16D20E0900EC4B94 /* Reachability.m */; };
 		9BCC263716DCD14C00765299 /* icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9BCC263616DCD14C00765299 /* icon@2x.png */; };
 		9BCC263916DCD15400765299 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 9BCC263816DCD15400765299 /* icon.png */; };
 		9BFFB28016D38089004070F0 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BFFB27F16D38089004070F0 /* QuartzCore.framework */; };
-		9BFFB34A16D62A7B004070F0 /* ODRefreshControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BFFB34916D62A7B004070F0 /* ODRefreshControl.m */; };
 		D35F48093C9C4E5EA735AB18 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 44C1EEA89AA345D095E11F11 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -68,8 +65,6 @@
 		9B44ECE516C2366300693867 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x.png"; path = "Images/Default-568h@2x.png"; sourceTree = "<group>"; };
 		9B44ECE816C2366300693867 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
 		9B44ECFE16C2366400693867 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
-		9B44ED1816C236A400693867 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
-		9B44ED1916C236A400693867 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		9B44ED1B16C2392200693867 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		9B44ED2216C4901E00693867 /* KiiAppSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KiiAppSingleton.h; sourceTree = "<group>"; };
 		9B44ED2316C4901E00693867 /* KiiAppSingleton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KiiAppSingleton.m; sourceTree = "<group>"; };
@@ -91,14 +86,10 @@
 		9B94894116D1CBF700EC4B94 /* KiiObjectListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KiiObjectListViewController.m; sourceTree = "<group>"; };
 		9B94894316D1EF3300EC4B94 /* KiiObjectDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KiiObjectDetailsViewController.h; sourceTree = "<group>"; };
 		9B94894416D1EF3400EC4B94 /* KiiObjectDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KiiObjectDetailsViewController.m; sourceTree = "<group>"; };
-		9B94894D16D20E0900EC4B94 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Reachability.h; path = Reachability/Reachability.h; sourceTree = "<group>"; };
-		9B94894E16D20E0900EC4B94 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Reachability.m; path = Reachability/Reachability.m; sourceTree = "<group>"; };
 		9B94895016D20ED200EC4B94 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		9BCC263616DCD14C00765299 /* icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon@2x.png"; path = "Images/icon@2x.png"; sourceTree = "<group>"; };
 		9BCC263816DCD15400765299 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon.png; path = Images/icon.png; sourceTree = "<group>"; };
 		9BFFB27F16D38089004070F0 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		9BFFB34816D62A7B004070F0 /* ODRefreshControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ODRefreshControl.h; sourceTree = "<group>"; };
-		9BFFB34916D62A7B004070F0 /* ODRefreshControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ODRefreshControl.m; sourceTree = "<group>"; };
 		E6D33F332B1325AC0A38133A /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -190,9 +181,6 @@
 				74F17DF61B8302EF001ACC08 /* KiiLoginViewController.h */,
 				74F17DF71B8302EF001ACC08 /* KiiLoginViewController.m */,
 				9B44ECE716C2366300693867 /* MainStoryboard.storyboard */,
-				9B44ED1716C236A400693867 /* MBProgressHUD */,
-				9BFFB34716D62A7B004070F0 /* ODRefreshControl */,
-				9B94894616D2057600EC4B94 /* Reachability */,
 				9B44ECD616C2366300693867 /* Supporting Files */,
 			);
 			path = iOSPushSample;
@@ -208,24 +196,6 @@
 				9B44ECDD16C2366300693867 /* iOSPushSample-Prefix.pch */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		9B44ED1716C236A400693867 /* MBProgressHUD */ = {
-			isa = PBXGroup;
-			children = (
-				9B44ED1816C236A400693867 /* MBProgressHUD.h */,
-				9B44ED1916C236A400693867 /* MBProgressHUD.m */,
-			);
-			path = MBProgressHUD;
-			sourceTree = "<group>";
-		};
-		9B94894616D2057600EC4B94 /* Reachability */ = {
-			isa = PBXGroup;
-			children = (
-				9B94894D16D20E0900EC4B94 /* Reachability.h */,
-				9B94894E16D20E0900EC4B94 /* Reachability.m */,
-			);
-			name = Reachability;
 			sourceTree = "<group>";
 		};
 		9B94895316D2555C00EC4B94 /* Images */ = {
@@ -244,15 +214,6 @@
 				9B94893516D1928C00EC4B94 /* t-shirt@2x.png */,
 			);
 			name = Images;
-			sourceTree = "<group>";
-		};
-		9BFFB34716D62A7B004070F0 /* ODRefreshControl */ = {
-			isa = PBXGroup;
-			children = (
-				9BFFB34816D62A7B004070F0 /* ODRefreshControl.h */,
-				9BFFB34916D62A7B004070F0 /* ODRefreshControl.m */,
-			);
-			path = ODRefreshControl;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -376,10 +337,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				7489C1221B8339180022A257 /* KiiLoginViewController.m in Sources */,
-				9B94895216D20FEE00EC4B94 /* Reachability.m in Sources */,
 				9B44ECDC16C2366300693867 /* main.m in Sources */,
 				9B44ECE016C2366300693867 /* KiiAppDelegate.m in Sources */,
-				9B44ED1A16C236A400693867 /* MBProgressHUD.m in Sources */,
 				9B44ED2416C4901E00693867 /* KiiAppSingleton.m in Sources */,
 				9B94892716D0B97C00EC4B94 /* KiiUserListViewController.m in Sources */,
 				9B94892D16D1283F00EC4B94 /* KiiBucketListViewController.m in Sources */,
@@ -387,7 +346,6 @@
 				9B94893F16D1C96D00EC4B94 /* KiiAppError.m in Sources */,
 				9B94894216D1CBF800EC4B94 /* KiiObjectListViewController.m in Sources */,
 				9B94894516D1EF3500EC4B94 /* KiiObjectDetailsViewController.m in Sources */,
-				9BFFB34A16D62A7B004070F0 /* ODRefreshControl.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
