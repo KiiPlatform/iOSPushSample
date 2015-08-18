@@ -10,7 +10,6 @@
 		747B97F71B818DAF003F2404 /* KiiSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 747B97F51B818D79003F2404 /* KiiSDK.framework */; };
 		747B97F91B818FF1003F2404 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 747B97F81B818FF1003F2404 /* libsqlite3.0.dylib */; };
 		7489C1221B8339180022A257 /* KiiLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 74F17DF71B8302EF001ACC08 /* KiiLoginViewController.m */; };
-		74DF8CFE1B81CB32004F7405 /* KiiSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 74DF8CFD1B81CB32004F7405 /* KiiSDK.framework */; };
 		9B44ECD016C2366300693867 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B44ECCF16C2366300693867 /* UIKit.framework */; };
 		9B44ECD216C2366300693867 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B44ECD116C2366300693867 /* Foundation.framework */; };
 		9B44ECD416C2366300693867 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B44ECD316C2366300693867 /* CoreGraphics.framework */; };
@@ -106,7 +105,6 @@
 				9B44ECD016C2366300693867 /* UIKit.framework in Frameworks */,
 				9B44ECD216C2366300693867 /* Foundation.framework in Frameworks */,
 				9B44ECD416C2366300693867 /* CoreGraphics.framework in Frameworks */,
-				74DF8CFE1B81CB32004F7405 /* KiiSDK.framework in Frameworks */,
 				D35F48093C9C4E5EA735AB18 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -245,7 +243,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = Kii;
-				LastUpgradeCheck = 0460;
+				LastUpgradeCheck = 0640;
 				ORGANIZATIONNAME = "Kii Corporation";
 				TargetAttributes = {
 					9B44ECCB16C2366300693867 = {
