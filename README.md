@@ -104,5 +104,3 @@ cd kii_rest
 python create_app_bucket_object.py.py
 ```
 
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/KiiPlatform/iospushsample/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
-
