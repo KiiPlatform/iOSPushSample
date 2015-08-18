@@ -252,7 +252,7 @@
 						DevelopmentTeam = N5QLD3RVE2;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
-								enabled = 0;
+								enabled = 1;
 							};
 						};
 					};
