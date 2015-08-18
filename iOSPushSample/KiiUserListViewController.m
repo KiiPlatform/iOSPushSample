@@ -102,7 +102,8 @@
     if (indexPath.section == 0) {
         switch (indexPath.row) {
             case 0:
-                [self loginKiiUser];
+                [self performSegueWithIdentifier:@"loginSegue" sender:self];
+                //[self loginKiiUser];
                 break;
             case 1:
                 // Show confirm dialog.
@@ -120,8 +121,6 @@
                 messageAlert = [[UIAlertView alloc]
                                              initWithTitle:@"Row Selected" message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
                 [messageAlert show];
-                break;
-            case 3:
                 break;
             default:
                 break;
@@ -205,8 +204,7 @@
             [messageAlert show];
             return;
         }
-        NSError *error = nil;
-        // TODO : Delete push installation same time. (For avoiding installation conflict)
+        [[KiiAppSingleton sharedInstance] doLogOut];
     }
 }
 
@@ -230,7 +228,6 @@
                 @"User Login",
                 @"User Logout",
                 @"User Information",
-                @"User registration",
                 nil];
     }
     return table;

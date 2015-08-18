@@ -10,6 +10,7 @@
 		747B97F71B818DAF003F2404 /* KiiSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 747B97F51B818D79003F2404 /* KiiSDK.framework */; };
 		747B97F91B818FF1003F2404 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 747B97F81B818FF1003F2404 /* libsqlite3.0.dylib */; };
 		74DF8CFE1B81CB32004F7405 /* KiiSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 74DF8CFD1B81CB32004F7405 /* KiiSDK.framework */; };
+		74F17DF81B8302EF001ACC08 /* KiiLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 74F17DF71B8302EF001ACC08 /* KiiLoginViewController.m */; };
 		9B44ECD016C2366300693867 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B44ECCF16C2366300693867 /* UIKit.framework */; };
 		9B44ECD216C2366300693867 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B44ECD116C2366300693867 /* Foundation.framework */; };
 		9B44ECD416C2366300693867 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B44ECD316C2366300693867 /* CoreGraphics.framework */; };
@@ -58,6 +59,8 @@
 		747B97F51B818D79003F2404 /* KiiSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = KiiSDK.framework; sourceTree = "<group>"; };
 		747B97F81B818FF1003F2404 /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
 		74DF8CFD1B81CB32004F7405 /* KiiSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = KiiSDK.framework; sourceTree = "<group>"; };
+		74F17DF61B8302EF001ACC08 /* KiiLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KiiLoginViewController.h; sourceTree = "<group>"; };
+		74F17DF71B8302EF001ACC08 /* KiiLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KiiLoginViewController.m; sourceTree = "<group>"; };
 		9B44ECCC16C2366300693867 /* iOSPushSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iOSPushSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9B44ECCF16C2366300693867 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		9B44ECD116C2366300693867 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -201,6 +204,8 @@
 				9B94892F16D1349D00EC4B94 /* KiiPushListViewController.m */,
 				9B94892516D0B97C00EC4B94 /* KiiUserListViewController.h */,
 				9B94892616D0B97C00EC4B94 /* KiiUserListViewController.m */,
+				74F17DF61B8302EF001ACC08 /* KiiLoginViewController.h */,
+				74F17DF71B8302EF001ACC08 /* KiiLoginViewController.m */,
 				9B44ECE716C2366300693867 /* MainStoryboard.storyboard */,
 				9B44ED1716C236A400693867 /* MBProgressHUD */,
 				9BFFB34716D62A7B004070F0 /* ODRefreshControl */,
@@ -401,6 +406,7 @@
 				9BFFB27916D3807E004070F0 /* WBGrayGradientView.m in Sources */,
 				9BFFB27A16D3807E004070F0 /* WBNoticeOperation.m in Sources */,
 				9BFFB27B16D3807E004070F0 /* WBNoticeView.m in Sources */,
+				74F17DF81B8302EF001ACC08 /* KiiLoginViewController.m in Sources */,
 				9BFFB27C16D3807E004070F0 /* WBRedGradientView.m in Sources */,
 				9BFFB27D16D3807E004070F0 /* WBStickyNoticeView.m in Sources */,
 				9BFFB27E16D3807E004070F0 /* WBSuccessNoticeView.m in Sources */,

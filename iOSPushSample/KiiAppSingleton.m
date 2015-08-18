@@ -37,15 +37,6 @@
     return _reachabilityInstance;
 }
 
-- (void)registerToken {
-    if ([self currentUser] == nil) {
-        return;
-    }
-
-    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    [prefs setObject:[self.currentUser accessToken] forKey:KIIUSER_TOKEN_KEY];
-}
-
 - (BOOL)checkUserToken {
     [self.currentUser accessToken];
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
@@ -57,6 +48,15 @@
     return YES;
 }
 
+- (void) setCurrentUser:(KiiUser *)currentUser {
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    _currentUser = currentUser;
+    if (currentUser == nil) {
+        [prefs removeObjectForKey:KIIUSER_TOKEN_KEY];
+    }
+    [prefs setObject:[currentUser accessToken] forKey:KIIUSER_TOKEN_KEY];
+}
+
 - (void)loginWithTokenSynchronous:(NSError **)error {
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     NSString *token = [prefs objectForKey:KIIUSER_TOKEN_KEY];
@@ -65,17 +65,13 @@
 }
 
 - (void)loginWithNewUserSynchronous:(NSError **)error {
-//    NSString *username = [self randomUserName];
-//    NSString *password = [self randomString:10];
-    NSString *username = @"pass1234";
-    NSString *password = @"1234";
-//    KiiUser *user = [KiiUser userWithUsername:username andPassword:password];
-//    [user performRegistrationSynchronous:error];
-    KiiUser* user = [KiiUser authenticateSynchronous:username withPassword:password andError:error];
-    [self setCurrentUser:user];
+    NSString *username = [self randomUserName];
+    NSString *password = [self randomString:10];
+    KiiUser *user = [KiiUser userWithUsername:username andPassword:password];
+    [user performRegistrationSynchronous:error];
     NSLog(@"%@", *error);
     if (*error == nil) {
-        [self registerToken];
+        [self setCurrentUser:user];
     }
 }
 
@@ -90,8 +86,7 @@
 }
 
 - (void)doLogOut {
-    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    [prefs removeObjectForKey:KIIUSER_TOKEN_KEY];
+    [KiiUser logOut];
     [self setCurrentUser:nil];
 }
 
