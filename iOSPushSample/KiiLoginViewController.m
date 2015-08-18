@@ -6,6 +6,7 @@
 //
 
 #import "KiiLoginViewController.h"
+#import "KiiAppSingleton.h"
 #import <KiiSDK/Kii.h>
 
 @interface KiiLoginViewController ()
@@ -41,6 +42,7 @@
             [_messageText setText:message];
             return;
         }
+        [[KiiAppSingleton sharedInstance]setCurrentUser:[KiiUser currentUser]];
         [self.navigationController popViewControllerAnimated:YES];
     }];
 }
@@ -61,7 +63,7 @@
                          [_messageText setText:message];
                          return;
                      }
-                     
+                     [[KiiAppSingleton sharedInstance]setCurrentUser:[KiiUser currentUser]];
                      [self.navigationController popViewControllerAnimated:YES];
                  }];
 }

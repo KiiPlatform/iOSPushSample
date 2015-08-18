@@ -37,15 +37,6 @@
     return _reachabilityInstance;
 }
 
-- (void)registerToken {
-    if ([self currentUser] == nil) {
-        return;
-    }
-
-    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    [prefs setObject:[self.currentUser accessToken] forKey:KIIUSER_TOKEN_KEY];
-}
-
 - (BOOL)checkUserToken {
     [self.currentUser accessToken];
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
@@ -55,6 +46,15 @@
         return NO;
     }
     return YES;
+}
+
+- (void) setCurrentUser:(KiiUser *)currentUser {
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    _currentUser = currentUser;
+    if (currentUser == nil) {
+        [prefs removeObjectForKey:KIIUSER_TOKEN_KEY];
+    }
+    [prefs setObject:[currentUser accessToken] forKey:KIIUSER_TOKEN_KEY];
 }
 
 - (void)loginWithTokenSynchronous:(NSError **)error {
@@ -69,10 +69,9 @@
     NSString *password = [self randomString:10];
     KiiUser *user = [KiiUser userWithUsername:username andPassword:password];
     [user performRegistrationSynchronous:error];
-    [self setCurrentUser:user];
     NSLog(@"%@", *error);
     if (*error == nil) {
-        [self registerToken];
+        [self setCurrentUser:user];
     }
 }
 
@@ -87,8 +86,7 @@
 }
 
 - (void)doLogOut {
-    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    [prefs removeObjectForKey:KIIUSER_TOKEN_KEY];
+    [KiiUser logOut];
     [self setCurrentUser:nil];
 }
 
