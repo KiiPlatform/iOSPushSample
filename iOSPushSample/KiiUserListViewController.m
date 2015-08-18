@@ -122,8 +122,6 @@
                                              initWithTitle:@"Row Selected" message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
                 [messageAlert show];
                 break;
-            case 3:
-                break;
             default:
                 break;
         }
@@ -230,7 +228,6 @@
                 @"User Login",
                 @"User Logout",
                 @"User Information",
-                @"User registration",
                 nil];
     }
     return table;
