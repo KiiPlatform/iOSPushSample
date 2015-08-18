@@ -37,15 +37,6 @@
     return _reachabilityInstance;
 }
 
-- (void)registerToken {
-    if ([self currentUser] == nil) {
-        return;
-    }
-
-    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    [prefs setObject:[self.currentUser accessToken] forKey:KIIUSER_TOKEN_KEY];
-}
-
 - (BOOL)checkUserToken {
     [self.currentUser accessToken];
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
@@ -55,6 +46,15 @@
         return NO;
     }
     return YES;
+}
+
+- (void) setCurrentUser:(KiiUser *)currentUser {
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    _currentUser = currentUser;
+    if (currentUser == nil) {
+        [prefs removeObjectForKey:KIIUSER_TOKEN_KEY];
+    }
+    [prefs setObject:[currentUser accessToken] forKey:KIIUSER_TOKEN_KEY];
 }
 
 - (void)loginWithTokenSynchronous:(NSError **)error {
@@ -69,11 +69,9 @@
     NSString *password = [self randomString:10];
     KiiUser *user = [KiiUser userWithUsername:username andPassword:password];
     [user performRegistrationSynchronous:error];
-    user = [KiiUser authenticateSynchronous:username withPassword:password andError:error];
-    [self setCurrentUser:user];
     NSLog(@"%@", *error);
     if (*error == nil) {
-        [self registerToken];
+        [self setCurrentUser:user];
     }
 }
 
@@ -88,8 +86,7 @@
 }
 
 - (void)doLogOut {
-    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    [prefs removeObjectForKey:KIIUSER_TOKEN_KEY];
+    [KiiUser logOut];
     [self setCurrentUser:nil];
 }
 
@@ -156,33 +153,33 @@
 
     KiiPushMessage *message = [KiiPushMessage messageFromAPNS:userInfo];
     NSString *scope = @"";
-    if ([message getValueOfKiiMessageField:SCOPE_APP_ID] != nil) {
+    if ([message getValueOfKiiMessageField:KiiMessage_SCOPE_APP_ID] != nil) {
         // Nothing to do.
-    } else if ([message getValueOfKiiMessageField:SCOPE_USER_ID] != nil) {
-        scope = [NSString stringWithFormat:@"users/%@/", [message getValueOfKiiMessageField:SCOPE_USER_ID]];
-    } else if ([message getValueOfKiiMessageField:SCOPE_GROUP_ID] != nil) {
-        scope = [NSString stringWithFormat:@"groups/%@/", [message getValueOfKiiMessageField:SCOPE_GROUP_ID]];
+    } else if ([message getValueOfKiiMessageField:KiiMessage_SCOPE_USER_ID] != nil) {
+        scope = [NSString stringWithFormat:@"users/%@/", [message getValueOfKiiMessageField:KiiMessage_SCOPE_USER_ID]];
+    } else if ([message getValueOfKiiMessageField:KiiMessage_SCOPE_GROUP_ID] != nil) {
+        scope = [NSString stringWithFormat:@"groups/%@/", [message getValueOfKiiMessageField:KiiMessage_SCOPE_GROUP_ID]];
     }
 
     // If bucket
-    if ([message getValueOfKiiMessageField:BUCKET_ID] != nil) {
+    if ([message getValueOfKiiMessageField:KiiMessage_BUCKET_ID] != nil) {
         NSString *buckets = @"";
-        if ([[message getValueOfKiiMessageField:BUCKET_TYPE] isEqualToString:@"sync"]) {
-            buckets = [NSString stringWithFormat:@"buckets/sync:%@", [message getValueOfKiiMessageField:BUCKET_ID]];
+        if ([[message getValueOfKiiMessageField:KiiMessage_BUCKET_TYPE] isEqualToString:@"sync"]) {
+            buckets = [NSString stringWithFormat:@"buckets/sync:%@", [message getValueOfKiiMessageField:KiiMessage_BUCKET_ID]];
         } else {
-            buckets = [NSString stringWithFormat:@"buckets/%@", [message getValueOfKiiMessageField:BUCKET_ID]];
+            buckets = [NSString stringWithFormat:@"buckets/%@", [message getValueOfKiiMessageField:KiiMessage_BUCKET_ID]];
         }
 
         NSString *objects = @"";
-        if ([message getValueOfKiiMessageField:OBJECT_ID] != nil) {
-            objects = [NSString stringWithFormat:@"/objects/%@", [message getValueOfKiiMessageField:OBJECT_ID]];
+        if ([message getValueOfKiiMessageField:KiiMessage_OBJECT_ID] != nil) {
+            objects = [NSString stringWithFormat:@"/objects/%@", [message getValueOfKiiMessageField:KiiMessage_OBJECT_ID]];
         }
         return [NSString stringWithFormat:@"kiicloud://%@%@%@", scope, buckets, objects];
     }
 
     // If topic
-    if ([message getValueOfKiiMessageField:TOPIC] != nil) {
-        NSString *topicName = [message getValueOfKiiMessageField:TOPIC];
+    if ([message getValueOfKiiMessageField:KiiMessage_TOPIC] != nil) {
+        NSString *topicName = [message getValueOfKiiMessageField:KiiMessage_TOPIC];
         return [NSString stringWithFormat:@"kiicloud://%@topics/%@", scope, topicName];
     }
 
@@ -192,11 +189,11 @@
 - (NSString *)pushIdentifier:(NSDictionary *)userInfo {
     KiiPushMessage *message = [KiiPushMessage messageFromAPNS:userInfo];
     // If bucket
-    if ([message getValueOfKiiMessageField:BUCKET_ID] != nil) {
-        return [message getValueOfKiiMessageField:OBJECT_ID];
+    if ([message getValueOfKiiMessageField:KiiMessage_BUCKET_ID] != nil) {
+        return [message getValueOfKiiMessageField:KiiMessage_OBJECT_ID];
     }
     // If topic
-    if ([message getValueOfKiiMessageField:TOPIC] != nil) {
+    if ([message getValueOfKiiMessageField:KiiMessage_TOPIC] != nil) {
         return [userInfo valueForKeyPath:@"time"];
     }
 

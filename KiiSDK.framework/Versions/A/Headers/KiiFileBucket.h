@@ -8,43 +8,53 @@
 
 #import <Foundation/Foundation.h>
 #import "KiiPushSubscription.h"
-@class KiiFile, KiiUser, KiiQuery, KiiACL, KiiFileBucket;
+#import "KiiBaseBucket.h"
 
-typedef void (^KiiFileQueryResultBlock)(KiiQuery *query, KiiFileBucket *bucket, NSArray *results, NSError *error);
-typedef void (^KiiFileBucketBlock)(KiiFileBucket *bucket, NSError *error);
+@class KiiFile, KiiUser, KiiQuery, KiiACL, KiiFileBucket, KiiRTransferManager;
 
-/** A reference to a bucket within a user's scope which contains KiiFile objects */
-@interface KiiFileBucket : NSObject <KiiSubscribable>
+typedef void (^KiiFileQueryResultBlock)(KiiQuery *query, KiiFileBucket *bucket, NSArray *results, NSError *error) __attribute__((deprecated("Use KiiQueryResultBlock instead.")));
+typedef void (^KiiFileBucketBlock)(KiiFileBucket *bucket, NSError *error) __attribute__((deprecated("Use KiiBucketBlock instead.")));
 
-
-/** Get the ACL handle for this bucket. Any KiiACLEntry objects added or revoked from this ACL object will be appended to/removed from the server on ACL save. */
-@property (readonly) KiiACL *bucketACL;
-
-
-/** Create a KiiFile within the current bucket based on the given local path
- 
- The object will not be created on the server until the KiiFile is explicitly saved. This method returns a working KiiFile with local attributes pre-filled. For empty file creation, the -file method is also available.
- @param filePath The path of the file to use
- @return An empty KiiObject with the specified type
+/** A reference to a bucket within a user's scope which contains <KiiFile> objects
+ @deprecated This class is deprecated. Use <KiiBucket> instead.
  */
-- (KiiFile*) fileWithLocalPath:(NSString*)filePath;
+__attribute__((deprecated("Use KiiBucket instead.")))
+@interface KiiFileBucket : KiiBaseBucket <KiiSubscribable>
 
-/** Create a KiiFile within the current bucket using the passed data
+
+/** Get the ACL handle for this bucket. Any <KiiACLEntry> objects added or revoked from this ACL object will be appended to/removed from the server on ACL save.
+ @deprecated This property is deprecated. Use <[KiiBucket bucketACL]> instead.
+ */
+@property (readonly) KiiACL *bucketACL __attribute__((deprecated));
+
+
+/** Create a <KiiFile> within the current bucket based on the given local path
  
- The object will not be created on the server until the KiiFile is explicitly saved. This method returns a working KiiFile with local attributes pre-filled. For empty file creation, the -file method is also available.
+ The object will not be created on the server until the <KiiFile> is explicitly saved. This method returns a working <KiiFile> with local attributes pre-filled. For empty file creation, the -file method is also available.
+ @param filePath The path of the file to use
+ @return An empty <KiiObject> with the specified type
+ @deprecated This method is deprecated.
+ */
+- (KiiFile*) fileWithLocalPath:(NSString*)filePath __attribute__((deprecated));
+
+/** Create a <KiiFile> within the current bucket using the passed data
+ 
+ The object will not be created on the server until the <KiiFile> is explicitly saved. This method returns a working <KiiFile> with local attributes pre-filled. For empty file creation, the -file method is also available.
 
  @param fileData The data for the file to use
- @return An empty KiiObject with the specified type
+ @return An empty <KiiObject> with the specified type
+ @deprecated This method is deprecated.
  */
-- (KiiFile*) fileWithData:(NSData*)fileData;
+- (KiiFile*) fileWithData:(NSData*)fileData __attribute__((deprecated));
 
 
-/** Create a KiiFile within the current bucket
+/** Create a <KiiFile> within the current bucket
  
- The file will not be created on the server until the KiiFile is explicitly saved. This method simply returns an empty working KiiFile.
- @return An empty KiiFile
+ The file will not be created on the server until the <KiiFile> is explicitly saved. This method simply returns an empty working <KiiFile>.
+ @return An empty <KiiFile>
+ @deprecated This method is deprecated.
  */
-- (KiiFile*) file;
+- (KiiFile*) file __attribute__((deprecated));
 
 
 /** Execute a query on the current bucket
@@ -62,18 +72,20 @@ typedef void (^KiiFileBucketBlock)(KiiFileBucket *bucket, NSError *error);
  
  @param query The query to execute
  @param block The block to be called upon method completion. See example
+ @deprecated This method is deprecated. Use <[KiiBucket executeQuery:withBlock:]> instead.
  */
-- (void) executeQuery:(KiiQuery*)query withBlock:(KiiFileQueryResultBlock)block;
+- (void) executeQuery:(KiiQuery*)query withBlock:(KiiFileQueryResultBlock)block __attribute__((deprecated("Use [KiiBucket executeQuery:withBlock:] instead.")));
 
 
 /** Execute a query on the current bucket
  
  The query will be executed against the server, returning a result set. This is a blocking method
  @param query The query to execute
- @param error An NSError object, set to nil, to test for errors
+ @param error On input, a pointer to an error object. If an error occurs, this pointer is set to an actual error object containing the error information. You can not specify nil for this parameter or it will cause runtime error.
  @return An NSArray of objects returned by the query
+ @deprecated This method is deprecated. Use <[KiiBucket executeQuerySynchronous:withError:andNext:]> instead.
  */
-- (NSArray*) executeQuerySynchronous:(KiiQuery*)query withError:(NSError**)error;
+- (NSArray*) executeQuerySynchronous:(KiiQuery*)query withError:(NSError**)error __attribute__((deprecated("Use [KiiBucket executeQuerySynchronous:withError:andNext:] instead.")));
 
 
 /** Execute a query on the current bucket
@@ -98,9 +110,10 @@ typedef void (^KiiFileBucketBlock)(KiiFileBucket *bucket, NSError *error);
             // there was a problem
          }
      }
- 
+
+ @deprecated This method is deprecated. Use <[KiiBucket executeQuery:withDelegate:andCallback:]> instead.
  */
-- (void) executeQuery:(KiiQuery*)query withDelegate:(id)delegate andCallback:(SEL)callback;
+- (void) executeQuery:(KiiQuery*)query withDelegate:(id)delegate andCallback:(SEL)callback __attribute__((deprecated("Use [KiiBucket executeQuery:withDelegate:andCallback:] instead.")));
 
 /** Asynchronously deletes a bucket from the server.
  
@@ -113,15 +126,17 @@ typedef void (^KiiFileBucketBlock)(KiiFileBucket *bucket, NSError *error);
      }];
  
  @param block The block to be called upon method completion. See example
+ @deprecated This method is deprecated. Use <[KiiBucket deleteWithBlock:]> instead.
  */
-- (void) deleteWithBlock:(KiiFileBucketBlock)block;
+- (void) deleteWithBlock:(KiiFileBucketBlock)block __attribute__((deprecated("Use [KiiBucket deleteWithBlock:] instead.")));
 
 /** Synchronously deletes a file bucket from the server.
  
  Delete a file bucket from the server. This method is blocking.
- @param error An NSError object, set to nil, to test for errors
+ @param error On input, a pointer to an error object. If an error occurs, this pointer is set to an actual error object containing the error information. You can not specify nil for this parameter or it will cause runtime error.
+ @deprecated This method is deprecated. Use <[KiiBucket deleteSynchronous:]> instead.
  */
-- (void) deleteSynchronous:(NSError**)error;
+- (void) deleteSynchronous:(NSError**)error __attribute__((deprecated("Use [KiiBucket deleteSynchronous:] instead.")));
 
 
 /** Asynchronously deletes a file bucket from the server.
@@ -141,9 +156,14 @@ typedef void (^KiiFileBucketBlock)(KiiFileBucket *bucket, NSError *error);
              // there was a problem
          }
      }
- 
+
+ @deprecated This method is deprecated. Use <[KiiBucket delete:withCallback:]> instead.
  */
-- (void) delete:(id)delegate withCallback:(SEL)callback;
+- (void) delete:(id)delegate withCallback:(SEL)callback __attribute__((deprecated("Use [KiiBucket delete:withCallback:] instead.")));
 
-
+/** Get transfer manager object based on this file bucket
+ @return A transfer manager object based on this file bucket.
+ @deprecated This method is deprecated. Use <[KiiBucket transferManager]> instead.
+ */
+- (KiiRTransferManager *) transferManager __attribute__((deprecated("Use [KiiBucket transferManager] instead.")));
 @end
