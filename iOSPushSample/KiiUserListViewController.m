@@ -102,7 +102,8 @@
     if (indexPath.section == 0) {
         switch (indexPath.row) {
             case 0:
-                [self loginKiiUser];
+                [self performSegueWithIdentifier:@"loginSegue" sender:self];
+                //[self loginKiiUser];
                 break;
             case 1:
                 // Show confirm dialog.
@@ -205,8 +206,7 @@
             [messageAlert show];
             return;
         }
-        NSError *error = nil;
-        // TODO : Delete push installation same time. (For avoiding installation conflict)
+        [[KiiAppSingleton sharedInstance] doLogOut];
     }
 }
 
