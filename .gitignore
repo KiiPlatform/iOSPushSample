@@ -13,6 +13,7 @@ project.xcworkspace/
 */xcuserdata/
 */*.xcuserdata*/
 *.xcbkptlist
+iOSPushSample.xcworkspace
 
 # AppCode
 */.idea/
