@@ -256,7 +256,7 @@ typedef enum {
         return;
     }
     [KiiPushInstallation
-     installSynchronousWithDeviceToken:app.deviceToken andDevelopmentMode:YES
+     installSynchronousWithDeviceToken:app.deviceToken andDevelopmentMode:PUSH_ENV_IS_DEVELOPMENT
                                                   andError:error];
 }
 
