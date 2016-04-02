@@ -26,8 +26,6 @@
 
 + (KiiAppSingleton *)sharedInstance;
 
-- (void)registerToken;
-
 - (BOOL)checkUserToken;
 
 - (void)loginWithTokenSynchronous:(NSError **)error;

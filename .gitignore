@@ -13,6 +13,7 @@ project.xcworkspace/
 */xcuserdata/
 */*.xcuserdata*/
 *.xcbkptlist
+iOSPushSample.xcworkspace
 
 # AppCode
 */.idea/
@@ -46,3 +47,7 @@ build/*
 
 # Log file
 kii_rest/Log*
+
+# CocoaPods
+Pods/
+
